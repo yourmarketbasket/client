@@ -1,0 +1,154 @@
+
+.editinfofab{
+    position: fixed;
+    background-color: #0d033a;
+    color: #15f001;
+    right: 5px;
+    bottom: 5px;
+    z-index: 999999;
+}
+icon-column{
+    width: 5px !important;
+}
+table, tr{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    margin: 0;
+}
+td{
+    text-align: left;
+}
+.stars{
+    color: #15f001;
+}
+.user-rating{
+    background: #0d033a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    height: fit-content;
+    width: fit-content;
+}
+td button{
+    color: #0d033a;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
+td mat-icon{
+    color: #15f001;
+}
+.profileinfomanagement{
+    color: #0d033a;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: 100%;
+}
+.storesmanagement, .ordersmanagement,.productsmanagement{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: 25%;
+    margin: 2px;
+}
+.righttabs{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: 35%;
+    width: 20%;
+}
+.profile{
+    padding: 0px 20px 20px 20px;  
+    display: flex;
+    flex-direction: row;
+    z-index: 999999;
+    background: transparent;
+
+}
+.centraltabs{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0px;
+    padding: 0px;
+}
+.welcomediv{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 5%;
+}
+.welcome{
+    text-align: center;
+    color: #0d033a;
+}
+.profile_header{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    float: right;
+}
+.avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+/* mediea queries for extra small devices to extra large devices */
+@media (min-width: 0px) and (max-width: 575px) {
+    .righttabs, .centraltabs{
+        width: 100%;
+        flex: 100%;
+    }
+    .storesmanagement, .ordersmanagement,.productsmanagement{
+        width: 100%;        
+    }
+    .profile{
+        flex-direction: column;
+        padding: 0px 20px 20px 20px; 
+    }
+    .profile_header{
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .user-rating{
+        width: 100%;
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .profileinfo{
+        width: 100%;
+        margin: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+ 
+  
+}

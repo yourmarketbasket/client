@@ -1,0 +1,274 @@
+<div class="body"> 
+  <div class="closebtn">
+    <a [mat-dialog-close]="true" mat-button color="primary">
+      <mat-icon>close</mat-icon>
+    </a> 
+  </div>
+  
+  <h2 class="title" color="primary">
+    Add Product  
+  </h2>    
+  <div class="feedback">
+    <p *ngIf="feedback" class="alert-success "><mat-icon>check_circle_outline</mat-icon> {{ feedback!=="" ? feedback : ""}}</p>
+    <p *ngIf="feedbackerror" class='alert-danger'><mat-icon>error_outline</mat-icon>{{ feedbackerror!=="" ? feedbackerror : ""}}</p>
+  </div>
+  <!-- stepper -->
+  <mat-stepper orientation="horizontal"  #stepper [linear]="isLinear">
+    
+    <!-- Step 1 -->
+    <mat-step [stepControl]="productdetails">
+      <form (ngSubmit)="onSubmit(stepper)" [formGroup]="productdetails">
+        <h3>Step 1: Add Product Details</h3>
+        <div class="firststep">
+          <mat-form-field appearance="outline">
+            <mat-label>Product Name</mat-label>
+            <input matInput formControlName="name">
+            <!-- validation -->
+            <mat-error *ngIf="productdetails.get('name')?.hasError('required')">
+              Product Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Product Brand</mat-label>
+            <input matInput formControlName="brand">
+            <mat-error *ngIf="productdetails.get('brand')?.hasError('required')">
+              Product Brand is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <!-- validation -->
+          
+        </div>
+        <div class="buttons" align="center">          
+          <button mat-button color="accent" matStepperNext>
+            <mat-icon>keyboard_arrow_right</mat-icon>Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="category">
+      <form (ngSubmit)="onSubmit(stepper)" [formGroup]="category">
+        <h3>Step 2: Product Category</h3>
+        <div class="secondstep">
+          <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <input matInput formControlName="category">
+            <!-- validation -->
+            <mat-error *ngIf="category.get('category')?.hasError('required')">
+              Category is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Sub-category</mat-label>
+            <input matInput formControlName="subcategory">
+            <!-- validation -->
+            <mat-error *ngIf="category.get('subcategory')?.hasError('required')">
+              Sub-category is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="buttons" align="center">
+          <button mat-button color="primary" matStepperPrevious>
+            Back
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <button mat-button color="accent" matStepperNext>
+            Next
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="modelandqtty">
+      <form (ngSubmit)="onSubmit(stepper)" [formGroup]="modelandqtty">
+        <h3>Step 3: Product Model and Quantity</h3>
+        <div class="secondstep">
+          <mat-form-field appearance="outline">
+            <mat-label>Model</mat-label>
+            <input type="text" matInput formControlName="model">
+            <!-- validation -->
+            <mat-error *ngIf="modelandqtty.get('model')?.hasError('required')">
+              Model is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input type="number" matInput formControlName="quantity">
+            <!-- validation -->
+            <mat-error *ngIf="modelandqtty.get('quantity')?.hasError('required')">
+              Quantity is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="buttons" align="center">
+          <button mat-button color="primary" matStepperPrevious>
+            Back
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <button mat-button color="accent" matStepperNext>
+            Next
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="price">
+      <form (ngSubmit)="onSubmit(stepper)" [formGroup]="price">
+        <h3>Step 4: Product Price</h3>
+        <div class="secondstep">
+          <mat-form-field appearance="outline">
+            <mat-label>Buying Price</mat-label>
+            <input type="number" matInput formControlName="bp">
+            <!-- validation -->
+            <mat-error *ngIf="price.get('bp')?.hasError('required')">
+              Buying Price is <strong>required</strong>
+            </mat-error>
+            <!-- min value error -->
+            <mat-error *ngIf="price.get('bp')?.hasError('min')">
+              BP should be greater than zero
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Selling Price</mat-label>
+            <input type="number" matInput formControlName="sp">
+            <!-- validation -->
+            <mat-error *ngIf="price.get('sp')?.hasError('required')">
+              Selling Price is <strong>required</strong>
+            </mat-error>
+            <!-- min value error -->
+            <mat-error *ngIf="price.get('sp')?.hasError('min')">
+              SP Should be greater than zero
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="buttons" align="center">
+          <button mat-button color="primary" matStepperPrevious>
+            Back
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <button mat-button color="accent" matStepperNext>
+            Next
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="features">
+      <form (ngSubmit)="onSubmit(stepper)" [formGroup]="features">
+        <h3>Step 5: Product Features</h3>
+        <div class="secondstep">
+          <mat-form-field appearance="outline" style="width: 90% !important;">
+            <mat-chip-grid #chipGrid aria-label="Enter keywords" ngDefaultControl  [formControl]="formControl" >
+              <mat-chip-row *ngFor="let feature of featuresText" (removed)="removeFeature(feature)">
+                {{feature}}
+                <button matChipRemove aria-label="'remove ' + keyword">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+            </mat-chip-grid>      
+          <mat-label>Features</mat-label>
+          <input placeholder="New Feature" [matChipInputFor]="chipGrid" matInput rows="3" (matChipInputTokenEnd)="addFeature($event)"  formControlName="featureslist">
+          <!-- validation -->
+          <mat-error *ngIf="featuresText.length<=0">
+            Features is <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="buttons" align="center">
+          <button mat-button color="primary" matStepperPrevious>
+            Back
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <button mat-button color="accent" matStepperNext>
+            Next
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="description">
+      <form (ngSubmit)="onSubmit(stepper)" [formGroup]="description">
+        <h3>Step 6: Product Description</h3>
+        <div class="secondstep">
+          <!-- features div -->
+          
+          <mat-form-field appearance="outline" style="width: 80% !important;">  
+            <mat-label>Description</mat-label>
+            <textarea rows="5" matInput formControlName="description"></textarea>          
+            <!-- validation -->
+            <mat-error *ngIf="description.get('description')?.hasError('required')">
+              Description is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="buttons" align="center">
+          <button mat-button color="primary" matStepperPrevious>
+            Back
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <button mat-button color="accent" matStepperNext>
+            Next
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="productimage">
+      <form (ngSubmit)="onSubmit(stepper)" [formGroup]="productimage">
+        <h3>Step 7: Product Image(s)</h3>
+        <div class="imagestep">
+          <div class="selectedimagescontainer">
+            <div *ngFor="let image of selectedImages" class="selectedimagediv">
+              <img [src]="image" alt="image" class="productpic">
+            </div>
+          </div> 
+          <input multiple [formControl]="imageControl" (change)="onImageSelected($event)" type="file" name="image" #productphoto hidden>
+          <button (click)="productphoto.click()" mat-stroked-button color="primary">
+              <mat-icon class="primary">add_a_photo</mat-icon>
+              <span>Upload Images</span>
+          </button>
+          <mat-error *ngIf="imageControl.hasError('required')">
+            You must select at least one image
+          </mat-error>
+        </div>
+        <div class="buttons" align="center">
+          <button mat-button color="primary" matStepperPrevious>
+            Back
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+          <button mat-button color="accent" matStepperNext>
+            Next
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="submitinfo">
+      <form (ngSubmit)="onSubmit(stepper)" [formGroup]="submitinfo">
+        <h3>Step 8: Submit Information</h3>
+        <div class="submitstep">    
+            <input type="text" [value]="storeid" hidden>                  
+            <mat-checkbox [(ngModel)]="isChecked" formControlName="terms">I agree to the Terms and Conditions</mat-checkbox>
+
+            <small style="text-align: center; justify-content: center;">Using the [BACK] button below, please go back and check if all the details are correct and In order. Once certain everything is good, come back to this Step [Step 8] and click the submit button below to add your product.</small>
+            <!-- validation -->
+            <mat-error *ngIf="submitinfo.get('terms')?.hasError('required')">
+              Terms and Conditions is <strong>required</strong>
+            </mat-error>
+            <button (click)="submitAddProductDetails()"  mat-raised-button color="primary">SUBMIT</button>
+          
+          <!-- accept the terms and conditions and submit the information -->
+        </div>
+        <div class="buttons" align="center">
+          <button mat-button color="primary" matStepperPrevious>
+            Back
+            <mat-icon>keyboard_arrow_left</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    
+  </mat-stepper>
+
+  
+
+</div>

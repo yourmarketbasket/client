@@ -1,0 +1,121 @@
+.profilepic{
+    position: absolute;
+    width: 40%;
+    border-radius: 50%;
+}
+
+  
+.profilepic-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5%;
+    margin-bottom: 15%;
+    margin-top: 10px;
+
+  }
+  
+  .mask {
+    margin: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 50%;
+  }
+  
+  .mask:hover {
+    opacity: 1;
+  }
+  
+  .edit-button {
+    border: none;
+    border-radius: 5px;
+    background-color: #13020267;
+    color: #fafafaf6;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 10px;
+    opacity: 1;
+  }
+  .uploading{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  .imagecropper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+  }
+  
+  
+  /* input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  } */
+  
+a{
+    text-decoration: none;
+    color: black;
+}
+.verifybtn{
+    background: linear-gradient(-39deg,#311b92 -30%,aliceblue 90%);
+    vertical-align: middle;
+    color:white !important;
+    padding: 2%;
+    margin-bottom: 5%;
+}
+.verified{
+  font-size: 12px;
+  color: #05b169;
+}
+.prifilesection{
+    display: flex;
+    background: #0d033a;
+    color: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+    height: 30%;
+}
+.extras{
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 10px;
+    width: 100%;
+}
+mat-nav-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+}
+button{
+    text-align: left;
+    margin: 0;
+
+}

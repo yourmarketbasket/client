@@ -1,0 +1,113 @@
+<div class="storeproducts">
+    <!-- products card -->
+    <div class="no_products" *ngIf="!products">
+        <mat-icon color="accent">warning</mat-icon>
+        NO PRODUCTS TO SHOW
+    </div>
+    <mat-card *ngIf="products">
+        <mat-card-header class="card-header">
+            <h1>Store Product(s)</h1>
+            <mat-form-field appearance="outline">
+                <button mat-icon-button matSuffix>
+                    <mat-icon>search</mat-icon>
+                </button>
+                <mat-label>Search Product</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Type the name, brand, or any verifier" #input>
+            </mat-form-field>
+        </mat-card-header>
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource" matSort>
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox color="primary" (change)="$event ? toggleAllRows() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                    [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let product">
+                    <mat-checkbox color="primary" (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(product) : null"
+                                    [checked]="selection.isSelected(product)"
+                                    [aria-label]="checkboxLabel(product)">
+                    </mat-checkbox>
+                    </td>
+                </ng-container>   
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let product"> {{product.name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="brand">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand </th>
+                    <td mat-cell *matCellDef="let product"> {{product.brand}}</td>
+                </ng-container>
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> category </th>
+                    <td mat-cell *matCellDef="let product"> {{product.category}}</td>
+                </ng-container>
+                <ng-container matColumnDef="subcategory">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Subcategory </th>
+                    <td mat-cell *matCellDef="let product"> {{product.subcategory}}</td>
+                </ng-container>
+                <ng-container matColumnDef="model">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+                    <td mat-cell *matCellDef="let product"> {{product.model}}</td>
+                </ng-container>
+                <ng-container matColumnDef="bp">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> BP </th>
+                    <td mat-cell *matCellDef="let product"> {{product.bp}}</td>
+                </ng-container>
+                <ng-container matColumnDef="sp">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> SP </th>
+                    <td mat-cell *matCellDef="let product"> {{product.sp}}</td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> QTTY </th>
+                    <td mat-cell *matCellDef="let product"> {{product.quantity}}</td>
+                </ng-container>
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Added </th>
+                    <td mat-cell *matCellDef="let product"> {{readableDate(product.createdAt)}}</td>
+                </ng-container>
+                <ng-container matColumnDef="verified">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Verified </th>
+                    <td mat-cell *matCellDef="let product">
+                        <mat-icon style="color: rgb(9, 223, 151);" *ngIf="product.verified">done_all</mat-icon>
+                        <span *ngIf="!product.verified">Pending...</span>
+
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="approved">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Approved </th>
+                    <td mat-cell *matCellDef="let product">
+                        <mat-icon style="color: rgb(6, 49, 236);" *ngIf="product.approved">check_circle</mat-icon>
+                        <mat-icon color="accent" *ngIf="!product.approved">cancel</mat-icon>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+                    <td mat-cell *matCellDef="let product">
+                        <button (click)="editProduct(product._id)" mat-icon-button color="primary" >
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button (click)="deleteProduct(product._id, product.name, product.model)" mat-icon-button color="accent" >
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <!-- rows -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let product; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the search phrase: "{{input.value}}"</td>
+                </tr>        
+                                      
+
+            </table>
+            <mat-paginator [pageSizeOptions]="[5,10,15,25,30]"></mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>

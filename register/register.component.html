@@ -1,0 +1,167 @@
+ <div class="mainbody">
+  <div class="bg">
+    <mat-stepper headerPosition="bottom" orientation="horizontal" class="mat-elevation-z8"  [linear]="isLinear" #stepper>
+      <!-- Step 1 -->
+      <mat-step [stepControl]="mobileInfo">      
+          <form (ngSubmit)="onSubmit(stepper)"  [formGroup]="mobileInfo">
+              <h3>Step 1: Contact Details</h3>
+              <div class="column">
+                <mat-form-field appearance="outline">
+                  <mat-label>Code</mat-label>
+                  <mat-select formControlName="countryCode" ngxMatSelectSearch>
+                    <mat-option *ngFor="let code of countryCodes" [value]="code.phone">
+                      {{ code.name }} (+{{ code.phone}})
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Mobile Number</mat-label>
+                  <input matInput placeholder="Mobile Number" formControlName="mobileNumber">
+                </mat-form-field>
+              </div>
+                
+            <hr>
+  
+            <div class="buttons">
+              <button mat-raised-button color="accent" matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <!-- Step 2 -->
+        <mat-step [stepControl]="namesInfo">
+          <form (ngSubmit)="onSubmit(stepper)"  [formGroup]="namesInfo">
+              <h3>Step 2: Add your Personal Details</h3>
+              <div class="column">
+                <mat-form-field appearance="outline">
+                  <mat-label>First Name</mat-label>
+                  <input matInput placeholder="e.g John" formControlName="firstName">
+                </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="e.g Alex" formControlName="lastName">
+                  </mat-form-field> 
+              </div>
+                     
+            <hr>
+  
+            <div class="buttons">
+              <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
+              <button mat-raised-button color="accent" matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+          <!-- Step 3 -->
+          <mat-step [ngClass.gt-sm]="'no-labels'"  [stepControl]="otherInfo">
+              <form (ngSubmit)="onSubmit(stepper)"  [formGroup]="otherInfo">
+                  <h3>Step3: More about you</h3>
+                      <div class="column">
+                        <mat-form-field appearance="outline">
+                          <mat-select placeholder="Gender" formControlName="gender">
+                            <mat-option value="male">Male</mat-option>
+                            <mat-option value="female">Female</mat-option>
+                            <mat-option value="non-binary">Non-binary</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      <mat-form-field appearance="outline">
+                          <mat-label>Date of birth</mat-label>
+                          <input matInput [matDatepicker]="picker" formControlName="dob">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                          
+                <hr>
+  
+                <div class="buttons">
+                  <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
+                  <button mat-raised-button color="accent" matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+              <!-- Step 4 -->
+              <mat-step [ngClass.gt-sm]="'no-labels'"  [stepControl]="contactInfo">
+                  <form (ngSubmit)="onSubmit(stepper)"  [formGroup]="contactInfo">
+                      <h3>Step 4: Address</h3>
+                    
+                        <div class="column">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Address</mat-label>
+                            <input matInput placeholder="e.g 58 Boulevard" formControlName="address">
+                          </mat-form-field>
+                        
+                            <mat-form-field appearance="outline">
+                              <mat-label>City</mat-label>
+                              <input matInput placeholder="e.g Las Vegas" formControlName="city">
+                            </mat-form-field>
+                        </div>
+                            
+                    <hr>
+  
+                    <div class="buttons">
+                      <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
+                      <button mat-raised-button color="accent" matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+              <!-- Step 5 -->
+              <mat-step [ngClass.gt-sm]="'no-labels'"  [stepControl]="passwordInfo">
+                  <form (ngSubmit)="onSubmit(stepper)"  [formGroup]="passwordInfo">
+                      <h3>Step 5: Security</h3>
+                      <div class="column">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Password</mat-label>
+                          <input type="{{ hidePassword ? 'password' : 'text' }}" matInput formControlName="password">
+                          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" >
+                            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                          </button>
+                        </mat-form-field>
+                        
+                        <mat-form-field appearance="outline">
+                          <mat-label>Confirm Password</mat-label>
+                          <input type="{{ hideConfirmPassword ? 'password' : 'text' }}" matInput formControlName="confirmPassword">
+                          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" >
+                            <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                          </button>
+                        </mat-form-field>
+                      </div>
+                    <hr>
+  
+                    <div class="buttons">
+                      <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
+                      <button mat-raised-button color="accent" matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+              <!-- Step 6 -->
+              <mat-step [ngClass.gt-sm]="'no-labels'"  [stepControl]="registerFormInfo">
+                  <form (ngSubmit)="onSubmit(stepper)"  [formGroup]="registerFormInfo">
+                      <h3>Step 6: Submit</h3>
+                      <div class="row">
+                        <p *ngIf="feedback" class="alert-success "><mat-icon>check_circle_outline</mat-icon> {{ feedback!=="" ? feedback : ""}}</p>
+                        <p *ngIf="feedbackerror" class='alert-danger'><mat-icon>error_outline</mat-icon>{{ feedbackerror!=="" ? feedbackerror : ""}}</p>
+                        
+                        <mat-checkbox [(ngModel)]="isChecked" formControlName="acceptTerms" required>
+                            I accept the terms and conditions.
+                        </mat-checkbox> 
+                                           
+                        <button mat-raised-button color="accent" type="submit">Register</button>
+                           
+                        <div class="buttons">
+                          <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
+                      </div>
+                      </div>
+                      
+                  </form>
+                  <!-- back button -->
+                  
+                </mat-step>
+    </mat-stepper>
+
+  </div>
+  
+ </div>
+    
+    
+
+ 
+  

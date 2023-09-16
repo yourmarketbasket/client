@@ -1,0 +1,83 @@
+.backgroundslant{
+  background: #34cce0;
+  width: 300%;
+  height: 150%;
+  z-index: -5;
+  position: fixed;
+  top: -5%;
+  left: -50%;
+  /* rotate by 45deg */
+  transform: rotate(330deg);
+
+}
+mat-drawer{
+    margin-top: 3%;
+    width: 200px;
+    position: fixed;
+}
+mat-drawer-container{
+    width:100%;
+    height: 100%;
+    /* height: 100vh; */
+    position: absolute;
+
+}
+
+app-header{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+
+}
+
+/* For screens smaller than 600px */
+@media (max-width: 600px) {
+    mat-drawer {
+      margin-top: 40px;
+      width: 200px;
+    }
+    
+    mat-drawer-container {
+      margin-top: 50px;
+    }
+    .backgroundslant{
+      background: #34cce0;
+      width: 300%;
+      height: 60%;
+      z-index: -10;
+      position: fixed;
+      top: 10%;
+      left: -20%;
+      /* rotate by 45deg */
+      transform: rotate(50deg);
+    
+    }
+  }
+  
+  /* For screens between 600px and 960px */
+  @media (min-width: 600px) and (max-width: 960px) {
+    mat-drawer {
+      margin-top: 40px;
+      width: 200px;
+    }
+    
+    mat-drawer-container {
+      margin-top: 40px;
+    }
+    
+  }
+  
+  /* For screens larger than 960px */
+  @media (min-width: 960px) {
+    mat-drawer {
+      margin-top: 40px;
+      width: 200px;
+    }
+    
+    mat-drawer-container {
+      margin-top: 45px;
+    }
+    
+  }
+  

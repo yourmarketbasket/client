@@ -1,0 +1,15 @@
+   
+        
+<form  (ngSubmit)="confirmMobile()" [formGroup]="confirmation">   
+    <h1>Confirmation</h1>
+    <p class="alert-success" *ngIf="feedback"><mat-icon>check_circle_outline</mat-icon> {{feedback}}</p>
+    <p class="alert-danger" *ngIf="verificationError"><mat-icon>error_outline</mat-icon>{{verificationError}}</p>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Enter the OTP</mat-label>
+        <input matInput placeholder="*-*-*-*-*" type="text" name="otp" formControlName="otpCode" required>
+    </mat-form-field>       
+    <a mat-button (click)="resendOTP()">Resend OTP</a>
+    <button mat-raised-button color="primary" type="submit">Confirm</button>
+</form>
+            

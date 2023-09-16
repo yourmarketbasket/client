@@ -1,0 +1,26 @@
+<!-- the profile section -->
+<div class="profile">
+  <div class="profile-image">
+    <img class="prifilepic" [src]="avatar" alt="profile image" />
+  </div>
+  <div class="profile-info">
+    <p class="profile-name">{{name}}</p>
+    <p class="profile-role">Quality Assurance</p>
+  </div>
+</div>
+<!-- mat-accordion navigation -->
+<mat-accordion class="mat-accordion">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>dashboard</mat-icon>
+            Dashboard
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a color="primary" routerLink="/quality-assurance/review-products" routerLinkActive="active">Review Products</a>
+          <a color="primary" routerLink="/quality-assurance" routerLinkActive="active">Review Stores</a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+</mat-accordion>
+

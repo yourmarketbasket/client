@@ -1,0 +1,40 @@
+.spacer{
+    flex: 1 1 auto;
+}
+mat-sidenav-container {
+    height: 100%;
+  }
+  
+mat-sidenav {
+width: 250px;
+}
+
+.main-content {
+    /* margin-left: 250px; */
+    padding: 20px;
+    height: 100vh;
+}
+
+.close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+#searchFieldinput{
+    border: 1px solid grey !important;
+    /* opacity: 0 !important; */
+    width: 20% !important ;
+    height: 70% !important;
+    border-radius: 5px !important;
+    border-color: grey;
+    margin-right: .2% !important;
+}
+
+#searchFieldinput:focus{
+    border: 0px solid !important;
+}
+.logo{
+    height: 70% !important;
+    width: auto;
+}

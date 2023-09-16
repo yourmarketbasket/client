@@ -1,0 +1,45 @@
+<mat-sidenav-container fxLayout.xs="column" fxFlexFill [hasBackdrop]="false" >
+  <mat-sidenav #sidenav mode="over" position="start" class="mat-elevation-z8" [disableClose]="false" color="accent">
+    <!-- Your sidenav content goes here -->
+    <button  class="close-button" mat-icon-button (click)="sidenav.close()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <a (click)="sayHello()" mat-raised-button class="mat-elevation-z8" color="accent">
+      <mat-icon>search</mat-icon>
+      <span>Search</span>
+    </a>
+    <a routerLink="/login" mat-button color="primary">
+      <mat-icon>person</mat-icon>
+      My Account
+    </a>
+    
+  </mat-sidenav>
+  <mat-toolbar fxLayoutalign="start center" fxLayout="row wrap" fxLayout.xs="row" fxFlex="100%" class="mat-elevation-z6">
+    <button mat-icon-button fxHide.gt-xs (click)="sidenav.toggle()">
+      <ng-container *ngIf="sidenav.opened; else menuIcon">
+        <mat-icon>arrow_back</mat-icon>
+      </ng-container>
+      <ng-template #menuIcon>
+        <mat-icon>menu</mat-icon>
+      </ng-template>
+    </button>
+    <img class="logo" src="assets/market.png" >
+    <span>Market Basket</span>
+
+    <span class="spacer"></span>
+      <input fxHide.lt-sm type="text" placeholder="Search Market Basket" id="searchFieldinput" [(ngModel)]="searchTerm">  
+      
+      <a fxHide.lt-sm  (click)="sayHello()" mat-raised-button class="mat-elevation-z8" color="accent">
+        <mat-icon>search</mat-icon>
+        <span>Search</span>
+      </a>
+      <a fxHide.lt-sm  routerLink="/login" mat-button color="primary">
+        <mat-icon>person</mat-icon>
+        My Account
+      </a>
+
+  </mat-toolbar>
+  <div class="main-content" fxFlex="100%">
+    <!-- <router-outlet></router-outlet> -->
+  </div>
+</mat-sidenav-container>

@@ -1,0 +1,24 @@
+<button routerLink="/dashboard/createstore" mat-fab matTooltip="Add new store">
+    <mat-icon>
+        add_circle_outline
+    </mat-icon>
+</button>
+<div class="storesdashboard">
+    
+    <div class="storeview">
+        
+        <!-- create a loop of the stores. the cards will only contain the storename -->
+        <mat-card (click)="manageStore(store._id)"  *ngFor="let store of stores" class="mat-elevation-z8 storecard">            
+                {{store.storename}}
+            <button mat-button class="storemanagebutton">
+                <mat-icon>
+                    settings_outlined
+                </mat-icon>
+            </button>
+        </mat-card>
+
+    </div>
+    <div class="storesdashboardoutlet" #componentoutlet>
+        <router-outlet></router-outlet>
+    </div>    
+</div>

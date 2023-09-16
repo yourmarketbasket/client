@@ -1,0 +1,146 @@
+<div class="review_panel">
+    <h1 *ngIf="!advancedActionAllowed" class="permission_denied">
+        <mat-icon>error_outline</mat-icon>
+         Permission Denied
+    </h1>
+
+    <!-- list the items -->
+    <div *ngIf="length==0 && advancedActionAllowed" class="noproducttoreview">
+        <span>
+            <mat-icon color="primary">warning</mat-icon>
+            No products to Review
+        </span>
+    </div>
+    <div *ngIf="advancedActionAllowed && length>0" class="listview">
+        <div class="table">
+            <mat-form-field>
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Search Product" #input>
+            </mat-form-field>
+            
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>    
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                    [aria-label]="checkboxLabel()">
+                    </mat-checkbox>
+                    </th>
+                    <td mat-cell *matCellDef="let product">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(product) : null"
+                                    [checked]="selection.isSelected(product)"
+                                    [aria-label]="checkboxLabel(product)">
+                    </mat-checkbox>
+                    </td>
+                </ng-container>     
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                  <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="brand">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand </th>
+                  <td mat-cell *matCellDef="let product"> {{product.brand}} </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="category">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                  <td mat-cell *matCellDef="let product"> {{product.category}} </td>
+                </ng-container>
+                 <!-- Symbol Column -->
+                 <ng-container matColumnDef="model">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+                    <td mat-cell *matCellDef="let product"> {{product.model}} </td>
+                  </ng-container>
+                  <!-- Symbol Column -->
+                 <ng-container matColumnDef="bp">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> BP </th>
+                    <td mat-cell *matCellDef="let product"> {{product.bp}} </td>
+                  </ng-container>
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="sp">
+                     <th mat-header-cell *matHeaderCellDef mat-sort-header> SP </th>
+                     <td mat-cell *matCellDef="let product"> {{product.sp}} </td>
+                   </ng-container>
+                   <!-- Symbol Column -->
+                   <ng-container matColumnDef="quantity">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Qtty </th>
+                      <td mat-cell *matCellDef="let product"> {{product.quantity}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="createdAt">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Posted </th>
+                        <td mat-cell *matCellDef="let product"> {{readableDate(product.createdAt)}} </td>
+                    </ng-container>
+                    
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr (click)="viewProduct(product.name, product.verified, product.description, product.avatar, product._id)" mat-row *matRowDef="let product; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>                
+              
+              </table>
+              <mat-paginator [pageSizeOptions]="[10,15,25,30]"></mat-paginator>
+              
+
+
+        </div>
+       
+        
+        <div class="itemview" *ngIf="images && images.length > 0">
+
+           
+                <!-- Display the progress spinner while loading -->
+                <div *ngIf="loading" class="progress-spinner">
+                    <!-- Your progress spinner HTML or Angular Material's mat-spinner -->
+                    <mat-spinner strokeWidth="2"></mat-spinner>
+                </div>
+            
+              <!-- Display the image when not loading -->
+              <div (mouseenter)="showOverlay = true" (mouseleave)="showOverlay = false" class="img-container">
+                  <img class="product-image" [src]="images[currentIndex]" alt="" (load)="onImageLoad()">
+                  <div class="overlay" *ngIf="showOverlay && !selectedProductVerified">
+                    <span class="product_description">
+                        {{selectedProductDescription}}
+                    </span>
+                    <div class="overlay-buttons">
+                        
+                        <button mat-flat-button class="green-button" (click)="approveListedItem(selectedProductId)">Approve</button>
+                        <button mat-flat-button class="red-button" (click)="rejectListedItem(selectedProductId)">Reject</button>
+
+                    </div>
+                  </div>
+
+              </div>
+              
+
+            <div class="product-image-nav-buttons" *ngIf="!loading">
+                <button mat-flat-button (click)="previousImage()" [disabled]="loading || currentIndex === 0">Previous</button>
+                <button mat-flat-button (click)="nextImage()" [disabled]="loading || currentIndex === images.length - 1">Next</button>
+
+            </div>
+            
+            
+        </div>
+          
+              
+
+                
+           
+       
+          
+          
+    </div>
+
+    
+
+</div>

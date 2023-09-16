@@ -1,0 +1,7 @@
+mat-drawer-container{
+    height: 100vh; 
+    padding-bottom: 0%;
+    overflow-y: auto;
+    width: 100vw; 
+    background-color: #f3f5f9;
+}

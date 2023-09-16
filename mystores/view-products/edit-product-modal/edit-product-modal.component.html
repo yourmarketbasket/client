@@ -1,0 +1,104 @@
+<div class="modal-container" #modalContainer>
+    <div class="dialogtitle" mat-dialog-title>
+        <h2>
+            Edit Product: {{productDetails.name}}
+            <mat-icon matTooltip="Rejected: {{productDetails.rejectionReason}}" *ngIf="productDetails.rejected" style="color:red;">error</mat-icon>
+        </h2>
+        <small *ngIf="feedbackError" [class]="formerror?'error':'success'">
+            <mat-icon>
+                {{formerror?'warning':'check_circle'}}
+            </mat-icon>
+            {{feedbackError}}
+        </small>
+    </div>
+    <div mat-dialog-content>
+        <div class="product_image_div">
+            <img class="product_image" [src]="productDetails.avatar[0]" alt="">            
+        </div>
+        <small class="info">
+            Please note that you can avoid making any editing by clicking outside this dialog
+        </small>
+        <hr *ngIf="productDetails.rejected">
+        <div *ngIf="productDetails.rejected" class="rejected-reason">
+            <span style="color:rgb(24, 6, 73);">Reason for Rejection</span>
+            <b style="color:red">
+                {{productDetails.rejectionReason}}
+            </b>
+        </div>
+        <hr>
+        <div class="features_div">
+            <h3 class="features_title">Product Features</h3>
+            <div class="features_list">
+                <li *ngFor="let feature of productDetails.features">
+                    {{feature}}
+                </li>
+            </div>
+        </div>
+        <hr>
+        <div class="input-rows" [formGroup]="editProductFormGroup">
+            <mat-form-field appearance="outline">
+                <mat-label>BP</mat-label>
+                <input type="number" matInput placeholder= "{{productDetails.bp}}" formControlName="bp">
+            </mat-form-field>        
+            <mat-form-field appearance="outline">
+                <mat-label>SP</mat-label>
+                <input type="number" matInput placeholder= "{{productDetails.sp}}"  formControlName="sp">
+            </mat-form-field>
+        </div>
+        <div class="input-rows" [formGroup]="editProductFormGroup">
+            <mat-form-field appearance="outline">
+                <mat-label>Quantity</mat-label>
+                <input type="number" matInput placeholder= "{{productDetails.quantity}}"  formControlName="qtty">
+            </mat-form-field>        
+            <mat-form-field appearance="outline">
+                <mat-label>Discount</mat-label>
+                <input type="number" matInput placeholder= "{{productDetails.discount?productDetails.discount:'Add a Discount'}}"  formControlName="discount">
+            </mat-form-field>
+        </div>
+        <hr>        
+        <div class="featuresdiv" [formGroup]="editProductFormGroup">
+            <mat-form-field appearance="outline" style="width: 100% !important;">  
+                <mat-label>Description</mat-label>
+                <textarea rows="5" matInput formControlName="description" placeholder="{{productDetails.description}}"></textarea>       
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100% !important;">
+                <mat-chip-grid #chipGrid aria-label="Enter Keywords" ngDefaultControl [formControl]="productImage">
+                    <mat-chip-row *ngFor="let feature of featuresText" (removed)="removeFeature(feature)">
+                        {{feature}}
+                        <button matChipRemove aria-label="'remove '+keyword">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip-row>
+                </mat-chip-grid>
+                <mat-label>Edit Features</mat-label>
+                <input type="text" placeholder="Edit Features" [matChipInputFor]="chipGrid" matInput rows="6" (matChipInputTokenEnd)="addFeature($event)">
+            </mat-form-field>
+        </div>
+        <hr>
+        <div class="select-images" [formGroup]="editProductFormGroup">
+            <!-- selected images -->  
+            <button (click)="productPhotos.click()" mat-stroked-button color="primary">
+                <mat-icon>add_a_photo</mat-icon>
+                <span>Upload Images</span>
+            </button>
+            <input type="file" multiple hidden #productPhotos (change)="onImageSelected($event)" name="image" [formControl]="imageControl">
+            <div class="images-div" >
+                <div class="product_image_div" *ngFor="let image of selectedImages" (click)="removeImage(image)">
+                    <img  [src]="image" class="product_pic">                    
+                </div>
+            </div>      
+            
+            
+        </div>
+        <hr>
+        <div class="editactions">
+            <button (click)="editProduct(productDetails.storeid)" mat-raised-button color="primary">
+                <mat-icon>
+                    edit
+                </mat-icon>
+                EDIT
+            </button>
+        </div>
+
+    </div>
+</div>

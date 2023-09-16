@@ -1,0 +1,94 @@
+<!-- edit info fab -->
+<button mat-fab  class="editinfofab" (click)="editUserInfo()"><mat-icon>edit</mat-icon></button>
+<div class="welcomediv">
+    <small *ngIf="name" class="welcome"> Hi {{name}}, Welcome to your profile</small>
+
+</div>
+<!--  -->
+<div class="profile_header">
+       <!-- user rating -->
+    <mat-card class="user-rating">
+        <mat-card-header>
+                <small>Your Rating: {{rating}}</small>
+        </mat-card-header>
+        <mat-card-content>
+            <hr>
+            <!-- show the stars -->
+            <div class="stars">
+                <mat-icon *ngFor="let i of range(rating)">
+                  star
+                </mat-icon>
+                <mat-icon *ngIf="rating % 1 > 0" style="transform: scale(1)">
+                  star_half
+                </mat-icon>
+                <mat-icon *ngFor="let i of range(5 - rating)">
+                  star_border
+                </mat-icon>
+              </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+<!-- the profile owner detalls header -->
+<div class="profile">    
+    <div class="righttabs">
+    <!-- profile info -->
+        <mat-card class="profileinfomanagement">
+            <mat-card-header>
+                <mat-card-title>Profile Info</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="info">
+                personal info goes here
+            </mat-card-content>
+        </mat-card> 
+    </div>
+    
+    <!-- central tabs -->
+    <div class="centraltabs">
+        <!-- orders management -->
+        <div class="ordersmanagement">
+            <!-- orders -->
+            <mat-card class="orders">
+                <mat-card-header>
+                    <mat-card-title>Orders</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                <!-- mat-list -->
+                    <mat-list>
+                        infor about orders
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <!-- products -->
+        <div class="productsmanagement">
+            <!-- products -->
+            <mat-card class="products">
+                <mat-card-header>
+                    <mat-card-title>Products</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                <!-- mat-list -->
+                    <mat-list>
+                        infor about products
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <!-- stores -->
+        <div class="storesmanagement">
+            <!-- stores -->
+            <mat-card class="stores">
+                <mat-card-header>
+                    <mat-card-title>Stores</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                <!-- mat-list -->
+                    <mat-list>
+                        infor about stores
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>     
+    </div>
+    
+</div>

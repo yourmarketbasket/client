@@ -1,0 +1,78 @@
+<div class="marketplace">
+
+
+    <div class="categories">
+        
+    </div>
+    <div class="search-results" *ngIf="searchQuery">
+        <span *ngIf="numberOfResults>0" class="search-term">Your search "{{searchQuery}}" returned {{numberOfResults}} results</span>
+        <span *ngIf="numberOfResults==0" class="search-term">No Products found for Search Phrase "{{searchQuery}}"</span>
+
+    </div>
+    <div *ngIf="searchQuery" class="product-list" >
+        <div class="center-display">
+            <div (click)="viewProduct(product._id)" *ngFor="let product of searchedProduct" class="product-card">
+                <div class="image">
+                    <div class="offer" *ngIf="product.discount">
+                        <span class="icon-text">{{product.discount}}% off</span>                        
+                        <mat-icon>bookmark</mat-icon>
+                    </div>
+                    <div *ngIf="product.verified" class="seperator">
+                        <mat-icon matTooltip="Verified">verified_user</mat-icon>
+                    </div>
+                    <img class="product-pic" [src]="product.avatar[0]" alt="">
+                </div>
+    
+                <div class="product-details">
+                    <div class="pname">
+                        <span>{{truncateName(product.name+' '+product.model+' '+product.brand)}}</span>
+                        <div class="discounted-price" *ngIf="product.discount">
+                            <small style="margin: 0 2%;">was </small><small> <s> {{product.sp.toLocaleString('en-US')}}</s></small>
+                        </div>
+                        <div class="price-display">
+                            <small style="margin: 2%;">Now KES</small><h2>  {{discountedPrice(product.sp, product.discount)}}</h2>
+                        </div>
+                        
+                    </div>    
+                </div>
+                
+            </div> 
+
+        </div>        
+    </div>
+    <div *ngIf="!searchQuery" class="product-list" >
+        <div class="center-display">
+            <div (click)="viewProduct(product._id)" *ngFor="let product of lazyLoadedProducts" class="product-card">
+                <div class="image">
+                    <div class="offer" *ngIf="product.discount">
+                        <span class="icon-text">{{product.discount}}% off</span>                        
+                        <mat-icon>bookmark</mat-icon>
+                    </div>
+                    <div *ngIf="product.verified" class="seperator">
+                        <mat-icon matTooltip="Verified">verified_user</mat-icon>
+                    </div>
+                    <img class="product-pic" [src]="product.avatar[0]" alt="">
+                </div>
+    
+                <div class="product-details">
+                    <div class="pname">
+                        <span>{{truncateName(product.name+' '+product.model+' '+product.brand)}}</span>
+                        <div class="discounted-price" *ngIf="product.discount">
+                            <small style="margin: 0 2%;">was </small><small> <s> {{product.sp.toLocaleString('en-US')}}</s></small>
+                        </div>
+                        <div class="price-display">
+                            <small style="margin: 2%;">Now KES</small><h2>  {{discountedPrice(product.sp, product.discount)}}</h2>
+                        </div>
+                        
+                    </div>    
+                </div>
+                
+            </div> 
+
+        </div>        
+    </div>
+    <div class="load-more-button">
+        <button *ngIf="!searchQuery" (click)="loadProducts()" mat-raised-button [hidden]="!hasMore">Load more...</button>
+        <span *ngIf="!hasMore"> No more products</span>
+    </div> 
+</div>

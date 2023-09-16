@@ -1,0 +1,14 @@
+<mat-toolbar>
+    <button (click)="toggleThisSidebar()"  mat-icon-button >
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="pagetitle">
+        Quality Assurance
+    </span>
+    <span class="spacer"></span>  
+    <mat-icon *ngIf="numOfProductstoReview" class="badge-container" routerLink="/quality-assurance/review-products" color="primary"
+    matBadge="{{numOfProductstoReview}}" matBadgePosition="before" matBadgeColor="accent">store</mat-icon>
+        
+      
+    <span *ngIf="connectedUser" class="welcome">Hi, {{connectedUser}}</span>   
+</mat-toolbar>

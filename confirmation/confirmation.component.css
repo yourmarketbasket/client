@@ -1,0 +1,36 @@
+/* Default styles for all devices */
+form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  mat-icon{
+    vertical-align: middle;
+  }
+  
+  .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  .alert-warning {
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  

@@ -1,0 +1,95 @@
+
+<div class="createstorediv">
+  <h2>
+    <mat-icon color="primary">
+      store
+    </mat-icon>
+    Add Store
+  </h2>
+  <form (ngSubmit)="createStore()" #createStoreForm [formGroup]="createStoreform">
+    <div class="createstore mat-elevation-z8">
+      <div class="formarea">
+        <div class="form-fields-pair">
+          <mat-form-field appearance="outline">
+            <input required matInput placeholder="Store Name" formControlName="storeName">
+            <mat-error *ngIf="createStoreform.controls['storeName'].invalid">
+              Store Name is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-select required placeholder="Store Type" formControlName="storeType">
+              <mat-option *ngFor="let type of storeTypes" [value]="type.name">{{ type.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="createStoreform.controls['storeType'].invalid">
+              Store Type is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-fields-pair">
+          <mat-form-field appearance="outline">
+            <input required matInput placeholder="Location" formControlName="location">
+            <mat-error *ngIf="createStoreform.controls['location'].invalid">
+              Location is required.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input required matInput placeholder="Phone" formControlName="phone">
+            <mat-error *ngIf="createStoreform.controls['phone'].invalid">
+              Valid phone number required
+            </mat-error>
+          </mat-form-field>
+        </div>  
+        <div class="rowup">
+          <mat-form-field class="storedesc" appearance="outline">
+            <textarea  matInput formControlName="description" placeholder="Describe your Store here" required></textarea>
+            <mat-error *ngIf="createStoreform.controls['description'].invalid">
+              Description is required.
+            </mat-error>
+          </mat-form-field>   
+        </div>
+      </div>
+      <div class="uploadarea">
+        <div class="imageupload">
+          <div class="image-drag-and-drop-area">
+            <div class="image-upload-container">
+                <input id="image-upload" type="file" accept="image/*" (change)="onImageSelected($event)" #fileInput style="display:none;">
+                <div (click)="clickFileInput()" class="image-drop-container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+                    <img *ngIf="imageUrl" [src]="imageUrl" alt="Store Image" class="uploaded-image"> 
+                    <mat-icon *ngIf="!imageUrl" class="upload-icon">cloud_upload</mat-icon> 
+                    <small *ngIf="!imageUrl">Drag and Drop your image<br> here</small>         
+                </div>            
+                
+            </div>
+            <div class="uploadprogress" *ngIf="imageUrl">
+              <mat-progress-bar style="margin: 0 10px;" [color]="progressColor" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+      
+            </div>
+          </div>    
+        </div>
+        <a (click)="clickFileInput()" mat-raised-button color="primary">
+          <mat-icon>cloud_upload</mat-icon>
+          UPLOAD
+      </a>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div class="form-fields-pair">
+      
+    
+      <button mat-raised-button type="submit" color="accent">Create Store</button>
+
+    </div>
+     
+
+  </form>
+
+</div>
+
+    
+
+  
+  

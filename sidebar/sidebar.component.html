@@ -1,0 +1,108 @@
+<!-- the profile mat-card with username and phone -->
+<mat-nav-list class="prifilesection">
+  <!-- image cropper -->
+  <div #cropperarea class="imagecropper">
+    <input type="file" #fileInput name="fileInput" hidden (change)="onFileSelected($event)">
+    <image-cropper
+      
+    [imageChangedEvent]="imageChangedEvent"
+    [imageURL]="imageURL"
+    [maintainAspectRatio]="true"
+    [containWithinAspectRatio]="containWithinAspectRatio"
+    [aspectRatio]="aspectRatio"
+    [cropperMinWidth]="2000"
+    [onlyScaleDown]="true"
+    [roundCropper]="false"
+    [alignImage]="'center'"
+    [hidden]="hidden"
+    imageAltText="Alternative image text"
+    backgroundColor="red"
+    output="base64"
+    format="jpeg"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded()"
+    (cropperReady)="cropperReady($event)"
+    (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+    <button mat-raised-button (click)="cropImage()" color="accent">CROP</button>
+  </div> 
+  <div #ppwrapper class="profilepic-wrapper">
+    <img  class="profilepic" src="{{avatar? avatar : 'assets/profile.png'}}" >
+
+    <div class="mask">
+      <button mat-icon-button class="edit-button" (click)="selectFile()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" #fileInput style="display:none;">
+    </div>
+  </div>
+  <!-- upload progress -->
+  <div class="uploading" *ngIf="uploading">
+    <mat-progress-bar #progressbar mode="determinate" [value]="progress" color="primary"></mat-progress-bar>
+    <span>{{progress}}%</span>
+  </div>
+  <small class="verified" *ngIf="verified">
+    <mat-icon>verified_user</mat-icon>
+  </small>
+  <small>{{ userName }}</small>  
+  <small>{{ phone }}</small>
+  
+  <button mat-raised-button class="verifybtn" *ngIf="!verified">VERIFY</button>
+</mat-nav-list>
+<!-- accodion with my store, my account, my clients, income -->
+
+  <mat-accordion color="primary">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          My Store
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <a color="primary" routerLink="/dashboard/stores-dashboard" routerLinkActive="active">Store</a>
+        <a color="primary" routerLink="/" routerLinkActive="active">Orders</a>
+      </mat-nav-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          My Account
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <a color="primary" routerLink="/dashboard/profile" routerLinkActive="active">Profile</a>
+        <a color="primary" routerLink="/dashboard/settings" routerLinkActive="active">Settings</a>
+      </mat-nav-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          My Clients
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <a color="primary" routerLink="/" routerLinkActive="active">Clients</a>
+      </mat-nav-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Income
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <a color="primary" routerLink="/" routerLinkActive="active">Income</a>
+      </mat-nav-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-nav-list class="extras">
+    <button mat-button color="primary" (click)="userLogout()" routerLinkActive="active">
+      <mat-icon>
+        exit_to_app
+      </mat-icon>
+      Logout
+    </button>
+    <small><app-footer></app-footer></small>
+  </mat-nav-list>
+
+

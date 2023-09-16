@@ -1,0 +1,9 @@
+<app-qa-header class="mat-elevation-z8" (toggleSidebar)="toggleSB()"></app-qa-header>
+<mat-drawer-container>
+    <mat-drawer  mode="over" [opened]="sideBarOpen">
+      <app-qa-sidebar></app-qa-sidebar>
+    </mat-drawer>
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

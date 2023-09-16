@@ -1,0 +1,47 @@
+mat-toolbar{
+    background: #0d033a;
+    color: #ffffff;
+}
+
+
+mat-toolbar mat-icon{
+    color: white;
+    margin-right: 10px;
+}
+.welcome{
+    margin-right: 20px;
+    font-size: 10px;
+    color: #03ff3a;
+    
+}
+.spacer{
+    flex: 1 1 auto;
+}
+.pagetitle {
+    visibility: visible;
+    /* Add any additional styles specific to smaller screens */
+  }
+
+/* Media query for screens smaller than 600px */
+@media (max-width: 599px) {
+    .pagetitle {
+      visibility: hidden;
+      /* Add any additional styles specific to smaller screens */
+    }
+  }
+  
+  /* Media query for screens between 600px and 959px */
+  @media (min-width: 600px) and (max-width: 959px) {
+    .pagetitle {
+      visibility: visible;
+      /* Add any additional styles specific to medium-sized screens */
+    }
+  }
+  
+  /* Media query for screens larger than 960px */
+  @media (min-width: 960px) {
+    .pagetitle {
+      visibility: visible;
+      /* Add any additional styles specific to larger screens */
+    }
+  }

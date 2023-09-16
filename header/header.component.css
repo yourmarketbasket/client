@@ -1,0 +1,22 @@
+.logo{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.spacer{
+    flex: 1 1 auto;
+}
+.welcome{
+    margin-right: 20px;
+    font-size: 10px;
+    color: #03ff3a;
+}
+/* make mat toolbar fixed to the top of the page */
+
+mat-toolbar{
+    z-index: 99;
+    background: #0d033a;
+    color: #ffffff;
+    
+}

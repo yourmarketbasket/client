@@ -1,0 +1,43 @@
+<div class="settings-div">
+    <!-- map goes here -->
+    <div class="map"></div>
+    <!-- <div class="all-settings">
+        all your settings go here
+    </div>
+    <div class="security-settings">
+        set yo
+    </div>
+    <div class="account-settings">
+        set your account settings here
+    </div> -->
+    <div class="seller-settings">
+        <mat-card>
+            <mat-card-header>
+                <h1>Seller Settings</h1>
+            </mat-card-header>
+            <mat-card-content>
+                <form>
+                    <div class="locale-settings">
+                        <span>Locale Settings</span>
+                        <div class="locale-settings-fields">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Currency</mat-label>
+                                <mat-select>
+                                    <mat-option *ngFor="let currency of currencies; let i = index" [value]="i">
+                                        {{currency["code"]}}{{currency["symbol"]?(currency["symbol"]):""}} - {{currency["name"]}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Location</mat-label>
+                                <input #locationInput matInput type="text" [placeholder]="placeholder">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>
