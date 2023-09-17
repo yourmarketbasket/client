@@ -13,6 +13,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   loginFeedback = '';
+  showPassword!:any;
   loginError = "";
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { 

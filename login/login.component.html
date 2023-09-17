@@ -8,6 +8,9 @@
         <mat-form-field appearance="outline">
           <mat-label>Mobile</mat-label>
           <input matInput formControlName="phone">
+          
+          <mat-icon mat-icon-button matSuffix (click)="showPassword = !showPassword">smartphone</mat-icon>
+          
           <mat-error *ngIf="loginForm.get('phone')?.invalid">
           </mat-error>
         </mat-form-field>
@@ -15,7 +18,10 @@
       <div class="form-group">
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password">
+          <input matInput type="{{ !showPassword ? 'password' : 'text' }}" formControlName="password">
+         
+          <mat-icon (click)="showPassword = !showPassword" mat-icon-button matSuffix >{{showPassword? "visibility":"visibility_off"}}</mat-icon>
+          
           <mat-error *ngIf="loginForm.get('password')?.invalid">
                 <!-- {{ getErrorMessage('password')}} -->
             </mat-error>

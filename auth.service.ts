@@ -25,7 +25,7 @@ export class AuthService {
     return this.http.post(`${this.baseurl}/addProduct`, product);
   }
   verifyUser(user: any) {
-    return this.http.post(`${this.baseurl}/verify`, user);
+    return this.http.post(`${this.baseurl}/api/users/verifyOTP`, user);
   }
   getUser(userId:any){
     return this.http.get(`${this.baseurl}/getUser/${userId}`);
@@ -44,7 +44,7 @@ export class AuthService {
   }
   // changeUserAvatar
   changeUserAvatar(data: any) {
-    return this.http.post(`${this.baseurl}/changeUserAvatar`, data);
+    return this.http.post(`${this.baseurl}/api/users/changeUserAvatar`, data);
   }
   reviewListedItemAction(data:any){     
       return this.http.post(`${this.baseurl}/reviewlisteditem`, data);
