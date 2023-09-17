@@ -27,11 +27,23 @@ export class AuthService {
   verifyUser(user: any) {
     return this.http.post(`${this.baseurl}/api/users/verifyOTP`, user);
   }
+  getZipCode(data:any) {
+    return this.http.post(`${this.baseurl}/api/users/getZipCode`, data);
+  }
   getUser(userId:any){
     return this.http.get(`${this.baseurl}/getUser/${userId}`);
   }
   sendOTP(data: any) {
     return this.http.post(`${this.baseurl}/sendOTP`, data);
+  }
+  sendResetPasswordOTP(data: any) {
+    return this.http.post(`${this.baseurl}/api/users/sendResetPasswordOTP`, data);
+  }
+  verifyResetPasswordOTP(data: any) {
+    return this.http.post(`${this.baseurl}/api/users/verifyResetPasswordOTP`, data);
+  }
+  resetUserPassword(data:any){
+    return this.http.post(`${this.baseurl}/api/users/resetUserPassword`, data);
   }
   addStore (data: any) {
     return this.http.post(`${this.baseurl}/addStore`, data);

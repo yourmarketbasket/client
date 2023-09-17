@@ -25,6 +25,7 @@ import { ProductsComponent } from './marketplace/products/products.component';
 import { ProductComponent } from './marketplace/product/product.component';
 import { ProductDetailsComponent } from './marketplace/product/product-details/product-details.component';
 import { SettingsComponent } from './profile/settings/settings.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/market_place', pathMatch: 'full' },
@@ -57,6 +58,8 @@ const routes: Routes = [
     ]
   },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard] },
+
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
   {path: 'confirmation', component: ConfirmationComponent},
   {path: 'profile', redirectTo: 'dashboard/profile', pathMatch: 'full'},

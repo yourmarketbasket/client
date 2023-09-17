@@ -91,6 +91,7 @@ import { HeaderComponent as ProductsHeader } from './marketplace/products/header
 import { ProductComponent } from './marketplace/product/product.component';
 import { ProductDetailsComponent } from './marketplace/product/product-details/product-details.component';
 import { SettingsComponent } from './profile/settings/settings.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
@@ -133,7 +134,8 @@ import { SettingsComponent } from './profile/settings/settings.component';
     ProductsHeader,
     ProductComponent,
     ProductDetailsComponent,
-    SettingsComponent
+    SettingsComponent,
+    ResetPasswordComponent
     
 
   ],
