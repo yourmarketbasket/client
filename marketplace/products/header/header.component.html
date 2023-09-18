@@ -17,11 +17,6 @@
     <div *ngIf="isLoggedIn" class="account-actions">
         <!-- account actions go here -->
         <span class="spacer"></span>
-        <button matTooltip="Go to Dashboard"  (click)="gotoDashboard()" mat-icon-button color="accent">
-            <mat-icon>
-                dashboard
-            </mat-icon>
-        </button>
         <span class="spacer"></span>
         <!-- logout -->
         <button matTooltip="Logout" (click)="logoutUser()" mat-icon-button color="primary">
@@ -30,8 +25,12 @@
         <span class="spacer"></span>
         <span *ngIf="accountUser">Hello, {{accountUser.fname}}</span>
         <span class="spacer"></span>
+        <button matTooltip="View Products in Cart"  mat-icon-button color="primary">
+            <mat-icon [matBadge]="10" matBadgeColor="accent">shopping_cart</mat-icon>
+        </button>
+        <span class="spacer"></span>
         <div  class="avatar">
-            <img  [src]="userPic">
+            <img matTooltip="Go to Dashboard" (click)="gotoDashboard()"  [src]="userPic">
         </div>        
     </div>
 </div>

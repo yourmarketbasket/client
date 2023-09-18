@@ -143,8 +143,8 @@ span{
 @media (max-width: 767px) {
     /* Styles for screens up to 767px wide (e.g., mobile devices) */
     .product-pic {
-      height: 150px;
-      width: 150px;
+      height: calc(100vw/5);
+      width: calc(100vw/5);
     }
     .center-display{
       width: 100% !important;
@@ -157,8 +157,8 @@ span{
   @media (min-width: 768px) and (max-width: 991px) {
     /* Styles for screens between 768px and 991px wide (e.g., tablets) */
     .product-pic {
-      height: 180px;
-      width: 180px;
+      height: calc(100vw/6);
+      width: calc(100vw/6);
     }
     .center-display{
       width: 100% !important;
@@ -169,15 +169,15 @@ span{
   @media (min-width: 992px) and (max-width: 1199px) {
     /* Styles for screens between 992px and 1199px wide (e.g., small laptops) */
     .product-pic {
-      height: 200px;
-      width: 200px;
+      height: calc(100vw/10);
+      width: calc(100vw/10);
     }
   }
   
   @media (min-width: 1200px) {
     /* Styles for screens larger than or equal to 1200px wide (e.g., large laptops and desktops) */
     .product-pic {
-      height: 200px;
-      width: 200px;
+      height: calc(100vw/10);
+      width: calc(100vw/10);
     }
   }
