@@ -26,12 +26,20 @@
                 <div class="product-details">
                     <div class="pname">
                         <span>{{truncateName(product.name+' '+product.model+' '+product.brand)}}</span>
-                        <div class="discounted-price" *ngIf="product.discount">
-                            <small style="margin: 0 2%;">was </small><small> <s> {{product.sp.toLocaleString('en-US')}}</s></small>
+                        <div class="price_row">
+                            <div class="discounted-price" *ngIf="product.discount">
+                                <small style="margin: 0 2%;">was </small><small> <s>    {{convertNumberToShortScale(product.sp)}}</s></small>
+                            </div>
+                            <div class="price-display">
+                                <small>Now KES</small> <b style="margin-left: 3px;">  {{convertNumberToShortScale(product.sp, product.discount)}}</b>
+                            </div>
                         </div>
-                        <div class="price-display">
-                            <small style="margin: 2%;">Now KES</small><h2>  {{discountedPrice(product.sp, product.discount)}}</h2>
-                        </div>
+                        <button (click)="addToCart(product._id)" mat-stroked-button>
+                            <small>
+                                ADD TO CART
+                            </small>
+                            <mat-icon>add_shopping_cart</mat-icon>                                                      
+                        </button>
                         
                     </div>    
                 </div>
@@ -57,12 +65,21 @@
                 <div class="product-details">
                     <div class="pname">
                         <span>{{truncateName(product.name+' '+product.model+' '+product.brand)}}</span>
-                        <div class="discounted-price" *ngIf="product.discount">
-                            <small style="margin: 0 2%;">was </small><small> <s> {{product.sp.toLocaleString('en-US')}}</s></small>
+                        <div class="price_row">
+                            <div class="discounted-price" *ngIf="product.discount">
+                                <small style="margin: 0 2%;">was </small><small> <s>    {{convertNumberToShortScale(product.sp)}}</s></small>
+                            </div>
+                            <div class="price-display">
+                                <small>Now KES</small> <b style="margin-left: 3px;">  {{convertNumberToShortScale(product.sp, product.discount)}}</b>
+                            </div>
                         </div>
-                        <div class="price-display">
-                            <small style="margin: 2%;">Now KES</small><h2>  {{discountedPrice(product.sp, product.discount)}}</h2>
-                        </div>
+                        
+                        <button (click)="addToCart(product._id)" mat-stroked-button>
+                                <small>
+                                    ADD TO CART
+                                </small>
+                                <mat-icon>add_shopping_cart</mat-icon>                                                      
+                        </button>
                         
                     </div>    
                 </div>

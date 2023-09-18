@@ -23,7 +23,7 @@ export class ProductsComponent implements OnInit{
     searchedProduct:any[]=[]
     numberOfResults:any;
     numberofDisplayedProducts!:number;
-    batchSize:number = 20;
+    batchSize:number = 14;
     startIndex:number = 0;
     hasMore!:boolean;
     lazyLoadedProducts:any[] = [];
@@ -160,6 +160,44 @@ export class ProductsComponent implements OnInit{
       })
 
     }
+    // add product to cart
+    addToCart(id:any){
+
+    }
+    // convert to shor scale
+    convertNumberToShortScale(input: number | string, discountPercentage: number | string = '0'): string {
+        const number = typeof input === 'string' ? parseFloat(input) : input;
+        const discount = typeof discountPercentage === 'string' ? parseFloat(discountPercentage) : discountPercentage;
+    
+        if (isNaN(number)) {
+            return 'Invalid input';
+        }
+    
+        if (isNaN(discount) || discount < 0 || discount > 100) {
+            return 'Invalid discount percentage';
+        }
+    
+        const discountedNumber = number * (1 - discount / 100);
+        let result = "";
+    
+        if (discountedNumber >= 1000000000) {
+            result = `${(discountedNumber / 1000000000).toFixed(1)}B`;
+        } else if (discountedNumber >= 1000000) {
+            result = `${(discountedNumber / 1000000).toFixed(1)}M`;
+        } else if (discountedNumber >= 1000) {
+            result = `${(discountedNumber / 1000).toFixed(1)}k`;
+        } else {
+            result = discountedNumber.toFixed(2);
+        }
+    
+        // Remove trailing zeros
+        result = result.replace(/\.?0*$/, "");
+    
+        return result;
+    }
+  
+  
+  
 
        
 

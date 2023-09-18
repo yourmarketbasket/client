@@ -4,6 +4,16 @@
     top:0;
 
 }
+.price_row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: self-end;
+}
+button mat-icon{
+  vertical-align: middle;
+  transform: scale(0.8);
+}
 .marketplace{
   height: 200vh;
 }
@@ -55,7 +65,7 @@
 .offer mat-icon{
   position:absolute;
   top: 0;
-  right:0;
+  right:0.4;
   z-index: 999;
   color: rgb(15, 4, 119);
   transform: scale(2);
@@ -72,7 +82,7 @@
 .icon-text{
   position: absolute;
   top: -5px;
-  right: -0.002;
+  right: -0.5;
   font-size:8px;
   line-height: 1;
   text-align: center;
@@ -120,6 +130,7 @@
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  justify-content: space-between;
 }
 span{
     margin: 3px;
