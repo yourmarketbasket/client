@@ -2,6 +2,8 @@ import { Component,OnInit, HostListener } from '@angular/core';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { truncateString } from 'src/app/services/computations';
 import { Router } from '@angular/router';
+import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-products',
@@ -160,10 +162,28 @@ export class ProductsComponent implements OnInit{
       })
 
     }
-    // add product to cart
-    addToCart(id:any){
-
+    // add product to cart    
+    addToCart(id:any, quantity:any){
+      const userid = localStorage.getItem('userId')
+      if(userid){
+        const dialogRef = this.dialog.open(AddToCartComponent, {
+          width: '400px',
+          disableClose: true,
+          data: {
+            id:id,
+            quantity: quantity
+          }
+        });
+        dialogRef.afterClosed().subscribe(result=>{
+          console.log(result)
+        })
+      }else{
+        this.router.navigate(['/login'])
+      }     
+      
     }
+
+    
     // convert to shor scale
     convertNumberToShortScale(input: number | string, discountPercentage: number | string = '0'): string {
         const number = typeof input === 'string' ? parseFloat(input) : input;
@@ -202,7 +222,7 @@ export class ProductsComponent implements OnInit{
        
 
     // constructor
-    constructor(private ms:MasterServiceService,private router:Router){}
+    constructor(private ms:MasterServiceService,private router:Router, private dialog: MatDialog){}
     // onInit
     ngOnInit() {
       this.updateScreenSize();

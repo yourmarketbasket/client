@@ -93,6 +93,7 @@ import { ProductDetailsComponent } from './marketplace/product/product-details/p
 import { SettingsComponent } from './profile/settings/settings.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CartComponent } from './marketplace/cart/cart.component';
+import { AddToCartComponent } from './marketplace/add-to-cart/add-to-cart.component';
 
 
 
@@ -137,7 +138,8 @@ import { CartComponent } from './marketplace/cart/cart.component';
     ProductDetailsComponent,
     SettingsComponent,
     ResetPasswordComponent,
-    CartComponent
+    CartComponent,
+    AddToCartComponent
     
 
   ],

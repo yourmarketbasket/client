@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"name": "webapp",
+			"path": "../../../../webapp"
+		}
+	],
+	"settings": {
+		"files.autoSave": "afterDelay"
+	}
+}

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { Product } from 'src/app/Interfaces/product';
 import { getKForPrice } from 'src/app/services/computations';
+import { CartService } from 'src/app/services/cart.service';
+import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product',
@@ -35,7 +38,6 @@ export class ProductComponent implements OnInit{
     // get the productid
     this.route.queryParamMap.subscribe((params:any)=>{
        this.productid = params.get('id');
-       console.log(this.productid)
     })
     // fetch the product data
     this.ms.getProductDetails(this.productid).subscribe((res:any)=>{
@@ -63,18 +65,41 @@ export class ProductComponent implements OnInit{
   }
   calculateDiscountedPrice(price:any,discount:any){
     if(!discount || discount==0){
-      return price.toLocaleString('en-US')
+      return price == null?"":price.toLocaleString('en-US')
     }else{
       const dp = ((100-discount)/100)*price
-      return dp.toLocaleString('en-US')
+      return dp == null?"":dp.toLocaleString('en-US')
     }
   }
 
   // constructor
-  constructor(private route: ActivatedRoute, private ms:MasterServiceService){}
+  constructor(private cartServive: CartService, private router: Router, private route: ActivatedRoute, private ms:MasterServiceService, private dialog: MatDialog){}
   // show thousands in k
   thousandsInK(price:any){
     return getKForPrice(price)
-    console.log(getKForPrice(price))
+  }
+  // checkout
+  checkOut(id:any){
+    this.cartServive.addToCart(id)
+    console.log(this.cartServive.getCartItems())
+  }
+  addToCart(id:any, quantity:any){
+    const userid = localStorage.getItem('userId')
+    if(userid){
+      const dialogRef = this.dialog.open(AddToCartComponent, {
+        width: '400px',
+        disableClose: true,
+        data: {
+          id:id,
+          quantity: quantity
+        }
+      });
+      dialogRef.afterClosed().subscribe(result=>{
+        console.log(result)
+      })
+    }else{
+      this.router.navigate(['/login'])
+    }     
+    
   }
 }

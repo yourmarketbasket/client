@@ -1,0 +1,14 @@
+<div class="add-info">
+    <form (ngSubmit)="submitAddToCartData()" [formGroup]="addToCartForm">
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Quantity</mat-label>
+                <input  matInput  formControlName="quantity" placeholder="Remaining: {{data.quantity}} units">
+            </mat-form-field>
+            <button mat-stroked-button >
+                OK
+            </button>
+          </div>
+          
+    </form>
+</div>

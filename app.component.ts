@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NointernetComponent } from './nointernet/nointernet.component';
 import { AuthService } from './auth.service';
 import { OnlineStatusService } from './services/online-status.service';
+import { CartSyncService } from './services/cart-sync.service';
 
 
 
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit{
     this.sideBarOpen = !this.sideBarOpen;
   }
 
-  constructor(private cdr: ChangeDetectorRef, private http: HttpClient, private dialog: MatDialog, private onlineStatusService: OnlineStatusService, private authService: AuthService) {
+  constructor(private cartSyncService: CartSyncService, private cdr: ChangeDetectorRef, private http: HttpClient, private dialog: MatDialog, private onlineStatusService: OnlineStatusService, private authService: AuthService) {
     this.isOnline = this.onlineStatusService.isOnline;
     onlineStatusService.statusChanged.subscribe((isOnline: boolean) => {
       this.isOnline = isOnline;

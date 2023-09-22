@@ -26,11 +26,11 @@
         <div class="features">
             <div class="other-details">
                 <h2>PRODUCT DETAILS</h2>  
-                <span>Name: {{pname.toUpperCase()}}</span> 
-                <span>Brand: {{brand.toUpperCase()}}</span> 
-                <span>Model: {{model.toUpperCase()}}</span> 
-                <span>Category: {{category.toUpperCase()}}</span> 
-                <span>Sub-category: {{subcategory.toUpperCase()}}</span> 
+                <span>Name: {{pname == null?"":pname.toUpperCase()}}</span> 
+                <span>Brand: {{brand == null?"":brand.toUpperCase()}}</span> 
+                <span>Model: {{model == null?"":model.toUpperCase()}}</span> 
+                <span>Category: {{category == null?"":category.toUpperCase()}}</span> 
+                <span>Sub-category: {{subcategory == null?"":subcategory.toUpperCase()}}</span> 
                 <span>Available Qtty: {{quantity}} UNITS</span> 
             </div>
             <div class="features-details">
@@ -53,8 +53,8 @@
             <h1>TOTAL: {{calculateDiscountedPrice(price, discount)}}/= KES</h1>
         </div> 
         <div class="button-div">
-            <button color="primary" mat-raised-button><mat-icon>add_shopping_cart</mat-icon> ADD TO CART</button>
-            <button color="accent" mat-raised-button >CHECKOUT({{thousandsInK(calculateDiscountedPrice(price, discount))}}KES)</button>
+            <button (click)="addToCart(productid, quantity)" color="primary" mat-raised-button><mat-icon>add_shopping_cart</mat-icon> ADD TO CART</button>
+            <button (click)="checkOut(productid)" color="accent" mat-raised-button >CHECKOUT({{thousandsInK(calculateDiscountedPrice(price, discount))}}KES)</button>
         </div>
        
 

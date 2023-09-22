@@ -26,6 +26,7 @@ import { ProductComponent } from './marketplace/product/product.component';
 import { ProductDetailsComponent } from './marketplace/product/product-details/product-details.component';
 import { SettingsComponent } from './profile/settings/settings.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CartComponent } from './marketplace/cart/cart.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/market_place', pathMatch: 'full' },
@@ -34,6 +35,10 @@ const routes: Routes = [
       {path: '', component: ProductsComponent},
     ]
   },
+  {
+    path: 'cart', component: CartComponent, canActivate: [AuthGuard],
+  }
+  ,
   {
     path: 'product', component: ProductComponent,
     // children: [

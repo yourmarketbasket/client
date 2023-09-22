@@ -11,8 +11,8 @@
     </div>
     <div *ngIf="searchQuery" class="product-list" >
         <div class="center-display">
-            <div (click)="viewProduct(product._id)" *ngFor="let product of searchedProduct" class="product-card">
-                <div class="image">
+            <div  *ngFor="let product of searchedProduct" class="product-card">
+                <div (click)="viewProduct(product._id)" class="image">
                     <div class="offer" *ngIf="product.discount">
                         <span class="icon-text">{{product.discount}}% off</span>                        
                         <mat-icon>bookmark</mat-icon>
@@ -34,7 +34,7 @@
                                 <small>Now KES</small> <b style="margin-left: 3px;">  {{convertNumberToShortScale(product.sp, product.discount)}}</b>
                             </div>
                         </div>
-                        <button (click)="addToCart(product._id)" mat-stroked-button>
+                        <button (click)="addToCart(product._id, product.quantity)" mat-stroked-button>
                             <small>
                                 ADD TO CART
                             </small>
@@ -50,8 +50,8 @@
     </div>
     <div *ngIf="!searchQuery" class="product-list" >
         <div class="center-display">
-            <div (click)="viewProduct(product._id)" *ngFor="let product of lazyLoadedProducts" class="product-card">
-                <div class="image">
+            <div  *ngFor="let product of lazyLoadedProducts" class="product-card">
+                <div (click)="viewProduct(product._id)" class="image">
                     <div class="offer" *ngIf="product.discount">
                         <span class="icon-text">{{product.discount}}% off</span>                        
                         <mat-icon>bookmark</mat-icon>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         
-                        <button (click)="addToCart(product._id)" mat-stroked-button>
+                        <button (click)="addToCart(product._id, product.quantity)" mat-stroked-button>
                                 <small>
                                     ADD TO CART
                                 </small>
