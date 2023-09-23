@@ -1,0 +1,38 @@
+.body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+td, th{
+    /* border: 1px solid black;
+    padding: 5; */
+    text-align: center;
+}
+table{
+    border-collapse: collapse;
+    width: 60%;
+}
+
+.main-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.checkout{
+    display: flex;
+    flex-direction: column;
+    border: 1px dashed black;
+    width: 20%;
+    align-items: center;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 5px;
+}
+td button{
+    margin: 5px;
+}

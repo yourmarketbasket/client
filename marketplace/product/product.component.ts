@@ -82,10 +82,10 @@ export class ProductComponent implements OnInit{
   }
   calculateDiscountedPrice(price:any,discount:any){
     if(!discount || discount==0){
-      return price == null?"":price.toLocaleString('en-US')
+      return price == null?"":price
     }else{
       const dp = ((100-discount)/100)*price
-      return dp == null?"":dp.toLocaleString('en-US')
+      return dp == null?"":dp
     }
   }
 
@@ -96,9 +96,8 @@ export class ProductComponent implements OnInit{
     return getKForPrice(price)
   }
   // checkout
-  checkOut(id:any){
-    this.cartServive.addToCart(id)
-    console.log(this.cartServive.getCartItems())
+  viewCart(){
+    this.router.navigate(['/cart'])
   }
   addToCart(id:any, quantity:any){
     const userid = localStorage.getItem('userId')
@@ -116,8 +115,12 @@ export class ProductComponent implements OnInit{
           const data = {
             userid: localStorage.getItem('userId'),
             productid: result.productid,
-            quantity: result.qtty
+            quantity: result.qtty,
+            totalcost: parseInt(result.qtty)*this.calculateDiscountedPrice(this.price, this.discount),
+            price: this.calculateDiscountedPrice(this.price, this.discount),
           }
+
+          console.log(data.totalcost)
           this.ms.addToCart(data).subscribe((response:any)=>{
             if(response.success){
               this.addtocartfeedback = "Added to Cart Successfully"

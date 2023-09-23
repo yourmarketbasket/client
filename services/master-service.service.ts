@@ -98,6 +98,12 @@ export class MasterServiceService {
   getAvailableQuantityForUser(data:any){
     return this.http.post(`${this.baseurl}/api/products/availableQttyForUser`, data);
   }
+  getCartItems(userid:any){
+    return this.http.get(`${this.baseurl}/api/products/getCartItems/${userid}`);
+  }
+  fetchProductDetails(productid:any){
+    return this.http.get(`${this.baseurl}/api/products/productDetails/${productid}`);
+  }
   getNumOfItemsIncart(data:any){
     return this.http.post(`${this.baseurl}/api/products/numOfItemsInCart`, data);
   }
