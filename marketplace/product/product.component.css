@@ -14,6 +14,12 @@
 .price-diplay-div h1{
     color: rgb(15, 4, 119);
 }
+.price-diplay-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .local-offer mat-icon{
     position:absolute;
@@ -95,7 +101,8 @@ mat-icon{
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: center;
+    align-items: center;
 }
 .button-div button{
     margin: 1%;

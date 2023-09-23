@@ -51,9 +51,10 @@
         </div>  
         <div class="price-diplay-div">
             <h1>TOTAL: {{calculateDiscountedPrice(price, discount)}}/= KES</h1>
+            <small>{{addtocartfeedback}}</small>
         </div> 
         <div class="button-div">
-            <button (click)="addToCart(productid, quantity)" color="primary" mat-raised-button><mat-icon>add_shopping_cart</mat-icon> ADD TO CART</button>
+            <button *ngIf="quantity" (click)="addToCart(productid, quantity)" color="primary" mat-raised-button><mat-icon>add_shopping_cart</mat-icon> ADD TO CART</button>
             <button (click)="checkOut(productid)" color="accent" mat-raised-button >CHECKOUT({{thousandsInK(calculateDiscountedPrice(price, discount))}}KES)</button>
         </div>
        

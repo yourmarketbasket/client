@@ -229,6 +229,7 @@ export class ProductsComponent implements OnInit{
       this.updateNumberOfDisplayedProducts(this.dWidth)
       this.userid = localStorage.getItem('userId')
       this.loadProducts();
+     
       
       // fetch the products
       // this.fetchAllProducts()

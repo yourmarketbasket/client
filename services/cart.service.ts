@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { MasterServiceService } from './master-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class CartService {
   private cartItemSubject = new BehaviorSubject<any>([]);
   cartItems$ = this.cartItemSubject.asObservable();
 
-  constructor() { 
+  constructor(private ms: MasterServiceService) { 
     
   }
   // add to cart

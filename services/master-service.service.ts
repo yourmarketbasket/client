@@ -69,6 +69,9 @@ export class MasterServiceService {
   getStoreDetails(storeId: any) {
     return this.http.get(`${this.baseurl}/getStoreDetails/${storeId}`);
   }
+  addToCart(data:any){
+    return this.http.post(`${this.baseurl}/api/products/addToCart`, data);
+  }
   searchProduct(data:any){
     return this.http.post(`${this.baseurl}/searchProduct`, data);
   }
@@ -91,6 +94,12 @@ export class MasterServiceService {
   }
   advancedActionAllowed(data:any){
     return this.http.post(`${this.baseurl}/advancedAction`, data);
+  }
+  getAvailableQuantityForUser(data:any){
+    return this.http.post(`${this.baseurl}/api/products/availableQttyForUser`, data);
+  }
+  getNumOfItemsIncart(data:any){
+    return this.http.post(`${this.baseurl}/api/products/numOfItemsInCart`, data);
   }
   logout() {
     localStorage.removeItem('token');

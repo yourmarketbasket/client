@@ -32,6 +32,8 @@ export class ProductComponent implements OnInit{
   displayimg!:any;
   discount!:any;
   price!:any;
+  disableAddToCartButton:boolean = false;
+  addtocartfeedback!:any;
 
   // methods
   ngOnInit() {
@@ -46,7 +48,6 @@ export class ProductComponent implements OnInit{
          this.posted = this.product.createdAt 
          this.pname = this.product.name
          this.avatar = this.product.avatar
-         this.quantity = this.product.quantity
          this.displayimg = this.avatar[0]
          this.discount = this.product.discount;
          this.model = this.product.model;
@@ -59,7 +60,23 @@ export class ProductComponent implements OnInit{
 
       }
     })
+
+    this.getAvailableProductQuantity(localStorage.getItem('userId'),this.productid)
+    
   }
+  // get the available quantity 
+  getAvailableProductQuantity(userid:any, productid:any){
+    const data = {
+      userid: userid,
+      productid: productid
+    }
+    this.ms.getAvailableQuantityForUser(data).subscribe((res:any)=>{
+      if(res.success){
+        this.quantity = res.quantity
+      }
+    })
+  }
+  
   setDisplayImage(image:any){
     this.displayimg = image
   }
@@ -95,7 +112,27 @@ export class ProductComponent implements OnInit{
         }
       });
       dialogRef.afterClosed().subscribe(result=>{
-        console.log(result)
+        if(result){
+          const data = {
+            userid: localStorage.getItem('userId'),
+            productid: result.productid,
+            quantity: result.qtty
+          }
+          this.ms.addToCart(data).subscribe((response:any)=>{
+            if(response.success){
+              this.addtocartfeedback = "Added to Cart Successfully"
+              this.quantity = response.available;
+              
+              if(response.available===0){
+                this.disableAddToCartButton = true;
+              }              
+            }else{
+              this.quantity = response.available;
+              this.addtocartfeedback = "Product ran out, sorry for the inconviniences"
+              this.disableAddToCartButton = true;
+            }
+          })
+        }       
       })
     }else{
       this.router.navigate(['/login'])

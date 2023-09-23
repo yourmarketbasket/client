@@ -25,8 +25,8 @@
         <span class="spacer"></span>
         <span *ngIf="accountUser">Hello, {{accountUser.fname}}</span>
         <span class="spacer"></span>
-        <button matTooltip="View Products in Cart"  mat-icon-button color="primary">
-            <mat-icon matBadgeSize="small" [matBadge]="10" matBadgeColor="accent">shopping_cart</mat-icon>
+        <button *ngIf="numOfItemsInCart" matTooltip="View Products in Cart"  mat-icon-button color="primary">
+            <mat-icon matBadgeSize="small" [matBadge]="numOfItemsInCart" matBadgeColor="accent">shopping_cart</mat-icon>
         </button>
         <span class="spacer"></span>
         <div  class="avatar">

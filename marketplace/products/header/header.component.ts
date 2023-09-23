@@ -15,17 +15,18 @@ export class HeaderComponent implements OnInit {
   accountUser:any;
   userPic!:any;
   searchQuery!:any;
+  numOfItemsInCart:any = 0;
 
   // constructor
   constructor(private ms:MasterServiceService, private authService:AuthService, private router:Router){}
   // methods
-  async ngOnInit() {
+  ngOnInit() {
     // set login status
-      this.isLoggedIn = await this.authService.loggedIn();
+      this.isLoggedIn = this.authService.loggedIn();
      
         // get the user data
         if(this.isLoggedIn){
-          await this.authService.getUser(localStorage.getItem('userId')).subscribe((res:any)=>{
+          this.authService.getUser(localStorage.getItem('userId')).subscribe((res:any)=>{
             if(res.success){
               this.accountUser = res.data
               this.userPic = res.data.avatar
@@ -33,9 +34,21 @@ export class HeaderComponent implements OnInit {
           })
 
         }
+
+         // get number of items in cart
+      this.getNumOfCartItems();
        
         
+  }
+  async getNumOfCartItems(){
+    const data = {userid:localStorage.getItem('userId')};
+
+    await this.ms.getNumOfItemsIncart(data).subscribe((res:any)=>{
+      if(res.num.success){
+        this.numOfItemsInCart =  res.num.count          
       }
+    })
+  }
   gotoDashboard(){
     this.router.navigate(['/dashboard'])
 
