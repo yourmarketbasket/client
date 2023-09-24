@@ -20,16 +20,9 @@
                 <td>{{cartitems[i].price}}</td>
                 <td>{{cartitems[i].totalCost}}</td>
                 <td>
-                    <button class="mat-elevation-z8" mat-raised-button >
-                        ADD (+1)
-                    </button>
-                    <button class="mat-elevation-z8" mat-raised-button >
-                        REMOVE (-1)
-                    </button>
-                    <button class="mat-elevation-z8" mat-raised-button color="accent">
-                        <mat-icon>delete</mat-icon>
-                        DELETE 
-                    </button>
+                    <mat-icon color="primary" mat-icon-button>add_circle_outline</mat-icon>
+                    <mat-icon color="accent" mat-icon-button>remove_circle_outline</mat-icon>
+                    <mat-icon color="warn">delete_outline</mat-icon>                   
                     
                 </td>
             </tr>

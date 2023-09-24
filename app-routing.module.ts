@@ -33,18 +33,11 @@ const routes: Routes = [
   { path: 'market_place', component: MarketplaceComponent,
     children:[
       {path: '', component: ProductsComponent},
+      {path: 'cart', component: CartComponent, canActivate: [AuthGuard],},
+      {path: 'product', component: ProductComponent},
     ]
   },
-  {
-    path: 'cart', component: CartComponent, canActivate: [AuthGuard],
-  }
-  ,
-  {
-    path: 'product', component: ProductComponent,
-    // children: [
-    //   {path: ':id', component: ProductDetailsComponent}
-    // ]
-  },
+
   {path: 'admin', component: RootDashboardComponent, canActivate: [AuthGuard],
     children: [
       {path: '', component: RootComponent, canActivate: [AuthGuard]},

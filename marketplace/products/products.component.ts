@@ -149,7 +149,7 @@ export class ProductsComponent implements OnInit{
     // view product
     viewProduct(id:any){
       // navigate tot he product view page
-      this.router.navigate(['/product'], {queryParams: {id:id}})
+      this.router.navigate(['/market_place/product'], {queryParams: {id:id}})
     }
     // get all products
     fetchAllProducts(){

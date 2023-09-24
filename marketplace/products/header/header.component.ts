@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goToCart(){
-    this.router.navigate(['/cart'])
+    this.router.navigate(['/market_place/cart'])
   }
 
 

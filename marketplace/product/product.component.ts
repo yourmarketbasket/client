@@ -97,7 +97,7 @@ export class ProductComponent implements OnInit{
   }
   // checkout
   viewCart(){
-    this.router.navigate(['/cart'])
+    this.router.navigate(['/market_place/cart'])
   }
   addToCart(id:any, quantity:any){
     const userid = localStorage.getItem('userId')
