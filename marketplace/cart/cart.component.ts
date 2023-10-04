@@ -10,7 +10,7 @@ export interface CartItemsInterface{
   qtty:number;
   price:number;
   total:number;
-  action:string
+  action:string;
   
 }
 @Component({
@@ -20,58 +20,48 @@ export interface CartItemsInterface{
 })
 
 export class CartComponent implements OnInit {
+  productname: any;
+  productmodel: any;
+  qtty: any;
+  available: any;
   constructor(private cartService: CartService, private ms: MasterServiceService, private router: Router){}
   cartItemCount!:any;
   userid = localStorage.getItem('userId')
   cartitems!:any;
   productDetails:any = [];
   totalcost = 0;
+  grandtotal = 0;
 
   // displayed column names
   displayedColumnNames:any = ['position', 'Name','Model','Qtty','Price','Total','Actions'];
   dataSource = this.productDetails;
 
-  ngOnInit(): void {
+  ngOnInit() {
     // get the cart items
-    this.ms.getCartItems(this.userid).subscribe((response:any)=>{
+   this.ms.getCartItems(this.userid).subscribe((response:any)=>{
       if(response.success){
-        this.cartitems = response.items
+        this.cartitems = response.items;
+        this.productname = response.items.productname;
+        this.productmodel = response.items.productmodel;
+        this.qtty = response.items.quantity;
+        this.available = response.items.available;
+        this.totalcost = response.items.totalcost;
       }
-      this.getProductDetails()
-
+      
     })
 
       
   }
-  // get the product details
-  getProductDetails(){
+ 
+  getTotalCost(){
+    let cost = 0;
     this.cartitems.forEach((e:any) => {
-      this.totalcost+=e.totalCost
-      this.ms.fetchProductDetails(e.productid).subscribe((res:any)=>{
-        this.productDetails.push(res.product[0])
-      })
+      cost+=e.totalCost;      
     });
+    return cost.toLocaleString();
   }
 
-  calculateDiscountedPrice(originalPrice: number, discountPercentage: number = 0): number {
-    // Ensure that the discountPercentage is within the valid range (0-100)
-    if (discountPercentage < 0 || discountPercentage > 100) {
-      throw new Error("Discount percentage must be between 0 and 100.");
-    }
-  
-    // Calculate the discounted price
-    const discount = (discountPercentage / 100) * originalPrice;
-    const discountedPrice = originalPrice - discount;
-  
-    // Round the discounted price to one decimal place
-    const roundedDiscountedPrice = parseFloat(discountedPrice.toFixed(1));
-  
-    return roundedDiscountedPrice;
-  }
-  viewProduct(id:any){
-    // navigate tot he product view page
-    this.router.navigate(['/product'], {queryParams: {id:id}})
-  }
+ 
   
 
 }

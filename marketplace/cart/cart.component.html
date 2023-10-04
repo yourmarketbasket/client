@@ -1,40 +1,63 @@
 <div class="body">
     <mat-spinner *ngIf="!cartitems" strokeWidth="2" diameter="80"></mat-spinner>
     <!-- the table and column -->
-    <div *ngIf="cartitems" class="main-section">
-        <table>
-            <tr class="mat-elevation-z8">
-                <th>#</th>
-                <th>Name</th>
-                <th>Model</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th>Actions</th>
-            </tr>
-            <tr  class="mat-elevation-z8" *ngFor="let p of productDetails; let i = index">
-                <td>{{i+1}}</td>
-                <td (click)="viewProduct(p._id)">{{p.name}}</td>
-                <td>{{p.model}}</td>
-                <td>{{cartitems[i].quantity}}</td>
-                <td>{{cartitems[i].price}}</td>
-                <td>{{cartitems[i].totalCost}}</td>
-                <td>
-                    <mat-icon color="primary" mat-icon-button>add_circle_outline</mat-icon>
-                    <mat-icon color="accent" mat-icon-button>remove_circle_outline</mat-icon>
-                    <mat-icon color="warn">delete_outline</mat-icon>                   
-                    
-                </td>
-            </tr>
-        </table>
+    <div *ngIf="cartitems" class="mainsection">
 
-        <div class="checkout">
-            <h1>Cart Summary</h1>
-            <h1>Total: {{totalcost?totalcost.toLocaleString('en-US'):"Processing..."}} KES</h1>
-            
+        <div class="cart-details">
+            <div *ngFor="let item of cartitems; let i=index;"class="cart-items"> 
+                <!-- major row -->
+                <div class="major-row">
+                    <div class="avatar">
+                        <img class="pimage" src="{{item.avatar[0]}}" alt="">
+                    </div>
+                    <div class="pdetails">
+                        <div class="pname"><h3>{{item.productname}} Model: {{item.productmodel}}</h3></div>
+                        <div class="pcost">
+                            <div class="totalcost">
+                                <small>Total Cost: Ksh   </small><h1>{{item.totalCost.toLocaleString()}}</h1>
+                            </div>                        
+                            <div class="price">
+                                <small><b>Now Ksh {{item.price.toLocaleString()}}</b></small>                            
+                            </div>
+                            <div *ngIf="item.discount" class="originalprice">
+                                <small>Was <s>Ksh {{(100*item.price)/(100-item.discount)}}</s></small> 
+                                <small *ngIf="item.discount" class="discount-price">-{{item.discount}}%</small>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+                
+                <div class="pactions">
+                    <button mat-flat-button><mat-icon>delete_outline</mat-icon> REMOVE</button>
+                    <div class="add-or-remove-items-button">
+                        <button mat-raised-button color="accent">-</button>
+                        <span>{{item.quantity}}</span>
+                        <button mat-raised-button color="primary">+</button>
+                    </div>
+                </div>
+                
+            </div>
         </div>
 
+        
+        <div class="cart-summary">
+            <h2>CART SUMMARY</h2>
+            <div class="totalcostrow">
+                <span>
+                    Product Totals:
+                </span>
+                <span>
+                    Ksh. {{getTotalCost()}}
+                </span>
+            </div>
+            <div class="extradetails">
+                <small>Totals not inclusive of Delivery Fees</small>
+            </div>
+            <div class="checkoutbutton">
+                <button mat-raised-button color="primary">CHECKOUT(Ksh. {{getTotalCost()}})</button>
+            </div>
+        </div>
     </div>
    
    

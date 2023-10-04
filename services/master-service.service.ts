@@ -100,6 +100,7 @@ export class MasterServiceService {
   }
   getCartItems(userid:any){
     return this.http.get(`${this.baseurl}/api/products/getCartItems/${userid}`);
+    
   }
   fetchProductDetails(productid:any){
     return this.http.get(`${this.baseurl}/api/products/productDetails/${productid}`);

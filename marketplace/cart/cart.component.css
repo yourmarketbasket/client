@@ -6,23 +6,126 @@
     padding-top: 1%;
     height: auto;
 }
+.cart-details{
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    width: 40vw;
+}
+.totalcost{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    
+}
+.discount-price {
+    background-color: pink;
+    border-radius: 2px;
+    padding: 2px;
+    margin: 3px;
+    backdrop-filter: blur(5px); /* Adjust the blur radius as needed */
+}
+.pimage{
+    height: 80px;
+    border-radius: 5px;
+}
+.major-row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    justify-content: space-between;
+    background-color: white;
+    margin-bottom: 5px;
+    box-shadow: 0px 2px 2px 0px rgb(175, 175, 175);
 
+}
+.pcost{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.add-or-remove-items-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
+    align-items: center;
+}
+.cart-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    padding-bottom: 10px;
+    width: 100%;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+}
+.pactions{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.pdetails{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+}
 td, th{
     /* border: 1px solid black;
     padding: 5; */
     text-align: center;
 }
+.totalcostrow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+
+
+}
+.extradetails{
+    color: rgb(146, 145, 145);
+    width: 100%;
+    border-bottom: 1px solid rgb(150, 149, 149);
+    margin: 10px;    
+}
 table{
     border-collapse: collapse;
     width: 60%;
 }
-
-.main-section{
+.cart-summary{
+    border-radius: 2px;
+    width: 20%;
+    position: fixed;    
+    right: 15%;
+    top: 35%;
+    background: white;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.mainsection{
+    width: 55vw;
+    align-items: flex-start;
+    justify-content: center;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    height: auto;
+    overflow: auto;
+    padding-bottom: 20%;
+    justify-content: space-between;
+    padding-right: 5%;
 }
 .checkout{
     display: flex;

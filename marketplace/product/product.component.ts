@@ -99,7 +99,7 @@ export class ProductComponent implements OnInit{
   viewCart(){
     this.router.navigate(['/market_place/cart'])
   }
-  addToCart(id:any, quantity:any){
+  addToCart(id:any, quantity:any, model:any,name:any,price:any,avatar:any,discount:any){
     const userid = localStorage.getItem('userId')
     if(userid){
       const dialogRef = this.dialog.open(AddToCartComponent, {
@@ -114,13 +114,16 @@ export class ProductComponent implements OnInit{
         if(result){
           const data = {
             userid: localStorage.getItem('userId'),
+            name:name,
             productid: result.productid,
             quantity: result.qtty,
-            totalcost: parseInt(result.qtty)*this.calculateDiscountedPrice(this.price, this.discount),
-            price: this.calculateDiscountedPrice(this.price, this.discount),
+            model:model,
+            totalcost: (price*result.qtty),
+            price: price,
+            avatar:avatar,
+            discount:discount
           }
 
-          console.log(data.totalcost)
           this.ms.addToCart(data).subscribe((response:any)=>{
             if(response.success){
               this.addtocartfeedback = "Added to Cart Successfully"

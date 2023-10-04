@@ -54,7 +54,7 @@
             <small>{{addtocartfeedback}}</small>
         </div> 
         <div class="button-div">
-            <button *ngIf="quantity" (click)="addToCart(productid, quantity)" color="primary" mat-raised-button><mat-icon>add_shopping_cart</mat-icon> ADD TO CART</button>
+            <button *ngIf="quantity" (click)="addToCart(productid, quantity, model,pname,calculateDiscountedPrice(price, discount), avatar,discount)" color="primary" mat-raised-button><mat-icon>add_shopping_cart</mat-icon> ADD TO CART</button>
             <button (click)="viewCart()" color="accent" mat-raised-button >VIEW CART</button>
         </div>
        
