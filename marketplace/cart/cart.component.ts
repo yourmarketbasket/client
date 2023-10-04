@@ -94,6 +94,10 @@ export class CartComponent implements OnInit {
     })
 
   }
+  viewProduct(id:any){
+    // navigate tot he product view page
+    this.router.navigate(['/market_place/product'], {queryParams: {id:id}})
+  }
 
   removeCartItem(productid:any,buyerid:any){
     const data = {
