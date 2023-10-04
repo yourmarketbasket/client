@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
@@ -24,7 +25,7 @@ export class CartComponent implements OnInit {
   productmodel: any;
   qtty: any;
   available: any;
-  constructor(private cartService: CartService, private ms: MasterServiceService, private router: Router){}
+  constructor(private location:Location, private cartService: CartService, private ms: MasterServiceService, private router: Router){}
   cartItemCount!:any;
   userid = localStorage.getItem('userId')
   cartitems!:any;
@@ -38,7 +39,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     // get the cart items
-   this.ms.getCartItems(this.userid).subscribe((response:any)=>{
+    this.ms.getCartItems(this.userid).subscribe((response:any)=>{
       if(response.success){
         this.cartitems = response.items;
         this.productname = response.items.productname;
@@ -46,19 +47,65 @@ export class CartComponent implements OnInit {
         this.qtty = response.items.quantity;
         this.available = response.items.available;
         this.totalcost = response.items.totalcost;
+        this.getTotalCost();
+        this.verifyExistenceofCartItems();
       }
       
     })
 
       
   }
+  verifyExistenceofCartItems(){
+    if(this.grandtotal==0){
+      this.router.navigate([''])
+    }
+  }
  
   getTotalCost(){
-    let cost = 0;
+    this.grandtotal = 0
     this.cartitems.forEach((e:any) => {
-      cost+=e.totalCost;      
+      this.grandtotal+=e.totalCost;      
     });
-    return cost.toLocaleString();
+    return this.grandtotal;
+  }
+
+  reduceQuantityByOne(productid:any,buyerid:any,available:any){
+    const data = {
+      productid:productid,
+      buyerid:buyerid,
+      available:(available+1)
+    }
+    this.ms.reduceQttyByOne(data).subscribe((res:any)=>{
+      if(res.success){
+        window.location.reload();
+      }
+    })
+  }
+  increaseQuantityByOne(productid:any,buyerid:any,available:any){
+    const data = {
+      productid:productid,
+      buyerid:buyerid,
+      available:(available+1)
+    }
+    this.ms.increaseQttyByOne(data).subscribe((res:any)=>{
+      if(res.success){
+        window.location.reload();
+      }
+    })
+
+  }
+
+  removeCartItem(productid:any,buyerid:any){
+    const data = {
+      productid:productid,
+      buyerid:buyerid
+    }
+
+    this.ms.removeCartItem(data).subscribe((res:any)=>{
+      if(res.success){
+        window.location.reload();
+      }
+    })
   }
 
  

@@ -29,11 +29,11 @@
                 </div>
                 
                 <div class="pactions">
-                    <button mat-flat-button><mat-icon>delete_outline</mat-icon> REMOVE</button>
+                    <button (click)="removeCartItem(item.productid, item.buyerid)" mat-flat-button><mat-icon>delete_outline</mat-icon> REMOVE</button>
                     <div class="add-or-remove-items-button">
-                        <button mat-raised-button color="accent">-</button>
+                        <button (click)="reduceQuantityByOne(item.productid, item.buyerid, item.available)" mat-raised-button color="accent">-</button>
                         <span>{{item.quantity}}</span>
-                        <button mat-raised-button color="primary">+</button>
+                        <button (click)="increaseQuantityByOne(item.productid, item.buyerid, item.available)" mat-raised-button color="primary">+</button>
                     </div>
                 </div>
                 
@@ -41,21 +41,21 @@
         </div>
 
         
-        <div class="cart-summary">
+        <div *ngIf="grandtotal" class="cart-summary">
             <h2>CART SUMMARY</h2>
             <div class="totalcostrow">
                 <span>
                     Product Totals:
                 </span>
                 <span>
-                    Ksh. {{getTotalCost()}}
+                    Ksh. {{grandtotal.toLocaleString()}}
                 </span>
             </div>
             <div class="extradetails">
                 <small>Totals not inclusive of Delivery Fees</small>
             </div>
             <div class="checkoutbutton">
-                <button mat-raised-button color="primary">CHECKOUT(Ksh. {{getTotalCost()}})</button>
+                <button mat-raised-button color="primary">CHECKOUT(Ksh. {{grandtotal.toLocaleString()}})</button>
             </div>
         </div>
     </div>

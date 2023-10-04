@@ -102,6 +102,15 @@ export class MasterServiceService {
     return this.http.get(`${this.baseurl}/api/products/getCartItems/${userid}`);
     
   }
+  reduceQttyByOne(data:any){
+    return this.http.post(`${this.baseurl}/api/products/decreaseCartItemByOne`, data);
+  }
+  increaseQttyByOne(data:any){
+    return this.http.post(`${this.baseurl}/api/products/increaseCartItemByOne`, data);
+  }
+  removeCartItem(data:any){
+    return this.http.post(`${this.baseurl}/api/products/removeCartItem`, data);
+  }
   fetchProductDetails(productid:any){
     return this.http.get(`${this.baseurl}/api/products/productDetails/${productid}`);
   }
