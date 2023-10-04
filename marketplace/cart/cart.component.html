@@ -1,7 +1,7 @@
 <div class="body">
     <mat-spinner *ngIf="!cartitems" strokeWidth="2" diameter="80"></mat-spinner>
     <!-- the table and column -->
-    <div class="main-section">
+    <div *ngIf="cartitems" class="main-section">
         <table>
             <tr class="mat-elevation-z8">
                 <th>#</th>

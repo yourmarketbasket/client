@@ -71,7 +71,7 @@ mat-tab{
 .product{
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     width: 90%;
     margin: 0.5px;

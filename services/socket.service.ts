@@ -8,7 +8,7 @@ export class SocketService {
   
   socket: any;
   constructor() { 
-    this.socket = io('ws://localhost:3000');
+    this.socket = io('ws://13.126.174.222:3000');
   }
 
   listen(eventName: string): Observable<any> {

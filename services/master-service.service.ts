@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class MasterServiceService {
-  baseurl = "http://localhost:3000";
+  baseurl = "http://13.126.174.222:3000";
 
   constructor(
     private http: HttpClient,
