@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   // isLoggedIn = false;
-  baseurl = 'http://13.126.174.222:3000';
+  baseurl = 'http://localhost:3000';
   loginUser(user: any) {
     return this.http.post(`${this.baseurl}/api/users/login`, user);
   }
