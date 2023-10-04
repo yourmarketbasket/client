@@ -29,7 +29,7 @@
                 </div>
                 
                 <div class="pactions">
-                    <button (click)="removeCartItem(item.productid, item.buyerid)" mat-flat-button><mat-icon>delete_outline</mat-icon> REMOVE</button>
+                    <button (click)="removeCartItem(item.productid, item.buyerid)" mat-raised-button><mat-icon>delete_outline</mat-icon> REMOVE</button>
                     <div class="add-or-remove-items-button">
                         <button [disabled]="(item.quantity==1)" (click)="reduceQuantityByOne(item.productid, item.buyerid, item.available)" mat-raised-button color="accent">-</button>
                         <span>{{item.quantity}}</span>
