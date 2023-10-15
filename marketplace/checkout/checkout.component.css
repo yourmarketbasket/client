@@ -1,0 +1,143 @@
+.body{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+}
+.split{
+    display: flex;
+    flex-direction: row;
+    width: 99%;
+}
+.whitebackground{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0.3% 0.2% ;
+    width: 60%;
+}
+.loadingspinner{
+    display: flex;
+    z-index: 99999;
+    width: 100vw;
+    height: 50vh;
+    align-items: center;
+    justify-content: center;
+    transition:cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.checkout-header, .checkout-location, .checkout-payment_method, .checkout-header_checkout{
+    background-color: rgb(203, 223, 240); /* Vertically center the content */
+    height:auto; 
+    width: 90%;
+    margin: 3px;/* Adjust the height as needed */
+  }
+  .summarydetails{
+    color: rgb(24, 17, 92);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  hr{
+    background-color: white; 
+    border:1px solid white; 
+    border-radius: 50% 50%;
+    width:100%; margin:2px
+  }
+  h1{
+    margin: 2px;
+  }
+  
+  .checkout-header{
+    color: rgb(255, 255, 255);
+    font-family:Roboto,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;
+    font-size:x-large;    
+    flex-direction: row;
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px 0px 20px ;    
+    justify-content: center; /* Horizontally center the content */
+    align-items: center;
+  }
+  .checkout-summary{
+    background-color: rgb(203, 223, 240); /* Vertically center the content */
+    display: flex;
+    width: 45%;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .checkout-header h1{
+    margin:0px;
+    padding: 0px;
+
+  }
+
+  /* Extra Small Devices (up to 576px) */
+@media (max-width: 576px) {
+    .checkout-header, .checkout-summary, .checkout-location, .checkout-payment_method, .checkout-header_checkout {
+      width: 98%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* Full width for extra small screens */
+    }
+    .split{
+        display: flex;
+        flex-direction: column;
+        width: 99%;
+    }
+    .whitebackground{
+        width: 98%;
+    }
+}
+  
+/* Small Devices (576px to 768px) */
+@media (min-width: 576px) and (max-width: 768px) {
+    .checkout-header, .checkout-summary, .checkout-location, .checkout-payment_method, .checkout-header_checkout {
+        width: 99%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; /* Full width for extra small screens */
+      }
+      .whitebackground{
+        width: 98%;
+    }
+/* Add your specific styles for small devices here */
+}
+
+/* Medium Devices (768px to 992px) */
+@media (min-width: 768px) and (max-width: 992px) {
+    .checkout-header, .checkout-summary, .checkout-location, .checkout-payment_method, .checkout-header_checkout {
+        width: 99%;
+        display: flex;/* Full width for extra small screens */
+      }
+/* Add your specific styles for medium devices here */
+}
+
+/* Large Devices (992px to 1200px) */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .checkout-header,  .checkout-location, .checkout-payment_method, .checkout-header_checkout {
+        width: 99%;
+        display: flex;/* Full width for extra small screens */
+      }
+/* Add your specific styles for large devices here */
+}
+
+/* Extra Large Devices (1200px and above) */
+@media (min-width: 1200px) {
+    .checkout-header, .checkout-location, .checkout-payment_method, .checkout-header_checkout {
+        width: 99%;
+        display: flex;/* Full width for extra small screens */
+      }
+    
+/* Add your specific styles for extra large devices here */
+}

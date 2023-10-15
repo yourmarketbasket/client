@@ -1,0 +1,44 @@
+<div class="body">
+    <div *ngIf="!totalCost" class="loadingspinner">
+        <mat-spinner strokeWidth="1"></mat-spinner>
+    </div>
+    <div *ngIf="totalCost" class="whitebackground">
+        <div class="checkout-header">
+            <span>CHECKOUT</span>
+        </div>
+        <div class="split">
+            <div class="checkout-summary">
+                <h1>Checkout Summary</h1>
+                <hr>
+                <div class="summarydetails">
+                    <span><b>Description</b></span>
+                    <span><b>Amount(KES)</b></span>
+                </div>
+                <div class="summarydetails">
+                    <span>Cart Total({{cartItems.length}})</span>
+                    <span>{{totalCost.toLocaleString('en-us')}}/=</span>
+                </div>
+                <div class="summarydetails">
+                    <span>Logistics</span>
+                    <span>{{logisticFee.toLocaleString('en-us')}}/=</span>
+                </div>
+                <div class="summarydetails">
+                    <span><b>Grand Total</b></span>
+                    <span><b>{{(logisticFee+totalCost).toLocaleString('en-us')}}/=</b></span>
+                </div>
+                
+            </div>
+            <div class="checkout-location">
+                <span>LOCATION</span>
+            </div>
+        </div>
+        
+        <div class="checkout-payment_method">
+            <span>PAYMENT METHOD</span>
+        </div>
+        <div class="checkout-header_checkout">
+            <span>CHECKOUT</span>
+        </div>
+
+    </div>
+</div>

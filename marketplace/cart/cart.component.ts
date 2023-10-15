@@ -60,6 +60,10 @@ export class CartComponent implements OnInit {
       this.router.navigate([''])
     }
   }
+
+  goToCheckout(totalamount:any){
+      this.router.navigate(['/market_place/checkout'])
+  }
  
   getTotalCost(){
     this.grandtotal = 0

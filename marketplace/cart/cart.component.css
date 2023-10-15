@@ -100,23 +100,7 @@ td, th{
     border-bottom: 1px solid rgb(150, 149, 149);
     margin: 10px;    
 }
-table{
-    border-collapse: collapse;
-    width: 60%;
-}
-.cart-summary{
-    border-radius: 2px;
-    width: 20%;
-    position: fixed;    
-    right: 15%;
-    top: 35%;
-    background: white;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-}
+
 .mainsection{
     width: 55vw;
     align-items: flex-start;
@@ -141,4 +125,127 @@ table{
 }
 td button{
     margin: 5px;
+}
+
+/* media queries */
+/* Extra Small Devices (up to 576px) */
+@media only screen and (max-width: 576px) {
+    .body {
+        padding-top: 5%; 
+        align-items: center;
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;/* Increase padding for better spacing on small screens */
+    }
+    .cart-details {
+        width: auto; /* Make the cart details take up more screen width */
+    }
+    .mainsection {
+        width: 100vw;/* Expand the main section to full width */
+        padding-right: 0; 
+        display: flex;
+        height: 1000vh;
+        overflow: auto;
+        flex-direction: column-reverse;/* Remove right padding */
+    }
+    .checkout {
+        width: 100%; /* Expand the checkout section to full width */
+    }
+    .major-row, .pdetails{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .pactions{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100vw;
+    }
+    .cart-summary{
+        border-radius: 2px;
+        background: white;
+        width: 95vw;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+    .cart-items{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+/* Small Devices (576px - 768px) */
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+    .cart-summary {
+        right: 10%; /* Adjust the position of the cart summary */
+    }
+    /* Add more adjustments as needed */
+}
+
+/* Medium Devices (768px - 992px) */
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+    .cart-summary{
+        border-radius: 2px;
+        width: 20%;
+        position: fixed;    
+        right: 15%;
+        top: 35%;
+        background: white;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+    .body {
+        padding-top: 2%; /* Adjust padding for medium devices */
+    }
+    /* Add more adjustments as needed */
+}
+
+/* Large Devices (992px - 1200px) */
+@media only screen and (min-width: 993px) and (max-width: 1200px) {
+    .cart-summary{
+        border-radius: 2px;
+        width: 20%;
+        position: fixed;    
+        right: 15%;
+        top: 35%;
+        background: white;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+    .mainsection {
+        padding-bottom: 10%; /* Reduce the bottom padding for large devices */
+    }
+    /* Add more adjustments as needed */
+}
+
+/* Extra Large Devices (1200px and above) */
+@media only screen and (min-width: 1201px) {
+    .cart-summary{
+        border-radius: 2px;
+        width: 20%;
+        position: fixed;    
+        right: 15%;
+        top: 35%;
+        background: white;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+    /* Add adjustments for extra large devices here */
 }

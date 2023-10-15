@@ -55,7 +55,7 @@
                 <small>Totals not inclusive of Delivery Fees</small>
             </div>
             <div class="checkoutbutton">
-                <button mat-raised-button color="primary">CHECKOUT(Ksh. {{grandtotal.toLocaleString()}})</button>
+                <button (click)="goToCheckout(grandtotal)" mat-raised-button color="primary">CHECKOUT(Ksh. {{grandtotal.toLocaleString()}})</button>
             </div>
         </div>
     </div>

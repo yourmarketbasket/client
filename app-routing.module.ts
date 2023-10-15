@@ -27,6 +27,7 @@ import { ProductDetailsComponent } from './marketplace/product/product-details/p
 import { SettingsComponent } from './profile/settings/settings.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CartComponent } from './marketplace/cart/cart.component';
+import { CheckoutComponent } from './marketplace/checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/market_place', pathMatch: 'full' },
@@ -34,6 +35,7 @@ const routes: Routes = [
     children:[
       {path: '', component: ProductsComponent},
       {path: 'cart', component: CartComponent, canActivate: [AuthGuard],},
+      {path:'checkout', component:CheckoutComponent, canActivate: [AuthGuard]},
       {path: 'product', component: ProductComponent},
     ]
   },
