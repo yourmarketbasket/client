@@ -6,6 +6,7 @@ import { AbstractControl, FormControl, FormGroup, Validators, FormBuilder} from 
 import { AuthService } from 'src/app/auth.service';
 import { HttpClient } from '@angular/common/http';
 import {SocketService} from '../../services/socket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createstore',
@@ -38,7 +39,7 @@ export class CreatestoreComponent implements OnInit{
   uploadProgress!: number;
   storeTypes = storetypes;
   // constructor
-  constructor( private storage: Storage, private socketService: SocketService, private http: HttpClient, private authService: AuthService, private formBuilder: FormBuilder
+  constructor( private router: Router, private storage: Storage, private socketService: SocketService, private http: HttpClient, private authService: AuthService, private formBuilder: FormBuilder
   ) { }
   // on init
   ngOnInit(): void {
@@ -130,9 +131,9 @@ export class CreatestoreComponent implements OnInit{
           }
           this.authService.addStore(store).subscribe((res:any) => {
              if(res.success){
-                alert(`Store ${this.createStoreform.value.storeName} Created Successfully.`)
-                this.progressColor = 'primary';
-                this.socketService.emit('store-created', res.data);
+               this.progressColor = 'primary';
+               this.socketService.emit('store-created', res.data);
+               this.router.navigate(['/dashboard/settings'], {queryParams: {storename: res.data.storename, storeid: res.data._id} })
               //  alert('Store created successfully');
              }else{
                 this.progressColor = 'warn';

@@ -2,12 +2,12 @@
     <div *ngIf="!totalCost" class="loadingspinner">
         <mat-spinner strokeWidth="1"></mat-spinner>
     </div>
-    <div *ngIf="totalCost" class="whitebackground">
+    <div  class="whitebackground">
         <div class="checkout-header">
             <span>CHECKOUT</span>
         </div>
         <div class="split">
-            <div class="checkout-summary">
+            <div *ngIf="totalCost" class="checkout-summary">
                 <h1>Checkout Summary</h1>
                 <hr>
                 <div class="summarydetails">
@@ -29,13 +29,36 @@
                 
             </div>
             <div class="checkout-location">
-                <span>LOCATION</span>
+                <h1>Location</h1>
+                <hr>
+                <div class="deliverydetails">
+                    <div class="location">
+                            <form [formGroup]="locationForm" class="location_form_fields">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Location</mat-label>
+                                    <mat-select formControlName="selection" #selection (selectionChange)="selectionPref($event)">
+                                        <mat-option value="1">Enter Location</mat-option>
+                                        <mat-option value="2">Current Location</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Start typing to select...</mat-label>
+                                    <input #locationField formControlName="locationField" matInput type="text">
+                                </mat-form-field>
+                                <div class="preview_delivery_details">
+                                    <button (click)="preview()" mat-raised-button color="primary">Preview Delivery</button>
+                                </div>                        
+                            </form>
+                            
+                        
+                    </div>
+                    <div class="estimatedduration">
+                        duration
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="checkout-payment_method">
-            <span>PAYMENT METHOD</span>
-        </div>
         <div class="checkout-header_checkout">
             <span>CHECKOUT</span>
         </div>

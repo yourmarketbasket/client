@@ -11,31 +11,65 @@
         set your account settings here
     </div> -->
     <div class="seller-settings">
-        <mat-card>
+        <div *ngIf="!stores" class="loadingspinner">
+            <mat-spinner strokeWidth="1"></mat-spinner>
+        </div>
+        <div *ngIf="!hasData" class="nostores">
+            <h3>YOU DO NOT HAVE ANY STORES. CLICK THE BUTTON BELOW TO ADD ONE</h3>
+            <button routerLink="/dashboard/createstore" mat-flat-button>ADD STORE</button>
+        </div>
+        <mat-card *ngIf="hasData">
             <mat-card-header>
-                <h1>Seller Settings</h1>
+                <div class="settingsheader">
+                    <h1>Seller Settings</h1>
+                    <p class="feedback">{{feedback}}</p> 
+                </div>
             </mat-card-header>
             <mat-card-content>
-                <form>
-                    <div class="locale-settings">
-                        <span>Locale Settings</span>
-                        <div class="locale-settings-fields">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Currency</mat-label>
-                                <mat-select>
-                                    <mat-option *ngFor="let currency of currencies; let i = index" [value]="i">
-                                        {{currency["code"]}}{{currency["symbol"]?(currency["symbol"]):""}} - {{currency["name"]}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
-                            <mat-form-field appearance="outline">
-                                <mat-label>Location</mat-label>
-                                <input #locationInput matInput type="text" [placeholder]="placeholder">
-                            </mat-form-field>
-                        </div>
+                <form (ngSubmit)="submitSettings()" [formGroup]="settingsform">
+                    
+                    <div class="locale-settings">                         
+                      <div class="locale-settings-fields">
+                        <mat-form-field *ngIf="passedData && stores" appearance="outline">
+                          <mat-label>Select Store</mat-label>
+                          <mat-select formControlName="store">
+                            <mat-option [value]="stores.storeid">{{stores.storename}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field *ngIf="stores && (!passedData)" appearance="outline">
+                            <mat-label>Select Store</mat-label>
+                            <mat-select formControlName="store">
+                              <mat-option *ngFor="let store of stores; let t = index" [value]="store._id">{{store.storename}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        <mat-form-field appearance="outline" *ngIf="currencies">
+                          <mat-label>Currency</mat-label>
+                          <mat-select formControlName="currency">
+                            <mat-option  *ngFor="let currency of currencies; let i = index" [value]="currencies[i].code">
+                              {{ currency["code"] }}{{ currency["symbol"] ? currency["symbol"] : "" }} - {{ currency["name"] }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <div class="locale-settings-fields">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Select...</mat-label>
+                          <mat-select formControlName="locationPreference" (selectionChange)="changeLocationSelectionPrefs($event)">
+                            <mat-option value="1">Enter Location</mat-option>
+                            <mat-option value="2">My Current Location</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                          <mat-label>Search Your Location</mat-label>
+                          <input #locationInput formControlName="locationInput" matInput type="text">
+                        </mat-form-field>
+                      </div>
+                      <div class="card-footer">
+                          <button mat-raised-button color="primary">SUBMIT SETTINGS</button>
+                      </div>
                     </div>
-                </form>
+                  </form>
+                  
             </mat-card-content>
         </mat-card>
     </div>

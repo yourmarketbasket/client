@@ -63,6 +63,9 @@ export class MasterServiceService {
   addStore (data: any) {
     return this.http.post(`${this.baseurl}/addStore`, data);
   }
+  updateSellerSettings(data:any){
+    return this.http.post(`${this.baseurl}/api/sellers/updateSettings`, data);
+  }
   getStores (userId: any) {
     return this.http.get(`${this.baseurl}/getStores/${userId}`);
   }
