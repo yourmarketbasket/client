@@ -1,4 +1,4 @@
-<div class="body">
+<div class="checkoutbody">
     <div *ngIf="!totalCost" class="loadingspinner">
         <mat-spinner strokeWidth="1"></mat-spinner>
     </div>
@@ -26,6 +26,11 @@
                     <span><b>Grand Total</b></span>
                     <span><b>{{(logisticFee+totalCost).toLocaleString('en-us')}}/=</b></span>
                 </div>
+                <hr>
+                <span *ngIf="buyerLocation">My Location: {{buyerLocation.latitude}} {{buyerLocation.longitude}}</span>
+                <span *ngIf="totalDistance">Distance: {{totalDistance}} Km</span>
+                <span *ngIf="eta" >ETA: {{eta.months?eta.months+" months":""}} {{eta.weeks?eta.weeks+" weeks":""}} {{eta.days?eta.days+" days":""}} {{eta.hours?eta.hours+" hours":""}} {{eta.minutes?eta.minutes+" mins":""}} {{eta.seconds?eta.seconds+" seconds":""}}</span>
+                <span *ngIf="deliveryCost">Cost: Kes {{logisticFee}}/=</span>
                 
             </div>
             <div class="checkout-location">
@@ -46,21 +51,23 @@
                                     <input #locationField formControlName="locationField" matInput type="text">
                                 </mat-form-field>
                                 <div class="preview_delivery_details">
-                                    <button (click)="preview()" mat-raised-button color="primary">Preview Delivery</button>
+                                    <button (click)="preview()" mat-raised-button color="primary">Preview Delivery Time</button>
                                 </div>                        
-                            </form>
-                            
+                            </form>                           
                         
                     </div>
                     <div class="estimatedduration">
-                        duration
+                        <iframe *ngIf="mapUrl" [src]="mapUrl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                       
+
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="checkout-header_checkout">
-            <span>CHECKOUT</span>
+            <div id="maps">
+                
+            </div>
         </div>
 
     </div>

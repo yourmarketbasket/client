@@ -57,6 +57,7 @@ export class ProductComponent implements OnInit{
          this.subcategory = this.product.subcategory;
          this.category = this.product.category;
          this.price = this.product.sp;
+         this.storeid = this.product.storeid
 
       }
     })
@@ -99,7 +100,7 @@ export class ProductComponent implements OnInit{
   viewCart(){
     this.router.navigate(['/market_place/cart'])
   }
-  addToCart(id:any, quantity:any, model:any,name:any,price:any,avatar:any,discount:any){
+  addToCart(id:any, storeid:any, quantity:any, model:any,name:any,price:any,avatar:any,discount:any){
     const userid = localStorage.getItem('userId')
     if(userid){
       const dialogRef = this.dialog.open(AddToCartComponent, {
@@ -116,6 +117,7 @@ export class ProductComponent implements OnInit{
             userid: localStorage.getItem('userId'),
             name:name,
             productid: result.productid,
+            storeid:storeid,
             quantity: result.qtty,
             model:model,
             totalcost: (price*result.qtty),
