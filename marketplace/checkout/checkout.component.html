@@ -2,12 +2,12 @@
     <div *ngIf="!totalCost" class="loadingspinner">
         <mat-spinner strokeWidth="1"></mat-spinner>
     </div>
-    <div  class="whitebackground">
+    <div class="whitebackground">
         <div class="checkout-header">
             <span>CHECKOUT</span>
         </div>
         <div class="split">
-            <div *ngIf="totalCost" class="checkout-summary">
+            <div *ngIf="totalCost" class="checkout-summary mat-elevation-z8">
                 <h1>Checkout Summary</h1>
                 <hr>
                 <div class="summarydetails">
@@ -27,14 +27,18 @@
                     <span><b>{{(logisticFee+totalCost).toLocaleString('en-us')}}/=</b></span>
                 </div>
                 <hr>
-                <span *ngIf="buyerLocation">My Location: {{buyerLocation.latitude}} {{buyerLocation.longitude}}</span>
-                <span *ngIf="totalDistance">Distance: {{totalDistance}} Km</span>
-                <span *ngIf="eta" >ETA: {{eta.months?eta.months+" months":""}} {{eta.weeks?eta.weeks+" weeks":""}} {{eta.days?eta.days+" days":""}} {{eta.hours?eta.hours+" hours":""}} {{eta.minutes?eta.minutes+" mins":""}} {{eta.seconds?eta.seconds+" seconds":""}}</span>
-                <span *ngIf="deliveryCost">Cost: Kes {{logisticFee}}/=</span>
                 
+                <span *ngIf="totalDistance"><b>Distance:</b> {{totalDistance}} Km</span>
+                <span *ngIf="eta" ><b>ETA:</b>  {{eta.months?eta.months+" months":""}} {{eta.weeks?eta.weeks+" weeks":""}} {{eta.days?eta.days+" days":""}} {{eta.hours?eta.hours+" hours":""}}</span>
+                <span style="width: 100%;" *ngIf="logisticFee">
+                    <hr>
+                </span>
+                <mat-checkbox style="margin:2%" class="accepttns">Accept Terms and Conditions</mat-checkbox>
+                <button *ngIf="logisticFee" mat-stroked-button color="accent">COMPLETE CHECKOUT</button>
             </div>
-            <div class="checkout-location">
+            <div class="checkout-location mat-elevation-z8">
                 <h1>Location</h1>
+                <small *ngIf="buyerLocation">My Location: {{buyerLocation.latitude}} {{buyerLocation.longitude}}</small>
                 <hr>
                 <div class="deliverydetails">
                     <div class="location">
@@ -57,7 +61,7 @@
                         
                     </div>
                     <div class="estimatedduration">
-                        <iframe *ngIf="mapUrl" [src]="mapUrl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                       
+                        <iframe class="mat-elevation-z8" *ngIf="mapUrl" [src]="mapUrl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                       
 
                     </div>
                 </div>

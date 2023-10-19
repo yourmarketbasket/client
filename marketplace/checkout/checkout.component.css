@@ -1,4 +1,5 @@
 .checkoutbody{
+    color: rgb(20, 15, 90);
     width: auto;
     display: flex;
     flex-direction: column;
@@ -26,6 +27,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin: 1%;
 }
 
 .estimatedduration iframe {
@@ -40,6 +42,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items:stretch;
+    margin: 1%;
     
 }
 .location{
@@ -49,6 +53,9 @@
     align-items: center;
     justify-content: center;
 }
+.location button{
+  width: 100%;
+}
 .split{
     display: flex;
     flex-direction: row;
@@ -56,7 +63,7 @@
 }
 .whitebackground{
     background-color: rgb(255, 255, 255);
-    z-index: 99999;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,24 +72,26 @@
     padding: 0.3% 0.2% ;
     width: 60%;
 }
+.checkout-summary button{
+  width: 100%;
+}
 .loadingspinner{
     display: flex;
-    z-index: 99999;
+    z-index: 9;
     width: 100vw;
-    height: 50vh;
+    height: 85vh;
     align-items: center;
     justify-content: center;
     transition:cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .checkout-header, .checkout-location, .checkout-payment_method, .checkout-header_checkout{
-    background-color: rgb(203, 223, 240); /* Vertically center the content */
     height:auto; 
     width: 90%;
     margin: 3px;/* Adjust the height as needed */
   }
-  .checkout-location{
-    background-color: rgb(203, 223, 240); /* Vertically center the content */
+  .checkout-location{/* Vertically center the content */
     display: flex;
+    border: 1px solid rgb(158, 184, 196);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -102,20 +111,19 @@
   
   hr{
     background-color: white; 
-    border:1px solid white; 
+    border: 1px dashed rgb(158, 184, 196);
     border-radius: 50% 50%;
-    width:100%; margin:2px
-  }
-  h1{
+    width:100%; margin:2px;
     margin: 2px;
   }
+  
   .location_form_fields{
     display: flex;
     flex-direction: column;
   }
   
   .checkout-header{
-    color: rgb(255, 255, 255);
+    color: rgb(20, 15, 90);
     font-size:x-large;    
     flex-direction: row;
     border-radius: 5px 5px 0px 0px;
@@ -123,14 +131,13 @@
     justify-content: center; /* Horizontally center the content */
     align-items: center;
   }
-  .checkout-summary{
-    background-color: rgb(203, 223, 240); /* Vertically center the content */
+  .checkout-summary{ /* Vertically center the content */
     display: flex;
     width: 45%;
+    border: 1px solid rgb(158, 184, 196);
     flex-direction: column;
     padding: 10px;
     border-radius: 10px;
-    justify-content: flex-start;
     align-items: flex-start;
     margin: 4px;
   }
