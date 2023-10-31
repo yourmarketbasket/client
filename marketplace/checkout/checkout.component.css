@@ -91,7 +91,7 @@
   }
   .checkout-location{/* Vertically center the content */
     display: flex;
-    border: 1px solid rgb(158, 184, 196);
+    border: 1px solid rgb(0, 248, 215);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -111,7 +111,7 @@
   
   hr{
     background-color: white; 
-    border: 1px dashed rgb(158, 184, 196);
+    border: 1px dashed rgb(0, 248, 215);
     border-radius: 50% 50%;
     width:100%; margin:2px;
     margin: 2px;
@@ -134,7 +134,7 @@
   .checkout-summary{ /* Vertically center the content */
     display: flex;
     width: 45%;
-    border: 1px solid rgb(158, 184, 196);
+    border: 1px solid rgb(0, 248, 215);
     flex-direction: column;
     padding: 10px;
     border-radius: 10px;
