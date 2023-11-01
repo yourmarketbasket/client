@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { MasterServiceService } from 'src/app/services/master-service.service';
 export class PaymentDialogComponent implements OnInit{
   iframurl!:any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any,private ms: MasterServiceService, public dialogRef: MatDialogRef<PaymentDialogComponent>){
+  constructor(@Inject(MAT_DIALOG_DATA) public data:any,private router: Router, private ms: MasterServiceService, public dialogRef: MatDialogRef<PaymentDialogComponent>){
 
   }
   ngOnInit(): void {
@@ -20,7 +21,8 @@ export class PaymentDialogComponent implements OnInit{
     // check the status of the paymment
     this.ms.confirmTransactionStatus(trackingid).subscribe((res:any)=>{
       if(res.status == 200 && res.payment_status_description == "Completed"){
-        console.log("transaction confirmed")
+        // navigate to the success page
+        // this.router.navigate(['/success'])        
       }else{
         console.log("transaction failed")
       }

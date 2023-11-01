@@ -1,0 +1,9 @@
+<div *ngIf="!processingComplete" class="progress">
+    <mat-spinner strokeWidth="2"></mat-spinner>
+</div>
+<div *ngIf="processingComplete" class="body">
+    <h1>{{tstatus}}</h1>
+    <mat-icon *ngIf="success" class="alert-success">check_circle_outline</mat-icon>
+    <mat-icon *ngIf="!success" class="alert-danger">error_outline</mat-icon>
+
+</div>

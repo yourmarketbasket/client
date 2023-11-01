@@ -1,0 +1,29 @@
+.body{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-icon{
+    color: rgb(50, 212, 50);
+    transform: scale(2);
+}
+
+.alert-success{
+    color:rgb(50, 212, 50)
+}
+.alert-danger{
+    color: red
+}
+
+.progress{
+    height: 50%;
+    width: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

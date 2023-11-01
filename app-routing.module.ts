@@ -29,16 +29,18 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { CartComponent } from './marketplace/cart/cart.component';
 import { CheckoutComponent } from './marketplace/checkout/checkout.component';
 import { PaymentDialogComponent } from './marketplace/checkout/payment-dialog/payment-dialog.component';
+import { PaymentSuccessComponent } from './marketplace/checkout/payment-success/payment-success.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/market_place', pathMatch: 'full' },
   { path: 'payment_dialog', component:PaymentDialogComponent},
   { path: 'market_place', component: MarketplaceComponent,
-    children:[
+  children:[
       {path: '', component: ProductsComponent},
       {path: 'cart', component: CartComponent, canActivate: [AuthGuard],},
       {path:'checkout', component:CheckoutComponent, canActivate: [AuthGuard]},
       {path: 'product', component: ProductComponent},
+      { path: 'success', component:PaymentSuccessComponent},
     ]
   },
 

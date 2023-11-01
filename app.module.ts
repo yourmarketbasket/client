@@ -96,6 +96,7 @@ import { CartComponent } from './marketplace/cart/cart.component';
 import { AddToCartComponent } from './marketplace/add-to-cart/add-to-cart.component';
 import { CheckoutComponent } from './marketplace/checkout/checkout.component';
 import { PaymentDialogComponent } from './marketplace/checkout/payment-dialog/payment-dialog.component';
+import { PaymentSuccessComponent } from './marketplace/checkout/payment-success/payment-success.component';
 
 
 
@@ -143,7 +144,8 @@ import { PaymentDialogComponent } from './marketplace/checkout/payment-dialog/pa
     CartComponent,
     AddToCartComponent,
     CheckoutComponent,
-    PaymentDialogComponent
+    PaymentDialogComponent,
+    PaymentSuccessComponent
     
 
   ],
