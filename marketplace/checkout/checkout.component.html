@@ -34,12 +34,13 @@
                 <span style="width: 100%;" *ngIf="logisticFee">
                     <hr>
                 </span>
-                <mat-checkbox style="margin:2%" class="accepttns">Accept Terms and Conditions</mat-checkbox>
-                <button *ngIf="logisticFee" mat-stroked-button color="accent">COMPLETE CHECKOUT</button>
+                <mat-checkbox [(ngModel)]="accepttncs" style="margin:2%" class="accepttns">Accept Terms and Conditions</mat-checkbox>
+                <button [disabled]="!accepttncs" (click)="completeCheckout(logisticFee+totalCost)" *ngIf="logisticFee && buyerLocation" mat-stroked-button color="accent">COMPLETE CHECKOUT</button>
             </div>
             <div class="checkout-location mat-elevation-z8">
                 <h1>Location</h1>
                 <small *ngIf="buyerLocation">My Location: {{buyerLocation.latitude}} {{buyerLocation.longitude}}</small>
+                <small *ngIf="mapfeedback">{{mapfeedback}}</small>
                 <hr>
                 <div class="deliverydetails">
                     <div class="location">
@@ -62,13 +63,13 @@
                         
                     </div>
                     <div class="estimatedduration">
-                        <iframe class="mat-elevation-z8" *ngIf="mapUrl" [src]="mapUrl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                       
+                        <iframe class="mat-elevation-z8" *ngIf="mapUrl && buyerLocation" [src]="mapUrl" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                       
 
                     </div>
                 </div>
             </div>
         </div>
-        <div style="text-align: left; font-size: small;">
+        <div *ngIf="buyerLocation" style="text-align: left; font-size: small; width: 100%;">
             <span style="color:red;">* Please confirm that the map shows your correct location before proceeding. <br> * If your current location is not correctly displayed, enter your location on the field provided and preview again</span>
 
         </div>

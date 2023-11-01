@@ -117,6 +117,13 @@ export class MasterServiceService {
   removeCartItem(data:any){
     return this.http.post(`${this.baseurl}/api/products/removeCartItem`, data);
   }
+  pesapalSOR(data:any){
+    return this.http.post(`${this.baseurl}/api/payments/pesapalSOR`, data);
+  }
+  confirmTransactionStatus(trackingid:any){
+    return this.http.get(`${this.baseurl}/api/payments/pesapalTransactionStatus/${trackingid}`);
+
+  }
   fetchProductDetails(productid:any){
     return this.http.get(`${this.baseurl}/api/products/productDetails/${productid}`);
   }

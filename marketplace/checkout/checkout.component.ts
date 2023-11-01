@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef, Input, AfterViewInit } from '
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Loader } from "@googlemaps/js-api-loader";
+import { countries } from 'src/app/register/countrycodes';
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
 
 @Component({
   selector: 'app-checkout',
@@ -35,6 +37,8 @@ export class CheckoutComponent implements OnInit {
   location!:any;
   numberOfOriginAddresses=0;
   mapUrl!:any;
+  mapfeedback!:any;
+  accepttncs:boolean = false;
 
 
   @Input() placeholder = ""; 
@@ -43,7 +47,7 @@ export class CheckoutComponent implements OnInit {
 
   autoComplete: google.maps.places.Autocomplete | undefined;
 
-  constructor(private ms:MasterServiceService, private domSanitizer: DomSanitizer){}
+  constructor(private ms:MasterServiceService, private domSanitizer: DomSanitizer, public dialog: MatDialog){}
   locationForm = new FormGroup({
     selection: new FormControl('', Validators.required),
     locationField: new FormControl('', Validators.required)
@@ -65,7 +69,6 @@ export class CheckoutComponent implements OnInit {
       }
     })   
     // get store locations
-    // this.fetchStorelocations()
     // initialize the map
     // this.initMap()
 
@@ -82,7 +85,6 @@ export class CheckoutComponent implements OnInit {
     if(event.value == 1){
       this.buyerLocation = null;
       this.locationForm.get('locationField')?.enable();
-      this.fetchStorelocations()
       
     }else if(event.value == 2){
       this.buyerLocation = null;
@@ -113,9 +115,14 @@ export class CheckoutComponent implements OnInit {
     this.numberOfOriginAddresses = 0;
     // this.buyerLocation = null;
     // console.log(this.buyerLocation)
-    await this.previewLogistics().then((res:any)=>{
-      this.logisticsDetails = res.details
-    });
+    const response:any = await this.previewLogistics();
+    if(!response.error){
+      this.mapfeedback = ''
+        this.logisticsDetails = response.details
+    }else{
+      this.buyerLocation = ''
+      this.mapfeedback = response.message
+    }
     
     
     this.logisticsDetails.rows.forEach((e:any) => {
@@ -132,7 +139,7 @@ export class CheckoutComponent implements OnInit {
     const dist = this.metersToKilometers(this.ddistance);
     this.eta = time;
     this.totalDistance = dist;
-    this.logisticFee = ((dist/this.numberOfOriginAddresses)*2)
+    this.logisticFee = ((dist/this.numberOfOriginAddresses)*this.numberOfOriginAddresses)
     const mylocation = this.replaceSpacesWithPlus(this.logisticsDetails.destinationAddresses[0]);
     console.log(mylocation)
     
@@ -163,17 +170,21 @@ export class CheckoutComponent implements OnInit {
             },
             (response: any, status: any) => {
               if (status === google.maps.DistanceMatrixStatus.OK) {
-                resolve({ details: response, status: status });
+                if(response.rows[0].elements[0].status!='ZERO_RESULTS'){
+                  resolve({ details: response, status: status, error:false });
+                }else{
+                  resolve({error:true,message: 'Distance out of the covered range'})
+                }
               } else {
-                reject(new Error('Distance matrix request failed'));
+                resolve({error:true,message: 'Some error occured'});
               }
             }
           );
         } else {
-          reject(new Error('Failed to fetch store locations or buyer location is missing.'));
+          resolve({error:true,message: 'Failed to fetch store locations or buyer location is missing.'});
         }
       } catch (error) {
-        reject(error);
+        resolve({error:true,message: error});
       }
     });
   }
@@ -255,9 +266,58 @@ export class CheckoutComponent implements OnInit {
   
     return result;
   }
-  
-  async fetchStorelocations(){
+  async completeCheckout(amount:any){
+    // getting the country code
+    let code = null;
+    for(let i=0; i<countries.length; i++){
+      if(countries[i].phone == this.user.zipcode.slice(1)){
+        code = countries[i].code;
+        break;
+      }
+    }
     
+    const data = {
+      transactionID: this.generateRandomCode(10),
+      amount: amount,
+      phone: this.user.phone,
+      zipcode: this.user.zipcode,
+      fname:this.user.fname,
+      lname:this.user.lname,
+      countryCode: code,
+      description: "Purchase of goods"
+    }
+
+    // send to the backend
+   await this.ms.pesapalSOR(data).subscribe((res:any)=>{
+     if(res.status == 200){
+        const url = res.redirect_url;
+        const sanitizedurl = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+        const dialogRef = this.dialog.open(PaymentDialogComponent, {
+          width: '60vw',
+          data: {
+            trackingID: res.order_tracking_id,
+            merchantref: res.merchant_reference,
+            url: sanitizedurl
+          },
+          disableClose: true
+        });
+     }//end of if block
+   })
+  
+
+
+    
+  }
+  generateRandomCode(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let code = '';
+  
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      code += characters.charAt(randomIndex);
+    }
+  
+    return code;
   }
   
   

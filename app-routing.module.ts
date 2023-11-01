@@ -28,9 +28,11 @@ import { SettingsComponent } from './profile/settings/settings.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CartComponent } from './marketplace/cart/cart.component';
 import { CheckoutComponent } from './marketplace/checkout/checkout.component';
+import { PaymentDialogComponent } from './marketplace/checkout/payment-dialog/payment-dialog.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/market_place', pathMatch: 'full' },
+  { path: 'payment_dialog', component:PaymentDialogComponent},
   { path: 'market_place', component: MarketplaceComponent,
     children:[
       {path: '', component: ProductsComponent},
