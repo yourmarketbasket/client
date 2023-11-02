@@ -30,4 +30,8 @@ export class PaymentDialogComponent implements OnInit{
   
   }
 
+  closePaymentDialog(){
+    this.dialogRef.close();
+  }
+
 }

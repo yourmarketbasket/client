@@ -1,6 +1,8 @@
 <div class="main-section">
-    <h1>Make Your  Payment</h1>
+    <div class="sectionheading">
+        <h1>Make Your  Payment</h1>
+        <button (click)="closePaymentDialog()" mat-icon-button color="accent"><mat-icon>close</mat-icon></button>
+    </div>
     <hr>
     <iframe [src]="iframurl" width="100%" height="400" frameborder="0"></iframe>
-    <button (click)="refreshIframe(data.trackingID)" mat-stroked-button color="primay"><mat-icon>refresh</mat-icon> REFRESH</button>
 </div>

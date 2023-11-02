@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { countries } from 'src/app/register/countrycodes';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -47,7 +48,7 @@ export class CheckoutComponent implements OnInit {
 
   autoComplete: google.maps.places.Autocomplete | undefined;
 
-  constructor(private ms:MasterServiceService, private domSanitizer: DomSanitizer, public dialog: MatDialog){}
+  constructor(private ms:MasterServiceService, private domSanitizer: DomSanitizer, public dialog: MatDialog, private router: Router){}
   locationForm = new FormGroup({
     selection: new FormControl('', Validators.required),
     locationField: new FormControl('', Validators.required)
@@ -284,7 +285,9 @@ export class CheckoutComponent implements OnInit {
       fname:this.user.fname,
       lname:this.user.lname,
       countryCode: code,
-      description: "Purchase of goods"
+      description: "Purchase of goods",
+      userid: this.userId,
+      deliveryfee: this.logisticFee
     }
 
     // send to the backend
@@ -301,7 +304,9 @@ export class CheckoutComponent implements OnInit {
           },
           disableClose: true
         });
-     }//end of if block
+     }else{
+        window.location.reload();
+     }
    })
   
 
