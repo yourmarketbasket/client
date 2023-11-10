@@ -191,12 +191,6 @@ export class CheckoutComponent implements OnInit {
   }
   
   
-  
-  // get logistics details
-  getLogisticsDetails(){
-    
-  }
-  
   // calculate total cost
   calculateCost(){
      this.cartItems.forEach((e:any)=>{
@@ -268,6 +262,9 @@ export class CheckoutComponent implements OnInit {
     return result;
   }
   async completeCheckout(amount:any){
+    // get the origin
+    const origins:any =  this.logisticsResponse = await this.ms.getStoreLocations(this.userId).toPromise();
+    // console.log(origins.origins[0])
     // getting the country code
     let code = null;
     for(let i=0; i<countries.length; i++){
@@ -287,11 +284,14 @@ export class CheckoutComponent implements OnInit {
       countryCode: code,
       description: "Purchase of goods",
       userid: this.userId,
-      deliveryfee: this.logisticFee
+      deliveryfee: this.logisticFee,
+      destination: this.buyerLocation,
+      origin: origins.origins[0]
     }
 
     // send to the backend
    await this.ms.pesapalSOR(data).subscribe((res:any)=>{
+    // console.log(res)
      if(res.status == 200){
         const url = res.redirect_url;
         const sanitizedurl = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
@@ -304,6 +304,13 @@ export class CheckoutComponent implements OnInit {
           },
           disableClose: true
         });
+     }else if(res.status==402){
+      const dialogRef = this.dialog.open(PaymentDialogComponent, {
+        width: '30vw',
+        data: {
+          message: res.message
+        }
+      });
      }else{
         window.location.reload();
      }

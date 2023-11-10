@@ -128,7 +128,7 @@ export class ProductComponent implements OnInit{
 
           this.ms.addToCart(data).subscribe((response:any)=>{
             if(response.success){
-              this.addtocartfeedback = "Added to Cart Successfully"
+              this.addtocartfeedback = response.message
               this.quantity = response.available;
               
               if(response.available===0){
