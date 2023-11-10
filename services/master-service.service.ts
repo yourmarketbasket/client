@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,11 +17,22 @@ export class MasterServiceService {
   private searchQuerySubject = new Subject<string>();
   searchQuery$: Observable<string> = this.searchQuerySubject.asObservable();
 
+  // private numbOfItemsInCartSubject = new Subject<number>();
+  // numberOfItemsInCart$ = this.numbOfItemsInCartSubject.asObservable();
 
   // methods go here
   setSearchQuery(query:string){
     this.searchQuerySubject.next(query);
   }
+  // update number of items
+  // async setCartItemsNum(){
+  //   let cart = await this.getCartItems(localStorage.getItem('userId')).subscribe();
+  //   this.updateCartItemsNumber(cart.items);
+  // }
+  
+  // private updateCartItemsNumber(num:number){
+  //   this.numbOfItemsInCartSubject.next(num)
+  // }
 
   // getLazyLoadedProducts
   getLazyLoadedProducts(data:any){
@@ -106,7 +118,6 @@ export class MasterServiceService {
   }
   getCartItems(userid:any){
     return this.http.get(`${this.baseurl}/api/products/getCartItems/${userid}`);
-    
   }
   reduceQttyByOne(data:any){
     return this.http.post(`${this.baseurl}/api/products/decreaseCartItemByOne`, data);

@@ -22,8 +22,7 @@ export class HeaderComponent implements OnInit {
   // methods
   ngOnInit() {
     // set login status
-      this.isLoggedIn = this.authService.loggedIn();
-     
+      this.isLoggedIn = this.authService.loggedIn();     
         // get the user data
         if(this.isLoggedIn){
           this.authService.getUser(localStorage.getItem('userId')).subscribe((res:any)=>{

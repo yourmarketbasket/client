@@ -119,6 +119,7 @@ export class ProductComponent implements OnInit{
             productid: result.productid,
             storeid:storeid,
             quantity: result.qtty,
+            available: quantity,
             model:model,
             totalcost: (price*result.qtty),
             price: price,

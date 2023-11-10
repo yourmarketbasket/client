@@ -40,46 +40,34 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     // get the cart items
     this.ms.getCartItems(this.userid).subscribe((response:any)=>{
-      if(response.success){
-        this.cartitems = response.items;
-        this.productname = response.items.productname;
-        this.productmodel = response.items.productmodel;
-        this.qtty = response.items.quantity;
-        this.available = response.items.available;
-        this.totalcost = response.items.totalcost;
-        this.getTotalCost();
-        this.verifyExistenceofCartItems();
+      // console.log()
+      if(response.success && response.items[0]){
+        this.cartitems = response.items[0].products;
+        this.grandtotal = response.items[0].amount;
+      }
+      if(this.grandtotal==0 || this.cartitems.length==0){
+        this.router.navigate(['market_place'])
       }
       
     })
 
       
   }
-  verifyExistenceofCartItems(){
-    if(this.grandtotal==0){
-      this.router.navigate([''])
-    }
-  }
+  
 
   goToCheckout(totalamount:any){
       this.router.navigate(['/market_place/checkout'])
   }
  
-  getTotalCost(){
-    this.grandtotal = 0
-    this.cartitems.forEach((e:any) => {
-      this.grandtotal+=e.totalCost;      
-    });
-    return this.grandtotal;
-  }
 
   reduceQuantityByOne(productid:any,buyerid:any,available:any){
     const data = {
       productid:productid,
-      buyerid:buyerid,
+      buyerid:this.userid,
       available:(available+1)
     }
     this.ms.reduceQttyByOne(data).subscribe((res:any)=>{
+      console.log(res)
       if(res.success){
         window.location.reload();
       }
@@ -88,7 +76,7 @@ export class CartComponent implements OnInit {
   increaseQuantityByOne(productid:any,buyerid:any,available:any){
     const data = {
       productid:productid,
-      buyerid:buyerid,
+      buyerid:this.userid,
       available:(available+1)
     }
     this.ms.increaseQttyByOne(data).subscribe((res:any)=>{
@@ -106,7 +94,7 @@ export class CartComponent implements OnInit {
   removeCartItem(productid:any,buyerid:any){
     const data = {
       productid:productid,
-      buyerid:buyerid
+      buyerid:this.userid
     }
 
     this.ms.removeCartItem(data).subscribe((res:any)=>{

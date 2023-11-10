@@ -64,9 +64,10 @@ export class CheckoutComponent implements OnInit {
     })
     // get cartitems
     this.ms.getCartItems(this.userId).subscribe((res:any)=>{
-      if(res.success){
-        this.cartItems = res.items
-        this.calculateCost();
+      if(res.success && res.items[0]){
+        this.cartItems = res.items[0].products
+        this.totalCost = res.items[0].amount
+        // this.calculateCost();
       }
     })   
     // get store locations
