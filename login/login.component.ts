@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       (response: any) => {
         if (response.success) {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('userId', response.userId);
+          localStorage.setItem('userId', response.userid);
           const userData = response.data;
           this.router.navigate(['/market_place']);
           this.loginError = "";
