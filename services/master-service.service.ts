@@ -138,8 +138,8 @@ export class MasterServiceService {
   fetchProductDetails(productid:any){
     return this.http.get(`${this.baseurl}/api/products/productDetails/${productid}`);
   }
-  getNumOfItemsIncart(data:any){
-    return this.http.post(`${this.baseurl}/api/products/numOfItemsInCart`, data);
+  getNumOfItemsIncart(userid:any){
+    return this.http.get(`${this.baseurl}/api/products/numOfItemsInCart/${userid}`);
   }
   logout() {
     localStorage.removeItem('token');

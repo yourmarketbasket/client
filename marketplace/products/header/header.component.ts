@@ -42,9 +42,10 @@ export class HeaderComponent implements OnInit {
   async getNumOfCartItems(){
     const data = {userid:localStorage.getItem('userId')};
 
-    await this.ms.getNumOfItemsIncart(data).subscribe((res:any)=>{
-      if(res.num.success){
-        this.numOfItemsInCart =  res.num.count          
+    await this.ms.getNumOfItemsIncart(data.userid).subscribe((res:any)=>{
+      console.log(res)
+      if(res.success){
+        this.numOfItemsInCart =  res.count         
       }
     })
   }
