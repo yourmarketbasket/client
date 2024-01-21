@@ -110,6 +110,7 @@ onResize(event: Event) {
   mobileInfo = new FormGroup({    
     countryCode: new FormControl('', [Validators.required]),
     mobileNumber: new FormControl('', [Validators.required, this.mobileNumberValidator]),
+    // countryName: new FormControl('')
   });
   namesInfo = new FormGroup({
     firstName: new FormControl('', [Validators.required]),

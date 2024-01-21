@@ -122,10 +122,12 @@ export class ProductComponent implements OnInit{
             available: quantity,
             model:model,
             totalcost: (price*result.qtty),
-            price: price,
+            price: this.price,
             avatar:avatar,
-            discount:discount
+            discount:discount?discount: 0
           }
+
+          console.log(data)
 
           this.ms.addToCart(data).subscribe((response:any)=>{
             if(response.success){
