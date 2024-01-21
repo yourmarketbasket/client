@@ -17,6 +17,7 @@ export class PaymentSuccessComponent implements OnInit{
     this.route.queryParams.subscribe(params =>{
       this.trackingid = params['OrderTrackingId'];
     })
+    console.log(this.trackingid);
     // check the status of the transaction
     this.ms.confirmTransactionStatus(this.trackingid).subscribe((res:any)=>{
       if(res){
