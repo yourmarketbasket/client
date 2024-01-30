@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import io from 'socket.io-client';
 @Injectable({
   providedIn: 'root'
 })
 export class MasterServiceService {
   baseurl = "http://localhost:3000";
+  socket = io('ws://localhost:3000');
+
 
   constructor(
     private http: HttpClient,

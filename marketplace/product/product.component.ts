@@ -6,6 +6,7 @@ import { getKForPrice } from 'src/app/services/computations';
 import { CartService } from 'src/app/services/cart.service';
 import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
   selector: 'app-product',
@@ -36,7 +37,9 @@ export class ProductComponent implements OnInit{
   addtocartfeedback!:any;
 
   // methods
-  ngOnInit() {
+  ngOnInit() { 
+    
+    
     // get the productid
     this.route.queryParamMap.subscribe((params:any)=>{
        this.productid = params.get('id');
@@ -91,7 +94,7 @@ export class ProductComponent implements OnInit{
   }
 
   // constructor
-  constructor(private cartServive: CartService, private router: Router, private route: ActivatedRoute, private ms:MasterServiceService, private dialog: MatDialog){}
+  constructor(private cartServive: CartService,private socketService:SocketService, private router: Router, private route: ActivatedRoute, private ms:MasterServiceService, private dialog: MatDialog){}
   // show thousands in k
   thousandsInK(price:any){
     return getKForPrice(price)
@@ -127,7 +130,7 @@ export class ProductComponent implements OnInit{
             discount:discount?discount: 0
           }
 
-          console.log(data)
+          // console.log(data)
 
           this.ms.addToCart(data).subscribe((response:any)=>{
             if(response.success){

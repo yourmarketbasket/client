@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { AuthService } from 'src/app/auth.service';
 import { Router } from '@angular/router';
+import { SocketService } from 'src/app/services/socket.service';
 
 
 @Component({
@@ -18,9 +19,18 @@ export class HeaderComponent implements OnInit {
   numOfItemsInCart:any = 0;
 
   // constructor
-  constructor(private ms:MasterServiceService, private authService:AuthService, private router:Router){}
+  constructor(private ms:MasterServiceService, private socketService:SocketService, private authService:AuthService, private router:Router){}
   // methods
   ngOnInit() {
+    
+
+    this.socketService.listen('cartoperationsevent').subscribe((data:any) => {
+      if(data.userid==localStorage.getItem('userId')){
+        this.getNumOfCartItems();
+      }
+      // Your logic for product added to cart event
+    });
+    
     // set login status
       this.isLoggedIn = this.authService.loggedIn();     
         // get the user data
@@ -43,9 +53,10 @@ export class HeaderComponent implements OnInit {
     const data = {userid:localStorage.getItem('userId')};
 
     await this.ms.getNumOfItemsIncart(data.userid).subscribe((res:any)=>{
-      console.log(res)
       if(res.success){
         this.numOfItemsInCart =  res.count         
+      }else{
+        this.numOfItemsInCart =  ""
       }
     })
   }
@@ -69,6 +80,8 @@ export class HeaderComponent implements OnInit {
   goToCart(){
     this.router.navigate(['/market_place/cart'])
   }
+
+  // this.ms.socket.on('')
 
 
 }
