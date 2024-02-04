@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
+import { SocketService } from 'src/app/services/socket.service';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 // interface
 export interface CartItemsInterface{
@@ -25,7 +26,7 @@ export class CartComponent implements OnInit {
   productmodel: any;
   qtty: any;
   available: any;
-  constructor(private location:Location, private cartService: CartService, private ms: MasterServiceService, private router: Router){}
+  constructor(private location:Location, private cartService: CartService, private socketService: SocketService, private ms: MasterServiceService, private router: Router){}
   cartItemCount!:any;
   userid = localStorage.getItem('userId')
   cartitems!:any;
@@ -38,20 +39,36 @@ export class CartComponent implements OnInit {
   dataSource = this.productDetails;
 
   ngOnInit() {
+    this.socketService.listen('cartoperationsevent').subscribe((data:any) => {
+      if(data.userid==localStorage.getItem('userId')){
+        this.getCartItems(this.userid);
+        
+      }
+      // Your logic for product added to cart event
+    });
+
+    this.getCartItems(this.userid);
+
+    
+
+      
+  }
+
+  getCartItems(userid:any){
     // get the cart items
-    this.ms.getCartItems(this.userid).subscribe((response:any)=>{
+    this.ms.getCartItems(userid).subscribe((response:any)=>{
       // console.log()
       if(response.success && response.items[0]){
         this.cartitems = response.items[0].products;
         this.grandtotal = response.items[0].amount;
-      }
-      if(this.grandtotal==0 || this.cartitems.length==0){
-        this.router.navigate(['market_place'])
+      }else{
+        this.cartitems = [];
+        this.grandtotal = 0;
+        this.router.navigate(['market_place/'])
       }
       
     })
 
-      
   }
   
 
@@ -67,9 +84,8 @@ export class CartComponent implements OnInit {
       available:(available+1)
     }
     this.ms.reduceQttyByOne(data).subscribe((res:any)=>{
-      console.log(res)
       if(res.success){
-        window.location.reload();
+        this.getCartItems(this.userid);
       }
     })
   }
@@ -81,7 +97,7 @@ export class CartComponent implements OnInit {
     }
     this.ms.increaseQttyByOne(data).subscribe((res:any)=>{
       if(res.success){
-        window.location.reload();
+        this.getCartItems(this.userid);
       }
     })
 
@@ -99,7 +115,7 @@ export class CartComponent implements OnInit {
 
     this.ms.removeCartItem(data).subscribe((res:any)=>{
       if(res.success){
-        window.location.reload();
+        this.getCartItems(this.userid);
       }
     })
   }
