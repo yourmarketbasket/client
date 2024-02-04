@@ -56,8 +56,8 @@ export class MasterServiceService {
   getPrdoucts(storeId: any) {
     return this.http.get(`${this.baseurl}/getProducts/${storeId}`);
   }
-  getProductDetails(productId:any){
-    return this.http.get(`${this.baseurl}/getProductDetails/${productId}`);
+  getProductDetails(data:any){
+    return this.http.post(`${this.baseurl}/api/products/getProductDetails`, data);
   }
   deleteProduct(productId: any) {
     return this.http.delete(`${this.baseurl}/deleteProduct/${productId}`);

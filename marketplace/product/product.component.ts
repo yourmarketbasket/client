@@ -33,19 +33,23 @@ export class ProductComponent implements OnInit{
   displayimg!:any;
   discount!:any;
   price!:any;
+  userid!:any;
   disableAddToCartButton:boolean = false;
   addtocartfeedback!:any;
 
   // methods
   ngOnInit() { 
     
-    
     // get the productid
     this.route.queryParamMap.subscribe((params:any)=>{
        this.productid = params.get('id');
     })
+    const data = {
+      uid: localStorage.getItem('userId'),
+      pid: this.productid
+    }
     // fetch the product data
-    this.ms.getProductDetails(this.productid).subscribe((res:any)=>{
+    this.ms.getProductDetails(data).subscribe((res:any)=>{
       if(res.success){
          this.product = res.productDetails[0] 
          this.posted = this.product.createdAt 
