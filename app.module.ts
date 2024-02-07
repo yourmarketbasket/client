@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-// import {CarouselModule } from '@coreui/angular';
-import {CarouselModule} from 'ngx-owl-carousel-o';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,7 +31,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule} from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { DatePipe } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { MatNativeDateModule } from '@angular/material/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { SocketService } from './services/socket.service';
@@ -89,7 +87,6 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { ProductsComponent } from './marketplace/products/products.component';
 import { HeaderComponent as ProductsHeader } from './marketplace/products/header/header.component';
 import { ProductComponent } from './marketplace/product/product.component';
-import { ProductDetailsComponent } from './marketplace/product/product-details/product-details.component';
 import { SettingsComponent } from './profile/settings/settings.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CartComponent } from './marketplace/cart/cart.component';
@@ -97,6 +94,13 @@ import { AddToCartComponent } from './marketplace/add-to-cart/add-to-cart.compon
 import { CheckoutComponent } from './marketplace/checkout/checkout.component';
 import { PaymentDialogComponent } from './marketplace/checkout/payment-dialog/payment-dialog.component';
 import { PaymentSuccessComponent } from './marketplace/checkout/payment-success/payment-success.component';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
+import en from '@angular/common/locales/en';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+
+registerLocaleData(en);
 
 
 
@@ -138,7 +142,6 @@ import { PaymentSuccessComponent } from './marketplace/checkout/payment-success/
     ProductsComponent,
     ProductsHeader,
     ProductComponent,
-    ProductDetailsComponent,
     SettingsComponent,
     ResetPasswordComponent,
     CartComponent,
@@ -150,11 +153,11 @@ import { PaymentSuccessComponent } from './marketplace/checkout/payment-success/
 
   ],
   imports: [
-    
+    NzIconModule,
+    NzCarouselModule,
     NgxPaginationModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    CarouselModule,
     ImageCropperModule,
     CommonModule,
     MatTableModule,
@@ -217,7 +220,8 @@ import { PaymentSuccessComponent } from './marketplace/checkout/payment-success/
     SocketService,
     {
       provide:MatPaginatorIntl,
-    }
+    },
+    { provide: NZ_I18N, useValue: en_US }
 
   ],
   bootstrap: [AppComponent]

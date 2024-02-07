@@ -7,6 +7,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SocketService } from 'src/app/services/socket.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-product',
@@ -39,20 +40,11 @@ export class ProductComponent implements OnInit{
 
   // methods
   ngOnInit() { 
-    
-    // get the productid
-    this.route.queryParamMap.subscribe((params:any)=>{
-       this.productid = params.get('id');
-    })
-    const data = {
-      uid: localStorage.getItem('userId'),
-      pid: this.productid
-    }
-    // fetch the product data
-    this.ms.getProductDetails(data).subscribe((res:any)=>{
-      if(res.success){
-         this.product = res.productDetails[0] 
-         this.posted = this.product.createdAt 
+    this.sharedDataService.productData$.subscribe((data) => {
+      if(data){
+        this.product = data;
+        this.posted = this.product.createdAt 
+        this.productid = this.product._id
          this.pname = this.product.name
          this.avatar = this.product.avatar
          this.displayimg = this.avatar[0]
@@ -65,11 +57,22 @@ export class ProductComponent implements OnInit{
          this.category = this.product.category;
          this.price = this.product.sp;
          this.storeid = this.product.storeid
-
       }
-    })
+      this.getAvailableProductQuantity(localStorage.getItem('userId'),this.product._id)
 
-    this.getAvailableProductQuantity(localStorage.getItem('userId'),this.productid)
+    });
+    
+    
+    
+    const data = {
+      uid: localStorage.getItem('userId'),
+      pid: this.product._id
+    }
+    this.ms.addProductView(data).subscribe((res:any)=>{
+    });
+    // fetch the product data
+    
+
     
   }
   // get the available quantity 
@@ -98,7 +101,7 @@ export class ProductComponent implements OnInit{
   }
 
   // constructor
-  constructor(private cartServive: CartService,private socketService:SocketService, private router: Router, private route: ActivatedRoute, private ms:MasterServiceService, private dialog: MatDialog){}
+  constructor(private cartServive: CartService,private socketService:SocketService, private router: Router, private route: ActivatedRoute, private ms:MasterServiceService, private dialog: MatDialog, private sharedDataService:SharedDataService){}
   // show thousands in k
   thousandsInK(price:any){
     return getKForPrice(price)

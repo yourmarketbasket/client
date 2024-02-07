@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { MasterServiceService } from 'src/app/services/master-service.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 // interface
 export interface CartItemsInterface{
   position: number;
@@ -26,14 +27,14 @@ export class CartComponent implements OnInit {
   productmodel: any;
   qtty: any;
   available: any;
-  constructor(private location:Location, private cartService: CartService, private socketService: SocketService, private ms: MasterServiceService, private router: Router){}
   cartItemCount!:any;
   userid = localStorage.getItem('userId')
   cartitems!:any;
   productDetails:any = [];
   totalcost = 0;
   grandtotal = 0;
-
+  
+  constructor(private location:Location, private cartService: CartService, private socketService: SocketService, private ms: MasterServiceService, private router: Router, private sharedData: SharedDataService){}
   // displayed column names
   displayedColumnNames:any = ['position', 'Name','Model','Qtty','Price','Total','Actions'];
   dataSource = this.productDetails;
@@ -41,8 +42,7 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.socketService.listen('cartoperationsevent').subscribe((data:any) => {
       if(data.userid==localStorage.getItem('userId')){
-        this.getCartItems(this.userid);
-        
+        this.getCartItems(this.userid);        
       }
       // Your logic for product added to cart event
     });
@@ -103,8 +103,17 @@ export class CartComponent implements OnInit {
 
   }
   viewProduct(id:any){
+    const data = {
+      pid:id,
+      uid:localStorage.getItem('userId')
+    }
+    this.ms.getProductDetails(data).subscribe((res:any)=>{
+      if(res.success){
+        this.sharedData.setProductData(res.productDetails[0], 'product');
+        this.router.navigate(['/market_place/product'])
+      }
+    })
     // navigate tot he product view page
-    this.router.navigate(['/market_place/product'], {queryParams: {id:id}})
   }
 
   removeCartItem(productid:any,buyerid:any){

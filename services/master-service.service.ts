@@ -10,6 +10,9 @@ export class MasterServiceService {
   baseurl = "http://localhost:3000";
   socket = io('ws://localhost:3000');
 
+  // provider logic
+  productData!:any;
+
 
   constructor(
     private http: HttpClient,
@@ -56,6 +59,9 @@ export class MasterServiceService {
   getPrdoucts(storeId: any) {
     return this.http.get(`${this.baseurl}/getProducts/${storeId}`);
   }
+  addProductView(data:any){
+    return this.http.post(`${this.baseurl}/api/products/addProductView`, data);
+  }
   getProductDetails(data:any){
     return this.http.post(`${this.baseurl}/api/products/getProductDetails`, data);
   }
@@ -63,7 +69,7 @@ export class MasterServiceService {
     return this.http.delete(`${this.baseurl}/deleteProduct/${productId}`);
   }
   addProduct(product: any) {
-    return this.http.post(`${this.baseurl}/addProduct`, product);
+    return this.http.post(`${this.baseurl}/api/products/addProduct`, product);
   }
   verifyUser(user: any) {
     return this.http.post(`${this.baseurl}/verify`, user);
@@ -142,6 +148,9 @@ export class MasterServiceService {
   }
   getNumOfItemsIncart(userid:any){
     return this.http.get(`${this.baseurl}/api/products/numOfItemsInCart/${userid}`);
+  }
+  getBrandCategories(){
+    return this.http.get(`${this.baseurl}/api/products/getcategoriesSubcatBrand`);
   }
   logout() {
     localStorage.removeItem('token');

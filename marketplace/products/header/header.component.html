@@ -1,35 +1,47 @@
-<div class="products-header">
-    <div class="logo">        
-        <img src="https://firebasestorage.googleapis.com/v0/b/market-e62c9.appspot.com/o/logos%2Fnisoko.com%20(4).jpg?alt=media&token=ed53a9e4-3d8f-440a-85dc-aa2772944744&_gl=1*1uokdxg*_ga*MjAxMzkyMTQ2Ni4xNjk4NzMxOTc5*_ga_CW55HF8NVT*MTY5ODczNDY3Ny4yLjEuMTY5ODczNjUxNy40NC4wLjA." alt="">
-            <!-- Market Place -->
+<div class="toprow" >
+    <div class="phonenemail">        
+        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+            <span><mat-icon style="vertical-align: middle;">phone</mat-icon> (+254)701650736</span>
+            <div class="vertical-line">
+        </div>
+        
+        <span><mat-icon style="vertical-align: middle;">email</mat-icon> support@nisoko.com</span>
+        </div>
+        
+        <span><mat-icon style="vertical-align: middle;">person_outline</mat-icon> Register or Sign in</span>
     </div>
-    <!-- search area -->
-    <div class="search-bar">
-            <!-- search bar goes here -->
-        <form>
-            <mat-form-field subscriptSizing="dynamic" class="search-bar-field" appearance="outline">
-                <mat-label>Search Market</mat-label>
-                <input (keyup)="searchProduct()" matInput type="text" [(ngModel)]="searchQuery" name="searchQuery" placeholder="I want to search the market for....">
-            </mat-form-field>
-        </form>
-    </div>
-    <div *ngIf="isLoggedIn" class="account-actions">
-        <!-- account actions go here -->
-        <span class="spacer"></span>
-        <span class="spacer"></span>
-        <!-- logout -->
-        <button matTooltip="Logout" (click)="logoutUser()" mat-icon-button color="primary">
-            <mat-icon>exit_to_app</mat-icon>
-        </button>
-        <span class="spacer"></span>
-        <span *ngIf="accountUser">Hello, {{accountUser.fname}}</span>
-        <span class="spacer"></span>
-        <button (click)="goToCart()" *ngIf="numOfItemsInCart" matTooltip="View Products in Cart"  mat-icon-button color="primary">
-            <mat-icon matBadgeSize="small" [matBadge]="numOfItemsInCart" matBadgeColor="accent">shopping_cart</mat-icon>
-        </button>
-        <span class="spacer"></span>
-        <div  class="avatar">
-            <img matTooltip="Go to Dashboard" (click)="gotoDashboard()"  [src]="userPic">
-        </div>        
-    </div>
+
 </div>
+<div class="header">
+    <div class="searchArea">
+        <span class="title">nisoko<span style="color: rgb(7, 212, 113);">.</span> </span>
+    
+       
+        <form class="searchfield" (ngSubmit)="searchProduct(searchInput.value)">
+            <input #searchInput type="text" placeholder="Search...">
+            <button class="search-button"><mat-icon>search</mat-icon></button>
+        </form>
+    
+     
+        <div *ngIf="isLoggedIn" class="actionsArea">
+            <button mat-icon-button (mouseenter)="toggleIconAnimationExitToApp()" (mouseleave)="toggleIconAnimationExitToApp()" (click)="logoutUser()" mat-icon-button>
+                <mat-icon [@iconAnimationExitToApp]="iconStateExitToApp">exit_to_app</mat-icon>                
+            </button>
+            <button mat-icon-button (mouseenter)="toggleIconAnimationNotificationsNone()" (mouseleave)="toggleIconAnimationNotificationsNone()" mat-icon-button>
+                <mat-icon [@iconAnimationNotificationsNone]="iconStateNotificationsNone" matBadgeColor="accent" matBadgeSize="small" [matBadge]="notifications" matBadgePosition="below after">notifications_none</mat-icon>
+            </button>
+            <button mat-icon-button (mouseenter)="toggleIconAnimationShoppingCart()" (mouseleave)="toggleIconAnimationShoppingCart()" (click)="goToCart()" mat-icon-button>
+                <mat-icon [@iconAnimationShoppingCart]="iconStateShoppingCart" matBadgeColor="accent" matBadgeSize="small" [matBadge]="numOfItemsInCart" matBadgePosition="below after">shopping_cart</mat-icon>
+            </button>
+
+            <div (click)="gotoDashboard()" class="avatar" (mouseenter)="toggleAvatarAnimation()" (mouseleave)="toggleAvatarAnimation()">
+                <img class="" [src]="userPic" alt="" [@avatarAnimation]="avatarState">
+                
+              </div>
+              
+
+        </div>
+    </div>
+
+</div>
+

@@ -23,7 +23,6 @@ import { ReviewProductsComponent } from './quality-assurance/review-products/rev
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { ProductsComponent } from './marketplace/products/products.component';
 import { ProductComponent } from './marketplace/product/product.component';
-import { ProductDetailsComponent } from './marketplace/product/product-details/product-details.component';
 import { SettingsComponent } from './profile/settings/settings.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CartComponent } from './marketplace/cart/cart.component';

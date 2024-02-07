@@ -22,7 +22,7 @@ export class AuthService {
     return this.http.delete(`${this.baseurl}/deleteProduct/${productId}`);
   }
   addProduct(product: any) {
-    return this.http.post(`${this.baseurl}/addProduct`, product);
+    return this.http.post(`${this.baseurl}/api/products/addProduct`, product);
   }
   verifyUser(user: any) {
     return this.http.post(`${this.baseurl}/api/users/verifyOTP`, user);
@@ -59,7 +59,7 @@ export class AuthService {
     return this.http.post(`${this.baseurl}/api/users/changeUserAvatar`, data);
   }
   reviewListedItemAction(data:any){     
-      return this.http.post(`${this.baseurl}/reviewlisteditem`, data);
+      return this.http.post(`${this.baseurl}/api/products/reviewlisteditem`, data);
     
   }
   logout() {

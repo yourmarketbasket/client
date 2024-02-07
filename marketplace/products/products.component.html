@@ -1,95 +1,42 @@
 <div class="marketplace">
 
-
-    <div class="categories">
-        
-    </div>
     <div class="search-results" *ngIf="searchQuery">
         <span *ngIf="numberOfResults>0" class="search-term">Your search "{{searchQuery}}" returned {{numberOfResults}} results</span>
         <span *ngIf="numberOfResults==0" class="search-term">No Products found for Search Phrase "{{searchQuery}}"</span>
-
-    </div>
-    <div *ngIf="searchQuery" class="product-list" >
-        <div class="center-display">
-            <div  *ngFor="let product of searchedProduct" class="product-card">
-                <div (click)="viewProduct(product._id)" class="image">
-                    <div class="offer" *ngIf="product.discount">
-                        <span class="icon-text">{{product.discount}}% off</span>                        
-                        <mat-icon>bookmark</mat-icon>
-                    </div>
-                    <div *ngIf="product.verified" class="seperator">
-                        <mat-icon matTooltip="Verified">verified_user</mat-icon>
-                    </div>
-                    <img class="product-pic" [src]="product.avatar[0]" alt="">
-                </div>
-    
-                <div class="product-details">
-                    <div class="pname">
-                        <span>{{truncateName(product.name+' '+product.model+' '+product.brand)}}</span>
-                        <div class="price_row">
-                            <div class="discounted-price" *ngIf="product.discount">
-                                <small style="margin: 0 2%;">was </small><small> <s>    {{convertNumberToShortScale(product.sp)}}</s></small>
-                            </div>
-                            <div class="price-display">
-                                <small>Now KES</small> <b style="margin-left: 3px;">  {{convertNumberToShortScale(product.sp, product.discount)}}</b>
-                            </div>
-                        </div>
-                        <button (click)="addToCart(product._id, product.quantity)" mat-stroked-button>
-                            <small>
-                                ADD TO CART
-                            </small>
-                            <mat-icon>add_shopping_cart</mat-icon>                                                      
+    </div>   
+    <div class="carousel-div">
+        <nz-carousel nzEnableSwipe="true" nzEffect="fade" nzAutoPlay="true" nzDotPosition="bottom" nzAutoPlaySpeed="2000">            
+            <div nz-carousel-content *ngFor="let item of carouselProducts">
+                <div class="carousel-row">
+                    <div class="details">
+                        <h1 style="font-family: 'bauhaus 93';color: rgb(27, 8, 102)"><b>Brand: {{item.key}}</b></h1>
+                        <h5>{{item.value[0].name}}</h5>
+                        <h5>{{item.value[0].description}}</h5>
+                        <span>
+                            From <h2 style="color: rgb(27, 8, 102)">
+                                <strong>{{item.value[0].sp | currency: 'KES '}}</strong>
+                            </h2> 
+                        </span> 
+                        <button mat-stroked-button color="primary">
+                            <mat-icon>
+                                add_shopping_cart
+                            </mat-icon>
+                            VIEW
                         </button>
-                        
-                    </div>    
-                </div>
-                
-            </div> 
+                    </div>
+                    <div class="productimage" style="background-image: url({{item.value[0].avatar[0]}}); height: 100%; width: 30%; box-shadow: 0 0 15px 30px white inset; background-size: cover; background-position: center; backdrop-filter: blur(2px);"></div>
+                    
 
-        </div>        
-    </div>
-    <div *ngIf="!searchQuery" class="product-list" >
-        <div class="center-display">
-            <div  *ngFor="let product of lazyLoadedProducts" class="product-card">
-                <div (click)="viewProduct(product._id)" class="image">
-                    <div class="offer" *ngIf="product.discount">
-                        <span class="icon-text">{{product.discount}}% off</span>                        
-                        <mat-icon>bookmark</mat-icon>
-                    </div>
-                    <div *ngIf="product.verified" class="seperator">
-                        <mat-icon matTooltip="Verified">verified_user</mat-icon>
-                    </div>
-                    <img class="product-pic" [src]="product.avatar[0]" alt="">
                 </div>
+                <div class="carousel-controls">
+                    <span (click)="previous()" nz-icon nzType="arrow-left" nzTheme="outline"></span>
+                    <span (click)="next()" nz-icon nzType="arrow-right" nzTheme="outline"></span>    
+                </div>
+                <!-- <h3>{{ item }}</h3> -->
+            </div>            
+        </nz-carousel>        
+
+    </div>    
+
     
-                <div class="product-details">
-                    <div class="pname">
-                        <span>{{truncateName(product.name+' '+product.model+' '+product.brand)}}</span>
-                        <div class="price_row">
-                            <div class="discounted-price" *ngIf="product.discount">
-                                <small style="margin: 0 2%;">was </small><small> <s>    {{convertNumberToShortScale(product.sp)}}</s></small>
-                            </div>
-                            <div class="price-display">
-                                <small>Now KES</small> <b style="margin-left: 3px;">  {{convertNumberToShortScale(product.sp, product.discount)}}</b>
-                            </div>
-                        </div>
-                        
-                        <button (click)="addToCart(product._id, product.quantity)" mat-stroked-button>
-                                <small>
-                                    ADD TO CART
-                                </small>
-                                <mat-icon>add_shopping_cart</mat-icon>                                                      
-                        </button>
-                        
-                    </div>    
-                </div>
-                
-            </div> 
-
-        </div>        
-    </div>
-    <div class="load-more-button">
-        <button *ngIf="!searchQuery" (click)="loadProducts()" mat-raised-button [hidden]="!hasMore">Load more...</button>
-        <span *ngIf="!hasMore"> No more products</span>
-    </div> 
 </div>

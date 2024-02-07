@@ -1,9 +1,12 @@
-import { Component,OnInit, HostListener } from '@angular/core';
+import { Component,OnInit, HostListener, ViewChild } from '@angular/core';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { truncateString } from 'src/app/services/computations';
 import { Router } from '@angular/router';
 import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SharedDataService } from 'src/app/services/shared-data.service';
+import { SocketService } from 'src/app/services/socket.service';
+import { NzCarouselComponent } from 'ng-zorro-antd/carousel';
 
 @Component({
   selector: 'app-products',
@@ -11,7 +14,6 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit{
-    
     // properties
     dWidth!:any;
     dHeight!:any;
@@ -31,57 +33,26 @@ export class ProductsComponent implements OnInit{
     lazyLoadedProducts:any[] = [];
     searchStartIndex:number = 0;
     searchBatchSize:number = 5;
-    // host listener
-    @HostListener('window:resize', ['$event'])
-    onResize(event:any){
-      this.updateScreenSize();
-      // update the number of products
-      this.updateNumberOfDisplayedProducts(this.dWidth)
-      // this.loadProducts();
+    array = [1, 2, 3, 4];
+    dotPosition = 'bottom';
+    carouselData!:any;
+    carouselProducts:any[]=[];
 
+    @ViewChild(NzCarouselComponent, { static: false })
+  myCarousel!: NzCarouselComponent;
+
+    goTo(index:number) {
+      this.myCarousel.goTo(Number(index));
     }
-    // update the number of products
-    updateNumberOfDisplayedProducts(width:number){
-      if(width<=1536){
-          this.numberofDisplayedProducts = 10
-      }else{
-        this.numberofDisplayedProducts = 30
-      }
+
+    next() {
+      this.myCarousel.next();
     }
-    // methods
-    toggleFavorite(product:any){
-        if(this.userid !== null){
-          product.favorite = !product.favorite
-          // mark as favorite
-          if(this.markFavorite(product,product.favorite)){
-            product.favorite = !product.favorite
-          }
-        }else{
-          this.router.navigate(['/login'])
-        }
+    previous() {
+      this.myCarousel.pre();
+    }
         
-       
-    }
-    // lazy load products
-    async loadProducts(){
-      const data = {
-        batchSize: this.batchSize, 
-        startIndex: this.startIndex
-      }
-      this.ms.getLazyLoadedProducts(data).subscribe((res:any)=>{
-        if(res.success){
-          this.lazyLoadedProducts.push(...res.data);
-          this.startIndex += this.batchSize;
-            if(res.data.length>0){
-              this.hasMore = true
-            }else{
-              this.hasMore = false;
-            }
-        }else{
-          alert('Error'+res.err)
-        }
-      })
-    }
+   
     // truncate the name and model
     truncateName(name:any){
       return truncateString(name);
@@ -147,15 +118,19 @@ export class ProductsComponent implements OnInit{
         return success;
     }
     // view product
-    viewProduct(id:any){
+    viewProduct(product:any){
+      this.sharedData.setProductData(product, 'product');
       // navigate tot he product view page
-      this.router.navigate(['/market_place/product'], {queryParams: {id:id}})
+      this.router.navigate(['/market_place/product']);
     }
     // get all products
     fetchAllProducts(){
       this.ms.getAllProducts().subscribe((res:any)=>{
         if(res.success){
-          this.products = res.data;
+          this.sharedData.setProductsData(res.data, 'products');
+          this.sharedData.productsData$.subscribe(data=>{            
+            this.lazyLoadedProducts.push(...data);
+          })
         }else{
           this.err = "Error Occured Fetching Data"
         }
@@ -216,28 +191,46 @@ export class ProductsComponent implements OnInit{
         return result;
     }
   
-  
-  
-
        
 
     // constructor
-    constructor(private ms:MasterServiceService,private router:Router, private dialog: MatDialog){}
+    constructor(private ms:MasterServiceService,private router:Router, private dialog: MatDialog, private sharedData: SharedDataService, private socketService:SocketService){}
     // onInit
     ngOnInit() {
-      this.updateScreenSize();
-      this.updateNumberOfDisplayedProducts(this.dWidth)
-      this.userid = localStorage.getItem('userId')
-      this.loadProducts();
-     
-      
-      // fetch the products
-      // this.fetchAllProducts()
-      
+      this.userid = localStorage.getItem('userId')      
       this.ms.searchQuery$.subscribe((query) => {
         this.searchQuery = query;
         this.searchMarket(this.searchQuery, this.products);
       });
+      this.socketService.listen('addproductevent').subscribe((data:any) => {
+        this.lazyLoadedProducts.push(data.product);
+        this.sharedData.addNewProduct(data.product);    
+      });
+      this.sharedData.productsData$.subscribe(data=>{
+        if(data){
+          this.lazyLoadedProducts.push(...data);
+        }else{
+          this.fetchAllProducts()
+        }
+      })
+
+      this.sharedData.productsInfo$.subscribe((data:any)=>{
+        if(data){
+          this.carouselData=data;
+          // Iterate over the keys of the object
+          Object.entries(data.products).forEach(([key, value]) => {
+            this.carouselProducts.push({key, value});
+            // Access the value associated with the key
+          });
+
+
+        }else{
+          this.sharedData.getProductsInfo();
+        }
+      })
+
+      
+      
 
 
     }
