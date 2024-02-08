@@ -8,13 +8,29 @@
         <nz-carousel nzEnableSwipe="true" nzEffect="fade" nzAutoPlay="true" nzDotPosition="bottom" nzAutoPlaySpeed="2000">            
             <div nz-carousel-content *ngFor="let item of carouselProducts">
                 <div class="carousel-row">
+                    <div class="containersandimage">
+                        <div class="floating-container">
+                            <div class="sheet"></div>
+                            <div class="sheet"></div>    
+                        </div>
+                        <img src="{{item.value[0].avatar[0]}}" alt="">
+
+                    </div>                  
+                     
                     <div class="details">
-                        <h1 style="font-family: 'bauhaus 93';color: rgb(27, 8, 102)"><b>Brand: {{item.key}}</b></h1>
-                        <h5>{{item.value[0].name}}</h5>
-                        <h5>{{item.value[0].description}}</h5>
+                        <h1 style="font-family: 'bauhaus 93';color: rgb(27, 8, 102)"><b>{{item.value[0].name}}</b></h1>
+                        <p>Brand: {{item.key}}</p>
+                        <span *ngIf="item.value[0].discount">
+                            Was 
+                            <h3 style="color: rgb(27, 8, 102)">
+                                <s>{{item.value[0].sp | currency: "KES "}}/-</s>
+                            </h3> 
+                        </span> 
+
                         <span>
-                            From <h2 style="color: rgb(27, 8, 102)">
-                                <strong>{{item.value[0].sp | currency: 'KES '}}</strong>
+                            Now starting at 
+                            <h2 style="color: rgb(27, 8, 102)">
+                                <strong>{{computeDiscountedSP(item.value[0].sp, item.value[0].discount) | currency: "KES "}}/-</strong>
                             </h2> 
                         </span> 
                         <button mat-stroked-button color="primary">
@@ -23,9 +39,24 @@
                             </mat-icon>
                             VIEW
                         </button>
-                    </div>
-                    <div class="productimage" style="background-image: url({{item.value[0].avatar[0]}}); height: 100%; width: 30%; box-shadow: 0 0 15px 30px white inset; background-size: cover; background-position: center; backdrop-filter: blur(2px);"></div>
+                    </div>      
                     
+                    <div class="stats">   
+                        <h1><span nz-icon nzType="credit-card" nzTheme="outline"></span> Shop with Convinience</h1>                     
+                        <p>Pay with M-PESA, VISA</p>
+                        <p>MasterCard, American Express</p>
+                        <p> and Airtel Money</p>
+                        <div class="iconrow" style="display: flex; justify-content: center; align-items: center;">
+                            <img style="width: 100px;" src="https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mc_dla_symbol_92.png" alt="">
+                            <img style="width: 100px;" src="https://www.logo.wine/a/logo/Visa_Inc./Visa_Inc.-Logo.wine.svg" alt="">
+                            <img style="width: 100px;" src="https://www.safaricom.co.ke/images/Lipanampesa.png" alt="">
+                            <img style="width: 100px;" src="https://www.logo.wine/a/logo/American_Express/American_Express-Logo.wine.svg" alt="">
+                            <img style="width: 100px;" src="https://www.logo.wine/a/logo/Bharti_Airtel/Bharti_Airtel-Logo.wine.svg" alt="">
+                        </div>
+                        
+
+
+                    </div>
 
                 </div>
                 <div class="carousel-controls">
@@ -36,7 +67,34 @@
             </div>            
         </nz-carousel>        
 
-    </div>    
+    </div>   
+    <mat-divider style="margin-top: 2%; margin-bottom: 1%;"></mat-divider>
+     <!--display  -->
+     <div class="features" style="display: flex; justify-content: space-around;">
+        <p><span nz-icon nzType="appstore" nzTheme="outline"></span>  Trusted by More than {{carouselData.brands.length}} Brands</p>
+        <p><span nz-icon nzType="line-chart" nzTheme="outline"></span>  Offering More than {{carouselData.categories.length}} categories</p>
+        <p><span nz-icon nzType="check-circle" nzTheme="outline"></span>  And more than {{carouselData.subcategories.length}} subcategories</p>
+        <p><span nz-icon nzType="home" nzTheme="outline"></span>  Get your shopping delivered to your location</p>
+     </div>
+     <mat-divider></mat-divider>
+    
+     <div class="cateogories">
+        <div class="categoriesmenu">
+            <div style="display: flex; flex-direction: column;">
+                <mat-checkbox *ngFor="let category of carouselData.categories">{{category}}</mat-checkbox>
+            </div>
+        </div>
+        <div class="categoriessection">
+            <h1>Categories</h1>
+            <div class="categorieslisting">
+                <div class="categorieslistingitem" style="display: flex; flex-direction: column;" *ngFor="let category of carouselData.categoriesListing.slice(0, 16)">
+                    <img src="{{category.avatar[0]}}" alt="">                
+                    <small style="text-align: center;">{{category.category}}</small>
+                </div>
+                <button *ngIf="carouselData.categories.length>16" mat-stroked-button>...</button>                                                
+            </div>
+        </div>
+     </div>
 
     
 </div>

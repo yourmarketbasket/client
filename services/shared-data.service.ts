@@ -52,11 +52,11 @@ export class SharedDataService {
         this.ms.getBrandCategories().subscribe((res:any)=>{
           if(res.success){
             const data = {
-              data: res.data,
               brands: res.brands,
               categories: res.categories,
               subcategories: res.subcategories,
-              products: res.products
+              products: res.products,
+              categoriesListing: res.categoriesListing
             }
             this.setProductsInfoData(data, 'productsinfo');            
           }

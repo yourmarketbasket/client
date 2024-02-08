@@ -2,7 +2,7 @@
   text-align: center;
   height: 350px;
   line-height: 10px;
-  background: linear-gradient(to right, transparent 1%, rgb(7, 212, 113) 40%, #FFFFFF 65%, transparent 100%);
+  background: linear-gradient(to right, transparent 1%, rgb(7, 212, 113) 10%, #FFFFFF 100%, rgb(7, 212, 113) 100%);
   color: #fff;
   overflow: hidden;
   position: relative;
@@ -14,11 +14,12 @@
   width: 20%; 
   color: black;
   margin-right: 10%;
-  font-family: 'bauhaus 93';
-  background-color: rgba(255, 255, 255, 0.5); 
+  background-color: rgba(255, 255, 255, 0.344); 
   backdrop-filter: blur(10px);
   border-radius: 10px; 
   padding: 20px; 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.27); /* Adjust the shadow properties */
+
 }
 
 [nz-carousel-content]::before,
@@ -62,7 +63,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   z-index: 55;
 }
@@ -75,11 +76,117 @@
 }
 .carousel-row img{
   height: 100%;
-  width: 30%;
+  width: 28%;
+  margin: 10px;
+  border-radius: 10px;
 }
 
 
 /* Add other combinations as needed */
 
 
+.floating-container {
+  height: 80%;
+  width: 100%;
+  position: relative;
+  perspective: 100px; /* Adjust the perspective */
+}
+.containersandimage{
+  width: 30%;
+  height: 100%;
+}
 
+.sheet {
+  position: absolute;
+  width: calc(100% - 20px); /* Adjust the width of the sheets */
+  height: calc(100% - 20px); /* Adjust the height of the sheets */
+  background-color: #f5f5f5; /* Adjust the color of the sheets */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.27); /* Adjust the shadow properties */
+  z-index: 1;
+}
+
+.sheet:nth-child(1) {
+  top: 10px;
+  transform: translateY(5px) translateZ(30px) rotateX(-20deg); /* Adjust the rotation */
+}
+
+.sheet:nth-child(2) {
+  top: 20px;
+  transform: translateY(-10px) translateZ(5px)  rotateY(30deg); /* Adjust the rotation */
+}
+
+
+.containersandimage img {
+  display: block;
+  width: 20%;
+  height: 85%;
+  border-radius: 8px; /* Match the card border radius */
+  position: absolute;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.27); 
+  top: 0px;
+  left: 8%;
+  z-index: 5;
+}
+
+.categoriesmenu{
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  justify-content: center;
+}
+span[nz-icon]{
+  color: rgb(7, 212, 113);
+}
+.stats{
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: rgb(29, 7, 94);
+}
+
+.cateogories{
+  padding: 2%;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;  
+}
+
+.categorieslisting{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.categoriessection{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.categorieslistingitem img{
+  padding: 5px;
+  margin: 2px;
+  height: 120px;
+  width: 120px;
+  border-radius: 10px;
+}
+
+.categorieslistingitem img:hover{
+  border: 2px solid rgb(7, 212, 113);
+}
+
+.categorieslistingitem small:hover{
+  color: rgb(7, 212, 113);
+}
+
+.marketplace{
+  margin-bottom: 10%;
+
+}

@@ -223,7 +223,6 @@ export class ProductsComponent implements OnInit{
             // Access the value associated with the key
           });
 
-
         }else{
           this.sharedData.getProductsInfo();
         }
@@ -234,5 +233,16 @@ export class ProductsComponent implements OnInit{
 
 
     }
+
+    computeDiscountedSP(price:any, discount:any){
+      if(discount){
+        return price*((100-discount)/100)
+      }else{
+        return price;
+      }
+    }
+
+
+  
     
 }
