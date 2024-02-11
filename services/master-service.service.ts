@@ -152,6 +152,9 @@ export class MasterServiceService {
   getBrandCategories(){
     return this.http.get(`${this.baseurl}/api/products/getcategoriesSubcatBrand`);
   }
+  getPaginatedProducts(data:any){
+    return this.http.post(`${this.baseurl}/api/products/getPaginatedProducts`, data);
+  }
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);

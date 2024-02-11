@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SocketService } from 'src/app/services/socket.service';
 import { NzCarouselComponent } from 'ng-zorro-antd/carousel';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -14,29 +15,30 @@ import { NzCarouselComponent } from 'ng-zorro-antd/carousel';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit{
-    // properties
-    dWidth!:any;
-    dHeight!:any;
+   
     products:any[] = [];
     err!:any;
-    favorite:boolean=false;
     page:number = 1;
+    limit:number = 20;
     userid!:any;
-    isfavorite!:boolean;
     searchQuery!:any;
     searchedProduct:any[]=[]
     numberOfResults:any;
     numberofDisplayedProducts!:number;
-    batchSize:number = 14;
-    startIndex:number = 0;
     hasMore!:boolean;
-    lazyLoadedProducts:any[] = [];
     searchStartIndex:number = 0;
     searchBatchSize:number = 5;
     array = [1, 2, 3, 4];
     dotPosition = 'bottom';
     carouselData!:any;
     carouselProducts:any[]=[];
+    totalPages:number = 0;
+    currentPage:number = 1;
+    productItemsPerPage:number = 20;
+    filterAmountMinValue:number=0;
+    filterAmountMaxValue:number=0;
+  
+
 
     @ViewChild(NzCarouselComponent, { static: false })
   myCarousel!: NzCarouselComponent;
@@ -84,59 +86,20 @@ export class ProductsComponent implements OnInit{
               console.log("Error occured "+res.message)
             }
           })        
-      }
-      
+      }   
 
       
 
     }
-    // update screen size
-    updateScreenSize(){
-      this.dHeight = window.innerHeight;
-      this.dWidth = window.innerWidth;
-    }
-    // mark a product favorite for persistence
-    markFavorite(product:any, favorite:Boolean): Boolean{
-      let success = false;
-        const data = {
-          productid: product._id,  
-          userid:localStorage.getItem('userId'),     
-          favorite:favorite   
-        }
-        if(localStorage.getItem('userId')!==null){
-            this.ms.addFavorite(data).subscribe((res:any)=>{
-                if(res.success){
-                  success = true;
-                }else{
-                  success = false;
-                }
-            })
-        }else{
-          success = false
-        }
-        
-        return success;
-    }
+    
+   
     // view product
     viewProduct(product:any){
       this.sharedData.setProductData(product, 'product');
       // navigate tot he product view page
       this.router.navigate(['/market_place/product']);
     }
-    // get all products
-    fetchAllProducts(){
-      this.ms.getAllProducts().subscribe((res:any)=>{
-        if(res.success){
-          this.sharedData.setProductsData(res.data, 'products');
-          this.sharedData.productsData$.subscribe(data=>{            
-            this.lazyLoadedProducts.push(...data);
-          })
-        }else{
-          this.err = "Error Occured Fetching Data"
-        }
-      })
-
-    }
+  
     // add product to cart    
     addToCart(id:any, quantity:any){
       const userid = localStorage.getItem('userId')
@@ -203,16 +166,41 @@ export class ProductsComponent implements OnInit{
         this.searchMarket(this.searchQuery, this.products);
       });
       this.socketService.listen('addproductevent').subscribe((data:any) => {
-        this.lazyLoadedProducts.push(data.product);
+        this.products.push(data.product);
         this.sharedData.addNewProduct(data.product);    
       });
+
+      this.socketService.listen('viewsupdate')
+      .pipe(
+        take(1) // Take only the first emitted value
+      )
+      .subscribe((data: any) => {
+        // Update the relevant product data based on the event data
+        const updatedProducts = this.products.map((product: any) => {
+          if (product._id === data._id) {
+            return data; // Replace the existing product data with the updated data
+          }
+          return product; // Return unchanged product data for other products
+        });
+
+        // Emit the updated products array to the 'productsDataSubject' Subject
+        this.sharedData.productsDataSubject.next(updatedProducts);
+
+        // Update local storage with the updated products array
+        localStorage.setItem('products', JSON.stringify(updatedProducts));
+      });
+
       this.sharedData.productsData$.subscribe(data=>{
         if(data){
-          this.lazyLoadedProducts.push(...data);
+          this.products.push(...data);
+          this.totalPages+=this.products.length;
         }else{
-          this.fetchAllProducts()
+          this.fetchPaginatedProducts()
+          this.totalPages+=this.products.length;
+
         }
       })
+
 
       this.sharedData.productsInfo$.subscribe((data:any)=>{
         if(data){
@@ -241,6 +229,31 @@ export class ProductsComponent implements OnInit{
         return price;
       }
     }
+
+    fetchPaginatedProducts(){
+      this.ms.getPaginatedProducts({page:this.page, limit:this.limit}).subscribe((res:any)=>{
+        if(res.success){
+          this.sharedData.setProductsData(res.data, 'products');          
+        }
+      })
+    }
+    getPageRange(): number[] {
+      const pageCount = Math.ceil(this.totalPages / this.productItemsPerPage);
+      return Array(pageCount).fill(0).map((x, i) => i + 1);
+    }
+
+    setPage(page: number) {
+      this.currentPage = page;
+    }
+
+    formatLabel(value: number): string {
+      if (value >= 1000) {
+        return Math.round(value / 1000) + 'k';
+      }
+  
+      return `${value}`;
+    }
+    
 
 
   

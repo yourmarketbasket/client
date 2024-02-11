@@ -12,7 +12,7 @@ export class SharedDataService {
   private productDataSubject = new BehaviorSubject<any>(this.loadDataFromStorage('product'));
   public productData$ = this.productDataSubject.asObservable();
 
-  private productsDataSubject = new BehaviorSubject<any>(this.loadDataFromStorage('products'));
+  productsDataSubject = new BehaviorSubject<any>(this.loadDataFromStorage('products'));
   public productsData$ = this.productsDataSubject.asObservable();
 
   private productsInfoSubject = new BehaviorSubject<any>(this.loadDataFromStorage('productsinfo'));
@@ -34,14 +34,8 @@ export class SharedDataService {
   
   setProductsData(data: any[], key: string): void {
     const existingData = this.productsDataSubject.value || [];
-    
-    // Ensure that the new data is treated as an array
     const newData = Array.isArray(data) ? data : [data];
-  
-    // Append the new data to the existing array
     const updatedData = [...existingData, ...newData];
-  
-    // Update the productsDataSubject and save to storage
     this.productsDataSubject.next(updatedData);
     this.saveDataToStorage(updatedData, key);
   }

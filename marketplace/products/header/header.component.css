@@ -1,10 +1,4 @@
-:root {
-    /* Define color variables */
-    --primary-color: rgb(7, 212, 113);
-  }
-  
-
-.products-header{
+ .products-header{
     display: flex;
     flex-direction: row;
     height: auto;
@@ -34,7 +28,6 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    margin-top: 2%;
 }
 .searchfield input{
     width: 100%;
@@ -78,7 +71,7 @@ input:focus{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding:20px;
+    padding:10px;
 }
 .toprow{
     border-bottom: 1px solid rgb(221, 214, 214);
