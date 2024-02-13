@@ -165,41 +165,28 @@ export class ProductsComponent implements OnInit{
         this.searchQuery = query;
         this.searchMarket(this.searchQuery, this.products);
       });
-      this.socketService.listen('addproductevent').subscribe((data:any) => {
-        this.products.push(data.product);
-        this.sharedData.addNewProduct(data.product);    
+      this.socketService.listen('addproductevent').subscribe((data: any) => {
+        this.products.unshift(data.product);  
       });
+     
 
       this.socketService.listen('viewsupdate')
-      .pipe(
-        take(1) // Take only the first emitted value
-      )
-      .subscribe((data: any) => {
-        // Update the relevant product data based on the event data
-        const updatedProducts = this.products.map((product: any) => {
-          if (product._id === data._id) {
-            return data; // Replace the existing product data with the updated data
-          }
-          return product; // Return unchanged product data for other products
-        });
+        .subscribe((data:any) => {
+          // Update the relevant product data based on the event data
+          const updatedProducts = this.products.map((product: any) => {
+            if (product._id === data._id) {
+              return data; // Replace the existing product data with the updated data
+            }
+            return product; // Return unchanged product data for other products
+          });
 
-        // Emit the updated products array to the 'productsDataSubject' Subject
-        this.sharedData.productsDataSubject.next(updatedProducts);
+          this.products = updatedProducts;
+        
 
-        // Update local storage with the updated products array
-        localStorage.setItem('products', JSON.stringify(updatedProducts));
-      });
+        });      
+      
+      this.fetchPaginatedProducts();
 
-      this.sharedData.productsData$.subscribe(data=>{
-        if(data){
-          this.products.push(...data);
-          this.totalPages+=this.products.length;
-        }else{
-          this.fetchPaginatedProducts()
-          this.totalPages+=this.products.length;
-
-        }
-      })
 
 
       this.sharedData.productsInfo$.subscribe((data:any)=>{
@@ -214,9 +201,7 @@ export class ProductsComponent implements OnInit{
         }else{
           this.sharedData.getProductsInfo();
         }
-      })
-
-      
+      })  
       
 
 
@@ -233,7 +218,8 @@ export class ProductsComponent implements OnInit{
     fetchPaginatedProducts(){
       this.ms.getPaginatedProducts({page:this.page, limit:this.limit}).subscribe((res:any)=>{
         if(res.success){
-          this.sharedData.setProductsData(res.data, 'products');          
+          this.products = res.data;  
+          this.totalPages =res.data.length;
         }
       })
     }
