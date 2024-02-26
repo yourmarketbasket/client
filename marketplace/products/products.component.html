@@ -101,12 +101,13 @@
         <div class="categoriessection">
             <h3>Categories</h3>
             <div class="categorieslisting">
-                <div class="categorieslistingitem" *ngFor="let category of carouselData.categoriesListing.slice(0, 16)">
+                <div (click)="browseByCategory(category.category)" class="categorieslistingitem" *ngFor="let category of carouselData.categoriesListing.slice(0, 16)">
                     <img src="{{category.avatar[0]}}" alt="">                
                     <small style="text-align: center;">{{category.category}}</small>
                 </div>
                 <button *ngIf="carouselData.categories.length>16" mat-stroked-button>...</button>                                                
             </div>
+            <router-outlet></router-outlet>
             <mat-divider></mat-divider>
             <h3>All Products</h3>
             <div class="allproductslisting">

@@ -1,0 +1,18 @@
+<mat-divider></mat-divider>
+<h3>{{category}}</h3>
+<div class="allproductslisting">
+    <div (click)="viewProduct(product)" class="allproductlistingitem"  *ngFor="let product of products">
+        <small>{{product.brand.toUpperCase()}}</small>   
+        <img [src]="product.avatar[0]"  alt="">            
+        <small><strong>{{product.name.toUpperCase()}}</strong></small> 
+        <small *ngIf="product.views[0]" style="color: rgb(174, 174, 174); font-size: 10;"><mat-icon style="vertical-align: middle; transform: scale(0.7);">visibility</mat-icon> {{convertNumberToShortScale(product.views[0].totalViews)}}({{product.views[0].users.length}})</small>
+        <div style="display: flex; flex-direction: row; justify-content:center; flex:1 1 auto;">
+            <small><s *ngIf="product.discount">Was {{convertNumberToShortScale(product.sp)}}</s></small>
+            <small>Now KES.{{convertNumberToShortScale(product.sp, product.discount)}}</small>
+        </div>
+        <div *ngIf="product.discount" class="discountdot">
+            <small>-{{product.discount}}%</small>
+        </div>                   
+
+    </div>
+</div>

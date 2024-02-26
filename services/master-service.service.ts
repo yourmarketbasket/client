@@ -22,6 +22,9 @@ export class MasterServiceService {
   private searchQuerySubject = new Subject<string>();
   searchQuery$: Observable<string> = this.searchQuerySubject.asObservable();
 
+  categoryProductsData = new Subject<any[]>();
+  categoryProducts$: Observable<any[]> = this.categoryProductsData.asObservable();
+
   // private numbOfItemsInCartSubject = new Subject<number>();
   // numberOfItemsInCart$ = this.numbOfItemsInCartSubject.asObservable();
 
@@ -29,15 +32,7 @@ export class MasterServiceService {
   setSearchQuery(query:string){
     this.searchQuerySubject.next(query);
   }
-  // update number of items
-  // async setCartItemsNum(){
-  //   let cart = await this.getCartItems(localStorage.getItem('userId')).subscribe();
-  //   this.updateCartItemsNumber(cart.items);
-  // }
   
-  // private updateCartItemsNumber(num:number){
-  //   this.numbOfItemsInCartSubject.next(num)
-  // }
 
   // getLazyLoadedProducts
   getLazyLoadedProducts(data:any){
@@ -151,6 +146,9 @@ export class MasterServiceService {
   }
   getBrandCategories(){
     return this.http.get(`${this.baseurl}/api/products/getcategoriesSubcatBrand`);
+  }
+  getCategoryProducts(category:any){
+    return this.http.get(`${this.baseurl}/api/products/getCategoryProducts/${category}`);
   }
   getPaginatedProducts(data:any){
     return this.http.post(`${this.baseurl}/api/products/getPaginatedProducts`, data);

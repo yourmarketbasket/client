@@ -1,0 +1,45 @@
+.allproductslisting img{
+    height: 150px; 
+    width: 150px;
+    border-radius: 10px;
+  }
+
+  .allproductslisting{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .discountdot{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:rgb(7, 212, 113);
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    position: relative;
+    top: -80px;
+    left: -60px;
+  }
+
+  .allproductlistingitem{
+    display: flex; 
+    flex-direction:column;
+    flex: 1;
+    max-width: 200px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border:1px solid rgb(174, 174, 174);
+    margin: 5px;
+    transition: box-shadow 0.3s ease-in-out;  
+  }
+
+  .allproductlistingitem:hover {
+    /* Add a box-shadow on hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border:none;
+  
+  }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
@@ -29,13 +29,18 @@ import { CartComponent } from './marketplace/cart/cart.component';
 import { CheckoutComponent } from './marketplace/checkout/checkout.component';
 import { PaymentDialogComponent } from './marketplace/checkout/payment-dialog/payment-dialog.component';
 import { PaymentSuccessComponent } from './marketplace/checkout/payment-success/payment-success.component';
+import { CategoriesComponent } from './marketplace/categories/categories.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/market_place', pathMatch: 'full' },
   { path: 'payment_dialog', component:PaymentDialogComponent},
   { path: 'market_place', component: MarketplaceComponent,
   children:[
-      {path: '', component: ProductsComponent},
+      {path: '', component: ProductsComponent,
+        children: [
+          {path: 'category/:category', component: CategoriesComponent}
+        ]
+      },
       {path: 'cart', component: CartComponent, canActivate: [AuthGuard],},
       {path:'checkout', component:CheckoutComponent, canActivate: [AuthGuard]},
       {path: 'product', component: ProductComponent},

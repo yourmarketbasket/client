@@ -100,6 +100,7 @@ import en from '@angular/common/locales/en';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import {MatSliderModule} from '@angular/material/slider';
+import { CategoriesComponent } from './marketplace/categories/categories.component';
 
 registerLocaleData(en);
 
@@ -149,7 +150,8 @@ registerLocaleData(en);
     AddToCartComponent,
     CheckoutComponent,
     PaymentDialogComponent,
-    PaymentSuccessComponent
+    PaymentSuccessComponent,
+    CategoriesComponent
     
 
   ],

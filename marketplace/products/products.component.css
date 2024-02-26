@@ -141,8 +141,9 @@
 .categoriesmenu{
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 15%;
   justify-content: center;
+  align-items: start;
 }
 span[nz-icon]{
   color: rgb(7, 212, 113);
@@ -231,7 +232,7 @@ span[nz-icon]{
 }
 
 .categoriessection{
-  width: 80%;
+  width: 85%;
   display: flex;
   flex-direction: column;
 }

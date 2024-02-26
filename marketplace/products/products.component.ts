@@ -9,6 +9,7 @@ import { SocketService } from 'src/app/services/socket.service';
 import { NzCarouselComponent } from 'ng-zorro-antd/carousel';
 import { take } from 'rxjs';
 
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -240,6 +241,9 @@ export class ProductsComponent implements OnInit{
       return `${value}`;
     }
     
+    browseByCategory(category:any){
+      this.router.navigate([`/market_place/category/${category}`])
+    }
 
 
   
