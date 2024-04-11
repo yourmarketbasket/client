@@ -132,10 +132,10 @@ export class ViewProductsComponent implements OnInit{
   editProduct(id:any){
        this.showEditProduct = true;
        this.showProductFeatures = false;
-      this.ms.getProductDetails(id).subscribe((data:any)=>{
+      this.ms.fetchProductDetails(id).subscribe((data:any)=>{
         if(data.success){
           const dialogref = this.dialog.open(EditProductModalComponent, {
-            data: data.productDetails[0],
+            data: data.product[0],
             width: 'auto',
             height: 'auto'
           })
