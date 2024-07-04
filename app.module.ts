@@ -101,6 +101,7 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import {MatSliderModule} from '@angular/material/slider';
 import { CategoriesComponent } from './marketplace/categories/categories.component';
+import { OrdersComponent } from './marketplace/orders/orders.component';
 
 registerLocaleData(en);
 
@@ -151,7 +152,8 @@ registerLocaleData(en);
     CheckoutComponent,
     PaymentDialogComponent,
     PaymentSuccessComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    OrdersComponent
     
 
   ],

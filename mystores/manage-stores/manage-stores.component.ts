@@ -62,6 +62,9 @@ export class ManageStoresComponent implements OnInit {
     // navigate to view products page
     this.router.navigate(['/dashboard/view-products'], { queryParams: { storeId: this.storeId } });
   }
+  viewOrders(){
+    this.router.navigate(['/dashboard/view-orders'], { queryParams: {storeid: this.storeId}});
+  }
   editProduct(productid:any){
     // navigate to edit product page
     console.log(productid)

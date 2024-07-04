@@ -30,12 +30,13 @@ import { CheckoutComponent } from './marketplace/checkout/checkout.component';
 import { PaymentDialogComponent } from './marketplace/checkout/payment-dialog/payment-dialog.component';
 import { PaymentSuccessComponent } from './marketplace/checkout/payment-success/payment-success.component';
 import { CategoriesComponent } from './marketplace/categories/categories.component';
+import { OrdersComponent } from './marketplace/orders/orders.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/market_place', pathMatch: 'full' },
   { path: 'payment_dialog', component:PaymentDialogComponent},
   { path: 'market_place', component: MarketplaceComponent,
-  children:[
+    children:[
       {path: '', component: ProductsComponent,
         children: [
           {path: 'category/:category', component: CategoriesComponent}
@@ -76,6 +77,7 @@ const routes: Routes = [
       {path: '', redirectTo: 'profile', pathMatch: 'full'},
       {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
       {path: 'view-products', component: ViewProductsComponent, canActivate: [AuthGuard]},
+      {path: 'view-orders', component: OrdersComponent, canActivate: [AuthGuard]},
       {path: 'sidebar', component: SidebarComponent, canActivate: [AuthGuard]},
       {path:  'header', component: HeaderComponent, canActivate: [AuthGuard]},
       {path: 'createstore', component: CreatestoreComponent, canActivate: [AuthGuard]},

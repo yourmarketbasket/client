@@ -153,6 +153,9 @@ export class MasterServiceService {
   getPaginatedProducts(data:any){
     return this.http.post(`${this.baseurl}/api/products/getPaginatedProducts`, data);
   }
+  getGroupedStoreOrders(storeid:any){
+    return this.http.get(`${this.baseurl}/api/products/groupAllStoreOrders/${storeid}`)
+  }
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
