@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from 'src/app/Interfaces/product';
+import { Product } from 'src/app/Interfaces/interfaces-master-file';
 import {SelectionModel} from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';

@@ -31,6 +31,7 @@ import { PaymentDialogComponent } from './marketplace/checkout/payment-dialog/pa
 import { PaymentSuccessComponent } from './marketplace/checkout/payment-success/payment-success.component';
 import { CategoriesComponent } from './marketplace/categories/categories.component';
 import { OrdersComponent } from './marketplace/orders/orders.component';
+import { ProcessOrderComponent } from './mystores/process-order/process-order.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/market_place', pathMatch: 'full' },
@@ -86,7 +87,9 @@ const routes: Routes = [
         children: [
           {path: 'manage-store', component: ManageStoresComponent, canActivate: [AuthGuard],
             children: [
-              {path: 'add-product', component: AddProductsComponent, canActivate: [AuthGuard]}
+              {path: 'add-product', component: AddProductsComponent, canActivate: [AuthGuard]},
+              {path: 'process-order', component: ProcessOrderComponent, canActivate: [AuthGuard]},
+
             ]
           }
         ]

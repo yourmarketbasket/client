@@ -102,6 +102,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import {MatSliderModule} from '@angular/material/slider';
 import { CategoriesComponent } from './marketplace/categories/categories.component';
 import { OrdersComponent } from './marketplace/orders/orders.component';
+import { ProcessOrderComponent } from './mystores/process-order/process-order.component';
 
 registerLocaleData(en);
 
@@ -153,7 +154,8 @@ registerLocaleData(en);
     PaymentDialogComponent,
     PaymentSuccessComponent,
     CategoriesComponent,
-    OrdersComponent
+    OrdersComponent,
+    ProcessOrderComponent
     
 
   ],

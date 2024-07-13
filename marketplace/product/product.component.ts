@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { MasterServiceService } from 'src/app/services/master-service.service';
-import { Product } from 'src/app/Interfaces/product';
+import { Product } from 'src/app/Interfaces/interfaces-master-file';
 import { getKForPrice } from 'src/app/services/computations';
 import { CartService } from 'src/app/services/cart.service';
 import { AddToCartComponent } from '../add-to-cart/add-to-cart.component';
