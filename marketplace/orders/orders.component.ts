@@ -83,7 +83,7 @@ export class OrdersComponent implements OnInit{
 
   processOrder(data:any){
     const dialogref = this.dialog.open(ProcessOrderComponent, {
-      data: this.orders,
+      data: data,
       width: 'auto',
       height: 'auto'
     })

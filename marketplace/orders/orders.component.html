@@ -61,8 +61,8 @@
                 
                 <ng-container matColumnDef="Actions">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-                    <td mat-cell *matCellDef="let order">
-                        <button (click)="processOrder(orders)"  mat-stroked-button color="accent" >
+                    <td mat-cell *matCellDef="let order; let i=index">
+                        <button (click)="processOrder(orders[i])"  mat-stroked-button color="accent" >
                             <mat-icon>settings</mat-icon>
                             Process
                         </button>                        
