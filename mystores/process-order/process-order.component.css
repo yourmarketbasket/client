@@ -1,9 +1,24 @@
 .frame-body{
     display: flex;
     flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .process-orders-frame{
+    padding: 1%;
     height: 80vh;
     width: 80vw;
+}
+.products h1{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.product-listings{
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

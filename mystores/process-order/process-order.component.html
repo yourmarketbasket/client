@@ -1,6 +1,55 @@
 <div class="process-orders-frame">
     <div class="frame-body">
-        <div class="delivery-map">map</div>
-        <div class="products">products</div>
+        <div class="delivery-map">
+            <iframe
+  width="600"
+  height="450"
+  frameborder="0"
+  style="border:0"
+  [src]="googleMapsUrl"
+  allowfullscreen>
+</iframe>
+
+        </div>
+        <div class="products">
+            <h1>CUSTOMER: {{data.buyername.toUpperCase()}}</h1>
+            <hr>
+            <div class="product-listings">
+                <table *ngIf="data.orders.length>0">
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Model</th>
+                        <th>Price</th>
+                        <th>Qtty</th>
+                        <th>Total Cost</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let product of data.orders; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{product.products.productname}}</td>
+                        <td>{{product.products.productmodel}}</td>
+                        <td>{{product.products.price | currency: 'KES'}}</td>
+                        <td>{{product.products.quantity}}</td>
+                        <td>{{product.products.totalCost | currency:'KES'}}</td>
+                        <td>
+                            <button mat-stroked-button color="primary">Confirm Details</button>
+                            <button mat-stroked-button color="accent">Pack</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>{{data.totalAmount | currency:'KES'}}</strong></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <h1>DISPATCH DETAILS</h1>
+                <hr>
+            </div>
+        </div>
     </div>
 </div>
