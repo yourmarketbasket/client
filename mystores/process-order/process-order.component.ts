@@ -20,7 +20,12 @@ export class ProcessOrderComponent implements OnInit{
     // console.log(this.data.orders.origins, this.data.orders.destination);
   }
 
-  generateGoogleMapsUrl(origins: { latitude: number; longitude: number }[], destinations: { latitude: number; longitude: number }[]): string {
+  generateGoogleMapsUrl(
+    origins: { latitude: number; longitude: number }[],
+    destinations: { latitude: number; longitude: number }[]
+  ): string {
+    const apiKey = 'AIzaSyDdvqTHmz_HwPar6XeBj8AiMxwzmFdqC1w';
+  
     // Convert origins to a string
     const originString = origins
       .map(origin => `${origin.latitude},${origin.longitude}`)
@@ -31,11 +36,13 @@ export class ProcessOrderComponent implements OnInit{
       .map(destination => `${destination.latitude},${destination.longitude}`)
       .join('|');
   
-    // Construct the URL
-    const url = `https://www.google.com/maps/dir/?api=1&origin=${origins[0].latitude},${origins[0].longitude}&destination=${destinations[destinations.length - 1].latitude},${destinations[destinations.length - 1].longitude}&waypoints=${originString}|${destinationString}&travelmode=driving&maptype=satellite&t=k&hl=en`;
+    // Construct the Embed URL
+    const url = `https://www.google.com/maps/embed/v1/directions?key=${apiKey}&origin=${origins[0].latitude},${origins[0].longitude}&destination=${destinations[destinations.length - 1].latitude},${destinations[destinations.length - 1].longitude}&waypoints=${originString}|${destinationString}&mode=driving`;
+  
     console.log(url);
     return url;
   }
+  
   
 
 }
