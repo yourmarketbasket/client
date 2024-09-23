@@ -4,42 +4,63 @@
     <small *ngIf="name" class="welcome"> Hi {{name}}, Welcome to your profile</small>
 
 </div>
-<!--  -->
-<div class="profile_header">
-       <!-- user rating -->
-    <mat-card class="user-rating">
-        <mat-card-header>
-                <small>Your Rating: {{rating}}</small>
-        </mat-card-header>
-        <mat-card-content>
-            <hr>
-            <!-- show the stars -->
-            <div class="stars">
-                <mat-icon *ngFor="let i of range(rating)">
-                  star
-                </mat-icon>
-                <mat-icon *ngIf="rating % 1 > 0" style="transform: scale(1)">
-                  star_half
-                </mat-icon>
-                <mat-icon *ngFor="let i of range(5 - rating)">
-                  star_border
-                </mat-icon>
-              </div>
-        </mat-card-content>
-    </mat-card>
-</div>
 <!-- the profile owner detalls header -->
 <div class="profile">    
     <div class="righttabs">
     <!-- profile info -->
-        <mat-card class="profileinfomanagement">
-            <mat-card-header>
-                <mat-card-title>Profile Info</mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="info">
-                personal info goes here
-            </mat-card-content>
-        </mat-card> 
+        <div class="profileinfomanagement">
+            <div class="profilemanagementrow">
+                <div class="avatardetailscolumn">
+                    <div class="avatardetails">
+                        <img [src]="avatar" alt="" class="useravatar">                    
+                    </div>     
+                    <hr>
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                        <mat-slide-toggle color="accent"
+                        [checked]="approved"
+                        [disabled]="approved?false:true">
+                        Approved
+                    </mat-slide-toggle> 
+                    <span style="margin: 5px; vertical-align: middle;">|</span>
+                    <mat-slide-toggle color="primary"
+                        [checked]="verified"
+                        [disabled]="verified?false:true">
+                        Verified
+                    </mat-slide-toggle> 
+                    </div>               
+                </div>
+                <div style="display: flex; flex-direction: column;" class="profileinfodetails">
+                    <span style="font-weight: 800; font-size: xx-large; color: #536dfe">{{name}}</span>
+                    <hr>
+                    <div style="display: flex; flex-direction: row; font-size: 13px; vertical-align: middle; justify-content: center; align-items: center;">
+                        Rating ({{rating}}): 
+                        <div class="stars">
+                            <mat-icon *ngFor="let i of range(rating)" style="transform: scale(0.7)">
+                              star
+                            </mat-icon>
+                            <mat-icon *ngIf="rating % 1 > 0"style="transform: scale(0.7)">
+                              star_half
+                            </mat-icon>
+                            <mat-icon *ngFor="let i of range(5 - rating)"style="transform: scale(0.7)">
+                              star_border
+                            </mat-icon>
+                          </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 12px;"><mat-icon style="vertical-align: middle; transform: scale(0.8); color:#ff6c9e;">phone</mat-icon>({{zipcode}}){{phone.slice(0)}}</span>
+                        <span style="font-size: 12px;"><mat-icon style="vertical-align: middle; transform: scale(0.8); color:#ff6c9e;">location_city</mat-icon>{{address}}  {{city}}</span>   
+                    </div> 
+                    <div style="display: flex; flex-direction: column;">
+                        <span *ngIf="active" style="font-size: 12px;"><mat-icon style="vertical-align: middle; transform: scale(0.8); color:#1fb883;">brightness_1</mat-icon>{{active?"Active":"Dormant"}}</span>                        
+                    </div> 
+                    <div style="display: flex; flex-direction: column;">
+                       <button mat-stroked-button  color="primary"><mat-icon>edit_attributes</mat-icon>EDIT INFO</button>                     
+                    </div> 
+
+                                        
+                </div>
+            </div>
+        </div> 
     </div>
     
     <!-- central tabs -->

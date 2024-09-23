@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn} from 
 import { FormControl } from '@angular/forms';
 import {countries} from './countrycodes';
 import { MatStepperModule,MatStepper } from '@angular/material/stepper';
-import {RegistrationResponse} from '../register/registrationResponse';
+import {RegistrationResponse} from './registrationResponse';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import {MatDatepickerModule} from '@angular/material/datepicker';

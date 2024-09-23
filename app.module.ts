@@ -46,6 +46,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
@@ -160,6 +161,7 @@ registerLocaleData(en);
 
   ],
   imports: [
+    MatSlideToggleModule,
     MatSliderModule,
     NzIconModule,
     NzCarouselModule,

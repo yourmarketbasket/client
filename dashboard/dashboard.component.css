@@ -1,15 +1,3 @@
-.backgroundslant{
-  background: #34cce0;
-  width: 300%;
-  height: 150%;
-  z-index: -5;
-  position: fixed;
-  top: -5%;
-  left: -50%;
-  /* rotate by 45deg */
-  transform: rotate(330deg);
-
-}
 mat-drawer{
     margin-top: 3%;
     width: 200px;
@@ -20,6 +8,9 @@ mat-drawer-container{
     height: 100%;
     /* height: 100vh; */
     position: absolute;
+    background-color: #f6f7ff;
+    font: 400 14px / 20px Roboto, Helvetica Neue, sans serif;
+    font-family: Roboto, Helvetica Neue, sans-serif;
 
 }
 

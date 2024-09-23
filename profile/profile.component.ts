@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav, MatSidenavModule  } from '@angular/material/sidenav';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { OnInit } from '@angular/core';
 
 import { CreatestoreComponent } from '../mystores/createstore/createstore.component';

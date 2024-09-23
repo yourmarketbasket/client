@@ -7,6 +7,32 @@
     bottom: 5px;
     z-index: 999999;
 }
+.avatardetailscolumn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.avatardetails{
+    border:5px dotted  #f74983;
+    padding: 10px;
+    border-radius: 50%;
+}
+.useravatar{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    padding: 10px;
+    border: 0.5px solid rgb(209, 204, 204);
+    
+}
+.profilemanagementrow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 2%;
+}
 icon-column{
     width: 5px !important;
 }
@@ -16,11 +42,18 @@ table, tr{
     border-radius: 10px;
     margin: 0;
 }
+.profileinfomanagement{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 3px 11px #e8eafc;
+    transition: box-shadow 280ms cubic-bezier(0.4,0,0.2,1);
+    padding: 1%;
+}
 td{
     text-align: left;
 }
 .stars{
-    color: #15f001;
+    color: #a6b3ff;
 }
 .user-rating{
     background: #0d033a;
@@ -68,14 +101,13 @@ td mat-icon{
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-    flex: 35%;
+    flex: 50%;
     width: 20%;
 }
 .profile{
     padding: 0px 20px 20px 20px;  
     display: flex;
     flex-direction: row;
-    z-index: 999999;
     background: transparent;
 
 }
