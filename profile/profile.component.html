@@ -6,8 +6,7 @@
 </div>
 <!-- the profile owner detalls header -->
 <div class="profile">    
-    <div class="righttabs">
-    <!-- profile info -->
+    <div class="profileinfoandmap" style="display: flex; flex-direction: column; width: 40%; flex:40%">
         <div class="profileinfomanagement">
             <div class="profilemanagementrow">
                 <div class="avatardetailscolumn">
@@ -51,16 +50,22 @@
                         <span style="font-size: 12px;"><mat-icon style="vertical-align: middle; transform: scale(0.8); color:#ff6c9e;">location_city</mat-icon>{{address}}  {{city}}</span>   
                     </div> 
                     <div style="display: flex; flex-direction: column;">
+                        <span *ngIf="active" style="font-size: 12px;"><mat-icon style="vertical-align: middle; transform: scale(0.8); color:#ffc96f;">card_membership</mat-icon>Member for {{calculateTimeDifference(registered)}}</span>                        
+                    </div> 
+                    <div style="display: flex; flex-direction: column;">
                         <span *ngIf="active" style="font-size: 12px;"><mat-icon style="vertical-align: middle; transform: scale(0.8); color:#1fb883;">brightness_1</mat-icon>{{active?"Active":"Dormant"}}</span>                        
                     </div> 
                     <div style="display: flex; flex-direction: column;">
                        <button mat-stroked-button  color="primary"><mat-icon>edit_attributes</mat-icon>EDIT INFO</button>                     
                     </div> 
-
+    
                                         
                 </div>
-            </div>
+            </div>        
         </div> 
+        <div class="userlocationmap">
+            hellow
+        </div>
     </div>
     
     <!-- central tabs -->

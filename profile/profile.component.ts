@@ -38,6 +38,8 @@ export class ProfileComponent implements OnInit{
   city: any;
   active: any;
   zipcode: any;
+  createdAt:any;
+  location:any;
   constructor(private socketService: SocketService, private router: Router, private authService: AuthService, private dialog: MatDialog) { 
   
   }
@@ -58,6 +60,63 @@ export class ProfileComponent implements OnInit{
   editUserInfo(){
       
   }
+
+  calculateTimeDifference(dateString: string): string {
+    const targetDate = new Date(dateString);
+    const currentDate = new Date();
+
+    // Get the total difference in milliseconds
+    const diffInMs = Math.abs(currentDate.getTime() - targetDate.getTime());
+
+    // Helper values for conversions
+    const msPerSecond = 1000;
+    const msPerMinute = msPerSecond * 60;
+    const msPerHour = msPerMinute * 60;
+    const msPerDay = msPerHour * 24;
+    const msPerWeek = msPerDay * 7;
+    const msPerMonth = msPerDay * 30.44;  // Average month length
+    const msPerYear = msPerDay * 365.25;  // Accounting for leap years
+
+    // Calculate years, months, weeks, days, hours, minutes, and seconds
+    const years = Math.floor(diffInMs / msPerYear);
+    const remainingAfterYears = diffInMs % msPerYear;
+
+    const months = Math.floor(remainingAfterYears / msPerMonth);
+    const remainingAfterMonths = remainingAfterYears % msPerMonth;
+
+    const weeks = Math.floor(remainingAfterMonths / msPerWeek);
+    const remainingAfterWeeks = remainingAfterMonths % msPerWeek;
+
+    const days = Math.floor(remainingAfterWeeks / msPerDay);
+    const remainingAfterDays = remainingAfterWeeks % msPerDay;
+
+    const hours = Math.floor(remainingAfterDays / msPerHour);
+    const remainingAfterHours = remainingAfterDays % msPerHour;
+
+    const minutes = Math.floor(remainingAfterHours / msPerMinute);
+    const remainingAfterMinutes = remainingAfterHours % msPerMinute;
+
+    const seconds = Math.floor(remainingAfterMinutes / msPerSecond);
+
+    // Conditional logic for returning only two units at once
+    if (years > 0 && months > 0) {
+        return `${years} year${years !== 1 ? 's' : ''}, ${months} month${months !== 1 ? 's' : ''}`;
+    } else if (months > 0 && weeks > 0) {
+        return `${months} month${months !== 1 ? 's' : ''}, ${weeks} week${weeks !== 1 ? 's' : ''}`;
+    } else if (weeks > 0 && days > 0) {
+        return `${weeks} week${weeks !== 1 ? 's' : ''}, ${days} day${days !== 1 ? 's' : ''}`;
+    } else if (days > 0 && hours > 0) {
+        return `${days} day${days !== 1 ? 's' : ''}, ${hours} hour${hours !== 1 ? 's' : ''}`;
+    } else if (hours > 0 && minutes > 0) {
+        return `${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+    } else if (minutes > 0 && seconds > 0) {
+        return `${minutes} minute${minutes !== 1 ? 's' : ''}, ${seconds} second${seconds !== 1 ? 's' : ''}`;
+    } else if (seconds > 0) {
+        return `${seconds} second${seconds !== 1 ? 's' : ''}`;
+    } else {
+        return '0 seconds';
+    }
+}
 
   ngOnInit() { 
     // change the window title
@@ -82,6 +141,7 @@ export class ProfileComponent implements OnInit{
         this.city = data.data.city.toUpperCase();
         this.active = data.data.active;
         this.zipcode = data.data.zipcode.slice(1);
+        this.location = data.data.location;
 
       }
       window.document.title = this.title+" | "+this.name;
