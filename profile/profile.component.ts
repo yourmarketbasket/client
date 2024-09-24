@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatSidenav, MatSidenavModule  } from '@angular/material/sidenav';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { OnInit } from '@angular/core';
-
+import { DomSanitizer } from '@angular/platform-browser';
 import { CreatestoreComponent } from '../mystores/createstore/createstore.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -40,7 +40,8 @@ export class ProfileComponent implements OnInit{
   zipcode: any;
   createdAt:any;
   location:any;
-  constructor(private socketService: SocketService, private router: Router, private authService: AuthService, private dialog: MatDialog) { 
+  mapurl:any;
+  constructor(private socketService: SocketService, private router: Router, private domSanitizer:DomSanitizer, private authService: AuthService, private dialog: MatDialog) { 
   
   }
   openDialog(){
@@ -118,7 +119,7 @@ export class ProfileComponent implements OnInit{
     }
 }
 
-  ngOnInit() { 
+  async ngOnInit() { 
     // change the window title
     // get the user id from the local storage
     this.userId = localStorage.getItem('userId');
@@ -128,7 +129,7 @@ export class ProfileComponent implements OnInit{
         const date = new Date(data.data.dob);
         this.avatar = data.data.avatar;
         this.name = data.data.fname+" "+data.data.lname;
-        this.phone = data.data.phone.slice(1);
+        this.phone = data.data.phone;
         this.dob = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
         this.verified = data.data.verified;
         this.address = data.data.address.toUpperCase();
@@ -140,15 +141,19 @@ export class ProfileComponent implements OnInit{
         this.gender = data.data.gender.toUpperCase()
         this.city = data.data.city.toUpperCase();
         this.active = data.data.active;
-        this.zipcode = data.data.zipcode.slice(1);
+        this.zipcode = data.data.zipcode;
         this.location = data.data.location;
 
       }
       window.document.title = this.title+" | "+this.name;
+      const mapurl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDdvqTHmz_HwPar6XeBj8AiMxwzmFdqC1w&q=(${this.location.latitude},${this.location.longitude})&center=${this.location.latitude},${this.location.longitude}&zoom=18&maptype=roadmap`;
+      this.mapurl = this.domSanitizer.bypassSecurityTrustResourceUrl(mapurl);
 
     }
     
     );
+    
+
     
   
    }

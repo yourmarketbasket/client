@@ -46,7 +46,7 @@
                           </div>
                     </div>
                     <div style="display: flex; flex-direction: column;">
-                        <span style="font-size: 12px;"><mat-icon style="vertical-align: middle; transform: scale(0.8); color:#ff6c9e;">phone</mat-icon>({{zipcode}}){{phone.slice(0)}}</span>
+                        <span style="font-size: 12px;"><mat-icon style="vertical-align: middle; transform: scale(0.8); color:#ff6c9e;">phone</mat-icon>({{zipcode}}){{phone}}</span>
                         <span style="font-size: 12px;"><mat-icon style="vertical-align: middle; transform: scale(0.8); color:#ff6c9e;">location_city</mat-icon>{{address}}  {{city}}</span>   
                     </div> 
                     <div style="display: flex; flex-direction: column;">
@@ -64,8 +64,15 @@
             </div>        
         </div> 
         <div class="userlocationmap">
-            hellow
+            <iframe
+                *ngIf="mapurl && location"
+                [src]="mapurl"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
+        
     </div>
     
     <!-- central tabs -->
@@ -85,21 +92,7 @@
                 </mat-card-content>
             </mat-card>
         </div>
-        <!-- products -->
-        <div class="productsmanagement">
-            <!-- products -->
-            <mat-card class="products">
-                <mat-card-header>
-                    <mat-card-title>Products</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                <!-- mat-list -->
-                    <mat-list>
-                        infor about products
-                    </mat-list>
-                </mat-card-content>
-            </mat-card>
-        </div>
+        
         <!-- stores -->
         <div class="storesmanagement">
             <!-- stores -->
