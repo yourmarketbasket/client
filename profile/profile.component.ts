@@ -20,6 +20,14 @@ export interface OrdersData {
   paymentStatus: string;
 }
 
+export interface StoresData {
+  name: string;
+  type: string;
+  currency: string;
+  items:number;
+  totalvalue:number;
+}
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -34,6 +42,7 @@ export class ProfileComponent implements OnInit {
   stores!:Store[];
   userId: any;
   displayedColumns: string[] = ['#', 'items', 'total', 'deliveryFee', 'paymentStatus', 'actions'];
+  displayedStoresColumns: string[] = ['#', 'name', 'type', 'currency', 'items', 'totalvalue', 'actions'];
   phone = "";
   avatar = "";
   name = "";
@@ -185,16 +194,15 @@ export class ProfileComponent implements OnInit {
         this.dataSource = new MatTableDataSource<OrdersData>(this.orders);
         this.dataSource.paginator = this.paginator;  // Set paginator after dataSource is populated
       }
-    });
-    
+    }); 
 
     
   
    }
 
-   getAdjustedIndex(index: number): number {
-      return index + (this.paginator.pageIndex * this.paginator.pageSize) + 1;
-    }
+  //  getAdjustedIndex(index: number): number {
+  //     return index + (this.paginator.pageIndex * this.paginator.pageSize) + 1;
+  //   }
    
 
 
