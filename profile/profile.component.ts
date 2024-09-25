@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatSidenav, MatSidenavModule  } from '@angular/material/sidenav';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { OnInit } from '@angular/core';
@@ -9,18 +9,31 @@ import { AuthService } from '../auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '../mystores/stores-dashboard/stores-interface';
 import { SocketService } from '../services/socket.service';
+import { MasterServiceService } from '../services/master-service.service';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+
+export interface OrdersData {
+  items: string;
+  total: number;
+  deliveryFee: number;
+  paymentStatus: string;
+}
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit{
+
+
+export class ProfileComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   rating = 3.2;
   isLoading = true;
   stores!:Store[];
   userId: any;
+  displayedColumns: string[] = ['#', 'items', 'total', 'deliveryFee', 'paymentStatus', 'actions'];
   phone = "";
   avatar = "";
   name = "";
@@ -41,7 +54,10 @@ export class ProfileComponent implements OnInit{
   createdAt:any;
   location:any;
   mapurl:any;
-  constructor(private socketService: SocketService, private router: Router, private domSanitizer:DomSanitizer, private authService: AuthService, private dialog: MatDialog) { 
+  orders:any;
+  dataSource = new MatTableDataSource<OrdersData>();  // Initialize in the class
+  
+  constructor(private socketService: SocketService, private ms: MasterServiceService, private router: Router, private domSanitizer:DomSanitizer, private authService: AuthService, private dialog: MatDialog) { 
   
   }
   openDialog(){
@@ -117,12 +133,18 @@ export class ProfileComponent implements OnInit{
     } else {
         return '0 seconds';
     }
-}
+  }
+
+  
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+   
 
   async ngOnInit() { 
     // change the window title
     // get the user id from the local storage
     this.userId = localStorage.getItem('userId');
+    
     // get user details from auth service
     this.authService.getUser(this.userId).subscribe((data: any) => {
       if(data.success){
@@ -150,13 +172,30 @@ export class ProfileComponent implements OnInit{
       this.mapurl = this.domSanitizer.bypassSecurityTrustResourceUrl(mapurl);
 
     }
+
+    
+
+    
     
     );
+    // get user orders
+    this.ms.getUserOrders(this.userId).subscribe((res: any) => {
+      if (res.success && res.data.length > 0) {
+        this.orders = res.data;
+        this.dataSource = new MatTableDataSource<OrdersData>(this.orders);
+        this.dataSource.paginator = this.paginator;  // Set paginator after dataSource is populated
+      }
+    });
     
 
     
   
    }
+
+   getAdjustedIndex(index: number): number {
+      return index + (this.paginator.pageIndex * this.paginator.pageSize) + 1;
+    }
+   
 
 
   

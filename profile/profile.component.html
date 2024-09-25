@@ -6,7 +6,7 @@
 </div>
 <!-- the profile owner detalls header -->
 <div class="profile">    
-    <div class="profileinfoandmap" style="display: flex; flex-direction: column; width: 40%; flex:40%">
+    <div class="profileinfoandmap" style="display: flex; flex-direction: column; width: 40%; flex:40%; margin: 10px;">
         <div class="profileinfomanagement">
             <div class="profilemanagementrow">
                 <div class="avatardetailscolumn">
@@ -75,39 +75,55 @@
         
     </div>
     
-    <!-- central tabs -->
-    <div class="centraltabs">
-        <!-- orders management -->
+    <div class="ordersandstores" style="display: flex; flex-direction: column; width: 60%; flex:60%; margin: 10px;">
         <div class="ordersmanagement">
-            <!-- orders -->
-            <mat-card class="orders">
-                <mat-card-header>
-                    <mat-card-title>Orders</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                <!-- mat-list -->
-                    <mat-list>
-                        infor about orders
-                    </mat-list>
-                </mat-card-content>
-            </mat-card>
+            <div>
+                <table mat-table [dataSource]="dataSource">
+              
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="#">
+                    <th mat-header-cell *matHeaderCellDef> # </th>
+                    <td mat-cell *matCellDef="let row; let i=index"> {{getAdjustedIndex(i)}} </td>
+                  </ng-container>
+              
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="items">
+                    <th mat-header-cell *matHeaderCellDef> Items </th>
+                    <td mat-cell *matCellDef="let data"> {{data.items}} </td>
+                  </ng-container>
+              
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="total">
+                    <th mat-header-cell *matHeaderCellDef> Total </th>
+                    <td mat-cell *matCellDef="let data"> {{data.amount | currency:' '}} </td>
+                  </ng-container>
+              
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="deliveryFee">
+                    <th mat-header-cell *matHeaderCellDef> Delivery Fee </th>
+                    <td mat-cell *matCellDef="let data"> {{data.deliveryfee | currency:' '}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="paymentStatus">
+                    <th mat-header-cell *matHeaderCellDef> Payment Status </th>
+                    <td mat-cell *matCellDef="let data"> {{data.paymentStatus}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let data"> <button mat-flat-button color="primary" style="color:white"><mat-icon style="color:white">visibility</mat-icon>View</button></td>
+                  </ng-container>
+                  
+              
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                               showFirstLastButtons
+                               aria-label="Select page of periodic elements">
+                </mat-paginator>
+              </div>
         </div>
-        
-        <!-- stores -->
-        <div class="storesmanagement">
-            <!-- stores -->
-            <mat-card class="stores">
-                <mat-card-header>
-                    <mat-card-title>Stores</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                <!-- mat-list -->
-                    <mat-list>
-                        infor about stores
-                    </mat-list>
-                </mat-card-content>
-            </mat-card>
-        </div>     
+        <div class="storesmanagement"></div>
     </div>
     
 </div>

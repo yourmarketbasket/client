@@ -150,6 +150,9 @@ export class MasterServiceService {
   getCategoryProducts(category:any){
     return this.http.get(`${this.baseurl}/api/products/getCategoryProducts/${category}`);
   }
+  getUserOrders(userid:any){
+    return this.http.get(`${this.baseurl}/api/products/getUserOrders/${userid}`);
+  }
   getPaginatedProducts(data:any){
     return this.http.post(`${this.baseurl}/api/products/getPaginatedProducts`, data);
   }
