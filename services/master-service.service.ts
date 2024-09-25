@@ -153,6 +153,9 @@ export class MasterServiceService {
   getUserOrders(userid:any){
     return this.http.get(`${this.baseurl}/api/products/getUserOrders/${userid}`);
   }
+  getStoresAndProductsByOwnerId(ownerid:any){
+    return this.http.get(`${this.baseurl}/api/products/getStoresAndProductsByOwnerId/${ownerid}`);
+  }
   getPaginatedProducts(data:any){
     return this.http.post(`${this.baseurl}/api/products/getPaginatedProducts`, data);
   }

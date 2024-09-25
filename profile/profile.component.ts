@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   rating = 3.2;
   isLoading = true;
-  stores!:Store[];
+  stores:any;
   userId: any;
   displayedColumns: string[] = ['#', 'items', 'total', 'deliveryFee', 'paymentStatus', 'actions'];
   displayedStoresColumns: string[] = ['#', 'name', 'type', 'currency', 'items', 'totalvalue', 'actions'];
@@ -65,6 +65,7 @@ export class ProfileComponent implements OnInit {
   mapurl:any;
   orders:any;
   dataSource = new MatTableDataSource<OrdersData>();  // Initialize in the class
+  storesDataSource: any;
   
   constructor(private socketService: SocketService, private ms: MasterServiceService, private router: Router, private domSanitizer:DomSanitizer, private authService: AuthService, private dialog: MatDialog) { 
   
@@ -196,13 +197,21 @@ export class ProfileComponent implements OnInit {
       }
     }); 
 
+    this.ms.getStoresAndProductsByOwnerId(this.userId).subscribe((res:any)=>{
+      if(res.success && res.data){
+        this.stores = res.data;
+        this.storesDataSource = new MatTableDataSource<StoresData>(this.stores);
+        this.storesDataSource.paginator = this.paginator;
+      }
+    })
+
     
   
    }
 
-  //  getAdjustedIndex(index: number): number {
-  //     return index + (this.paginator.pageIndex * this.paginator.pageSize) + 1;
-  //   }
+   getAdjustedIndex(index: number): number {
+      return index + (this.paginator.pageIndex * this.paginator.pageSize) + 1;
+    }
    
 
 

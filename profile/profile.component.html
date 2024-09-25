@@ -79,7 +79,7 @@
         <div class="ordersmanagement" *ngIf="!orders" style="display: flex; flex-direction: row; justify-content: center; align-items: center; height: 20vh; width: 100%;">
             <span><mat-icon color="accent" style="vertical-align: middle;">warning</mat-icon>No Orders Yet!</span>
         </div>
-        <div class="ordersmanagement" *ngIf="orders">
+        <div class="ordersmanagement">
             <div>
                 <table mat-table [dataSource]="dataSource">
               
