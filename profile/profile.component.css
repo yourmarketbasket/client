@@ -49,6 +49,9 @@
 icon-column{
     width: 5px !important;
 }
+table{
+    width: 100%
+}
 table, tr{
     width: 100%;
     border-collapse: collapse;

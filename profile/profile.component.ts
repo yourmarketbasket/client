@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   stores:any;
   userId: any;
   displayedColumns: string[] = ['#', 'items', 'total', 'deliveryFee', 'paymentStatus', 'actions'];
-  displayedStoresColumns: string[] = ['#', 'name', 'type', 'currency', 'items', 'totalvalue', 'actions'];
+  displayedStoresColumns: string[] = ['#', 'name', 'items', 'totalvalue', 'actions'];
   phone = "";
   avatar = "";
   name = "";
