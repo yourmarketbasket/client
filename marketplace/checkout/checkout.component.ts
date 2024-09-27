@@ -40,6 +40,7 @@ export class CheckoutComponent implements OnInit {
   mapUrl!:any;
   mapfeedback!:any;
   accepttncs:boolean = false;
+  savedBuyerAddress:any;
 
 
   @Input() placeholder = ""; 
@@ -60,6 +61,9 @@ export class CheckoutComponent implements OnInit {
     this.ms.getUser(this.userId).subscribe((res:any)=>{
       if(res.success){
         this.user = res.data
+        this.savedBuyerAddress = this.user.location;
+        this.selectionPref(event);
+    
       }
     })
     // get cartitems
@@ -78,10 +82,11 @@ export class CheckoutComponent implements OnInit {
   }
 
 // after init
-  ngAfterViewInit(){
-      this.loadGoogleMaps();
-      // this.initMap();
+ngAfterViewInit() {
+  if (this.locationField && this.locationField.nativeElement) {
+    this.loadGoogleMaps(); // Only load maps after view is initialized
   }
+}
 // selectin prefs
   async selectionPref(event:any){
     if(event.value == 1){
@@ -91,13 +96,19 @@ export class CheckoutComponent implements OnInit {
     }else if(event.value == 2){
       this.buyerLocation = null;
       this.locationForm.get('locationField')?.disable();
-      this.getLocation();      
-
+      this.getLocation();  
+      
+    }else if(this.savedBuyerAddress){
+      this.buyerLocation = {
+        latitude:this.savedBuyerAddress.latitude,
+        longitude:this.savedBuyerAddress.longitude
+      };
+      this.locationForm.get('locationField')?.disable;
     }
 
   }
   async getLocation(){
-    if(navigator.geolocation){
+    if(navigator.geolocation && !this.savedBuyerAddress){
       await navigator.geolocation.getCurrentPosition((position:any)=>{
         this.buyerLocation = {
           latitude: position.coords.latitude, 
@@ -106,7 +117,13 @@ export class CheckoutComponent implements OnInit {
       })
       
       
-    }else{
+    }else if(navigator.geolocation && this.savedBuyerAddress){
+      this.buyerLocation = {
+        latitude: this.savedBuyerAddress.latitude,
+        longitude: this.savedBuyerAddress.longitude
+      }
+
+    } else {
       console.log("Geolocation not supported")
     }
   }
@@ -159,9 +176,9 @@ export class CheckoutComponent implements OnInit {
       try {
          this.logisticsResponse = await this.ms.getStoreLocations(this.userId).toPromise();
   
-        if (this.logisticsResponse.success && this.buyerLocation) {
+        if (this.logisticsResponse.success && (this.buyerLocation || this.savedBuyerAddress)) {
           const origins = this.logisticsResponse.origins.map((e: any) => new google.maps.LatLng(e.latitude, e.longitude));
-          const destination = new google.maps.LatLng(this.buyerLocation.latitude, this.buyerLocation.longitude);
+          const destination = this.savedBuyerAddress ? new google.maps.LatLng(this.savedBuyerAddress.latitude, this.savedBuyerAddress.longitude) : new google.maps.LatLng(this.buyerLocation.latitude, this.buyerLocation.longitude);
           const service = new google.maps.DistanceMatrixService();
   
           service.getDistanceMatrix(

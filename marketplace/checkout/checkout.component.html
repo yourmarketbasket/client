@@ -37,7 +37,7 @@
                 <mat-checkbox [(ngModel)]="accepttncs" style="margin:2%" class="accepttns">Accept Terms and Conditions</mat-checkbox>
                 <button [disabled]="!accepttncs" (click)="completeCheckout(logisticFee+totalCost)" *ngIf="logisticFee && buyerLocation" mat-stroked-button color="accent">COMPLETE CHECKOUT</button>
             </div>
-            <div class="checkout-location mat-elevation-z8">
+            <div  class="checkout-location mat-elevation-z8">
                 <h1>Location</h1>
                 <!-- <small *ngIf="buyerLocation">My Location: {{buyerLocation.latitude}} {{buyerLocation.longitude}}</small> -->
                 <small *ngIf="mapfeedback">{{mapfeedback}}</small>
@@ -45,14 +45,15 @@
                 <div class="deliverydetails">
                     <div class="location">
                             <form [formGroup]="locationForm" class="location_form_fields">
+                                <small *ngIf="savedBuyerAddress" style="color:red; width: 100%; text-align: center;"><sup>*</sup> You already have a saved address, to change, please use Nisoko Mobile App</small>
                                 <mat-form-field appearance="outline">
                                     <mat-label>Location</mat-label>
                                     <mat-select formControlName="selection" #selection (selectionChange)="selectionPref($event)">
-                                        <mat-option value="1">Enter Location</mat-option>
-                                        <mat-option value="2">Current Location</mat-option>
+                                        <mat-option *ngIf="!savedBuyerAddress" value="1">Enter Location</mat-option>
+                                        <mat-option *ngIf="savedBuyerAddress" value="2">Current Location</mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" *ngIf="!savedBuyerAddress">
                                     <mat-label>Start typing to select...</mat-label>
                                     <input #locationField formControlName="locationField" matInput type="text">
                                 </mat-form-field>
