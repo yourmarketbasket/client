@@ -162,6 +162,9 @@ export class MasterServiceService {
   getGroupedStoreOrders(storeid:any){
     return this.http.get(`${this.baseurl}/api/products/groupAllStoreOrders/${storeid}`)
   }
+  getStoreOrders(storeid:any){
+    return this.http.get(`${this.baseurl}/api/products/getStoreOrders/${storeid}`)
+  }
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);

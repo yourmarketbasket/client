@@ -1,0 +1,8 @@
+.selectiondialog{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}

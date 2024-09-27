@@ -8,6 +8,7 @@ import { Order } from 'src/app/Interfaces/interfaces-master-file';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProcessOrderComponent } from 'src/app/mystores/process-order/process-order.component';
+import { SelectStoreDialogComponent } from './select-store-dialog/select-store-dialog.component';
 
 @Component({
   selector: 'app-orders',
@@ -26,17 +27,21 @@ export class OrdersComponent implements OnInit{
   dataSource!:MatTableDataSource<Order>;
   orders!:Order[];
   length!:any;
+  userid: any;
   // constructor
   constructor(private activateRoute: ActivatedRoute, private ms: MasterServiceService, private dialog:MatDialog,){}
 
 
   ngOnInit(): void {
+    this.selectStore();
     // get the store id from the route
     this.activateRoute.queryParams.subscribe(params=>{
       this.storeid = params['storeid'];
     })  
       // get the orders from the store
     this.dataRepopulate();
+    // get the store orders for the selected ID
+    this.ms.getStoreOrders(this.storeid);
     
     
   }
@@ -79,6 +84,16 @@ export class OrdersComponent implements OnInit{
     })
   
     
+  }
+  
+  selectStore(){
+    const dialogRef = this.dialog.open(SelectStoreDialogComponent, {
+      width: 'auto',
+      data: {
+        userid: this.userid
+      }
+
+    })
   }
 
   processOrder(data:any){

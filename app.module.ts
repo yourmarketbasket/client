@@ -104,6 +104,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import { CategoriesComponent } from './marketplace/categories/categories.component';
 import { OrdersComponent } from './marketplace/orders/orders.component';
 import { ProcessOrderComponent } from './mystores/process-order/process-order.component';
+import { SelectStoreDialogComponent } from './marketplace/orders/select-store-dialog/select-store-dialog.component';
 
 registerLocaleData(en);
 
@@ -156,7 +157,8 @@ registerLocaleData(en);
     PaymentSuccessComponent,
     CategoriesComponent,
     OrdersComponent,
-    ProcessOrderComponent
+    ProcessOrderComponent,
+    SelectStoreDialogComponent
     
 
   ],

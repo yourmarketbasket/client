@@ -1,0 +1,10 @@
+<div class="selectiondialog" >
+    <mat-form-field appearance="fill">
+      <mat-label>Select a store</mat-label>
+      <mat-select [(value)]="selectedStore">
+        <mat-option value="" disabled>Select a store</mat-option>
+        <mat-option *ngFor="let store of userStores" [value]="store">{{ store.storename }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
