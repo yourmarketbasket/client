@@ -1,19 +1,19 @@
 <div class="orders-listing">
-    <div class="no_orders" *ngIf="!orders" style="display: flex; flex-direction: row;">
-        <span><mat-icon style="vertical-align: middle;" color="accent">warning</mat-icon>
+    <div class="no_orders" *ngIf="!orders" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <span matTooltip="Change Store"><mat-icon  style="vertical-align: middle;" color="accent">warning</mat-icon>
             NO ORDERS TO SHOW
         </span>
-        <button (click)="changeStore()" mat-mini-fab color="primary"><mat-icon>refresh</mat-icon></button>
+        <button (click)="selectStore()" mat-mini-fab color="primary"><mat-icon>refresh</mat-icon></button>
     </div>
     <!-- DISPLAY THE PRODUCTS HERE -->
      <mat-card *ngIf="orders">
-        <mat-card-header class="card-header" style="display: flex; flex-direction: row; justify-content: space-between;">
+        <mat-card-header class="card-header" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
             <h1>Store Order(s) [{{orders.length}}]</h1>
-            <button (click)="changeStore()" mat-mini-fab color="primary"><mat-icon>refresh</mat-icon></button>
+            <button matTooltip="Change Store" (click)="selectStore()" mat-mini-fab color="primary"><mat-icon>refresh</mat-icon></button>
             
         </mat-card-header>
         <mat-card-content>
-            <table mat-table [dataSource]="dataSource" matSort>
+            <table mat-table [dataSource]="OrdersDataSource">
                 <!-- Checkbox Column -->
                 <ng-container matColumnDef="select">
                     <th mat-header-cell *matHeaderCellDef>
@@ -32,32 +32,32 @@
                     </td>
                 </ng-container>   
                 <ng-container matColumnDef="Client">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
+                    <th mat-header-cell *matHeaderCellDef> Client </th>
                     <td mat-cell *matCellDef="let order, let i=index"> {{order.buyername}}</td>
                 </ng-container>
                 <ng-container matColumnDef="items">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> # Items </th>
+                    <th mat-header-cell *matHeaderCellDef> # Items </th>
                     <td mat-cell *matCellDef="let order, let i=index"> {{order.items}}</td>
                 </ng-container>
                 <ng-container matColumnDef="Total Amount">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+                    <th mat-header-cell *matHeaderCellDef> Amount </th>
                     <td mat-cell *matCellDef="let order, let i=index"> {{order.amount | currency: ' ' }}</td>
                 </ng-container>
                 <ng-container matColumnDef="Pay Status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment Status </th>
+                    <th mat-header-cell *matHeaderCellDef> Payment Status </th>
                     <td mat-cell *matCellDef="let order, let i=index"> {{order.paymentStatus}} </td>
                 </ng-container>
                 <ng-container matColumnDef="Route">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Route </th>
+                    <th mat-header-cell *matHeaderCellDef> Route </th>
                     <td mat-cell *matCellDef="let order">{{ order.payment?.[0]?.currency || 'N/A' }}</td>
                 </ng-container>
                 <ng-container matColumnDef="OrderStatus">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Status </th>
+                    <th mat-header-cell *matHeaderCellDef> Order Status </th>
                     <td mat-cell *matCellDef="let order">Pending</td>
                 </ng-container>
                 
                 <ng-container matColumnDef="Actions">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                    <th mat-header-cell *matHeaderCellDef> </th>
                     <td mat-cell *matCellDef="let order; let i=index">
                         <button (click)="processOrder(orders[i])"  mat-stroked-button color="accent" >
                             <mat-icon>settings</mat-icon>

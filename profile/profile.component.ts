@@ -10,8 +10,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Store } from '../mystores/stores-dashboard/stores-interface';
 import { SocketService } from '../services/socket.service';
 import { MasterServiceService } from '../services/master-service.service';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 export interface OrdersData {
   items: string;
