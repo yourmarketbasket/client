@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MasterServiceService } from 'src/app/services/master-service.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef  } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-select-store-dialog',
@@ -13,7 +13,7 @@ export class SelectStoreDialogComponent implements OnInit{
   userid:any;  
   selectedStore:any;
   // constructor
-  constructor(private ms: MasterServiceService){}
+  constructor(private ms: MasterServiceService, private dialogRef: MatDialogRef<SelectStoreDialogComponent>){}
 
   ngOnInit(): void {
     this.userid = localStorage.getItem("userId")
@@ -24,6 +24,12 @@ export class SelectStoreDialogComponent implements OnInit{
       }
     })
     
+  }
+
+  onStoreSelected(event:any){
+    const selectedStore = event.value;
+    this.dialogRef.close(selectedStore); 
+    localStorage.setItem("selectedStore",selectedStore._id);
   }
 
 }

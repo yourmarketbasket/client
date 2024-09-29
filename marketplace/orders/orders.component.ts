@@ -20,6 +20,7 @@ export class OrdersComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!:MatPaginator;
   @ViewChild(MatSort) sort!:MatSort;
   storeid:any;
+  selectedStore:any;
   // 'PayID', 'PayStatus','View Route', 
   displayedColumns: string[] = ['select','Client','# Items','Total Amount','Pay Status','Route','OrderStatus','Actions'];
 
@@ -33,7 +34,11 @@ export class OrdersComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.selectStore();
+    this.selectedStore = localStorage.getItem('selectedStore');
+    console.log(this.selectedStore)
+    if(!this.selectedStore){
+      this.selectStore();
+    }
     // get the store id from the route
     this.activateRoute.queryParams.subscribe(params=>{
       this.storeid = params['storeid'];
