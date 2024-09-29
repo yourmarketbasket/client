@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Order } from 'src/app/Interfaces/interfaces-master-file';
+import { Order, Payment,  } from 'src/app/Interfaces/interfaces-master-file';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProcessOrderComponent } from 'src/app/mystores/process-order/process-order.component';
@@ -15,6 +15,7 @@ import { SelectStoreDialogComponent } from './select-store-dialog/select-store-d
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
+
 export class OrdersComponent implements OnInit{
   // properties
   @ViewChild(MatPaginator) paginator!:MatPaginator;
@@ -22,11 +23,11 @@ export class OrdersComponent implements OnInit{
   storeid:any;
   selectedStore:any;
   // 'PayID', 'PayStatus','View Route', 
-  displayedColumns: string[] = ['select','Client','# Items','Total Amount','Pay Status','Route','OrderStatus','Actions'];
+  displayedColumns: string[] = ['select','Client','items','Total Amount','Pay Status','Route','OrderStatus','Actions'];
 
   selection = new SelectionModel<Order>(true,[]);
   dataSource!:MatTableDataSource<Order>;
-  orders!:Order[];
+  orders!:any;
   length!:any;
   userid: any;
   // constructor
@@ -35,30 +36,17 @@ export class OrdersComponent implements OnInit{
 
   ngOnInit(): void {
     this.selectedStore = localStorage.getItem('selectedStore');
-    console.log(this.selectedStore)
     if(!this.selectedStore){
       this.selectStore();
     }
-    // get the store id from the route
-    this.activateRoute.queryParams.subscribe(params=>{
-      this.storeid = params['storeid'];
-    })  
-      // get the orders from the store
-    this.dataRepopulate();
-    // get the store orders for the selected ID
-    this.ms.getStoreOrders(this.storeid);
-    
-    
+    this.getStoreOrders(this.selectedStore);
+      
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if(this.dataSource.paginator){
-      this.dataSource.paginator.firstPage();
-    }
+  changeStore(){
+    this.selectStore();
   }
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.length;
@@ -79,26 +67,37 @@ export class OrdersComponent implements OnInit{
     return `${this.selection.isSelected(order) ? 'deselect' : 'select'} Product ${order.buyername}`;
   }
 
-  dataRepopulate(){
-    this.ms.getGroupedStoreOrders(this.storeid).subscribe((data:any)=>{
-      this.orders = data.orders;
-      this.dataSource = new MatTableDataSource(this.orders);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.length = this.dataSource.data.length;
-    })
   
-    
-  }
   
   selectStore(){
     const dialogRef = this.dialog.open(SelectStoreDialogComponent, {
       width: 'auto',
       data: {
         userid: this.userid
+      },
+      disableClose: true // Prevent closing on outside click
+    });
+  
+    // After the dialog is closed, you can retrieve the data passed back
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getStoreOrders(result._id)
+      } else {
+        console.log("Dialog closed without selecting a store.");
       }
+    });
+  }
+  
 
-    })
+  getStoreOrders(storeid:any){
+    // get the store orders for the selected ID
+    this.ms.getStoreOrders(storeid).subscribe((res: any) => {
+      this.orders = res.orders;
+      this.dataSource = new MatTableDataSource(this.orders); // Initialize dataSource
+      this.dataSource.paginator = this.paginator; // Assign paginator
+      this.dataSource.sort = this.sort; 
+    });
+
   }
 
   processOrder(data:any){
