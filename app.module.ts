@@ -105,6 +105,7 @@ import { CategoriesComponent } from './marketplace/categories/categories.compone
 import { OrdersComponent } from './marketplace/orders/orders.component';
 import { ProcessOrderComponent } from './mystores/process-order/process-order.component';
 import { SelectStoreDialogComponent } from './marketplace/orders/select-store-dialog/select-store-dialog.component';
+import { PhonePipe } from './phone.pipe';
 
 registerLocaleData(en);
 
@@ -158,7 +159,8 @@ registerLocaleData(en);
     CategoriesComponent,
     OrdersComponent,
     ProcessOrderComponent,
-    SelectStoreDialogComponent
+    SelectStoreDialogComponent,
+    PhonePipe
     
 
   ],

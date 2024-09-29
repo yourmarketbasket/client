@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProcessOrderComponent } from 'src/app/mystores/process-order/process-order.component';
 import { SelectStoreDialogComponent } from './select-store-dialog/select-store-dialog.component';
 
+
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -21,7 +23,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
   storeid: any;
   selectedStore: any;
-  displayedColumns: string[] = ['select', 'Client', 'items', 'Total Amount', 'Pay Status', 'Route', 'OrderStatus', 'Actions'];
+  displayedColumns: string[] = ['select','Client', 'Contact',  'Pay Status', 'OrderStatus','TransactionID', 'Actions'];
   selection = new SelectionModel<Order>(true, []);
   OrdersDataSource = new MatTableDataSource<Order>([]); // Initialize with an empty data source
   orders: Order[] = [];
@@ -66,7 +68,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     this.ms.getStoreOrders(storeid).subscribe((res: any) => {
       this.orders = res.orders;
       this.OrdersDataSource.data = this.orders; // Set the new data
-
       // Assign paginator and sort after data is set
       if (this.paginator && this.sort) {
         this.OrdersDataSource.paginator = this.paginator;
@@ -76,11 +77,15 @@ export class OrdersComponent implements OnInit, AfterViewInit {
   }
 
   processOrder(data: any) {
-    const dialogRef = this.dialog.open(ProcessOrderComponent, {
-      data: data,
-      width: 'auto',
-      height: 'auto'
-    });
+    if(data){
+      const dialogRef = this.dialog.open(ProcessOrderComponent, {
+        data: data,
+        width: 'auto',
+        height: 'auto'
+      });
+    }else{
+      console.log("no data from parent")
+    }
   }
 
   isAllSelected() {

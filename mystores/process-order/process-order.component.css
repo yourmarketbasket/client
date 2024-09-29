@@ -19,7 +19,3 @@
     height: 100%;
 }
 
-table tr, td, th{
-    border: 1px solid black;
-    text-align: center;
-}
