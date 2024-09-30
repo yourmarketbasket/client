@@ -21,19 +21,26 @@ export class ProcessOrderComponent implements OnInit{
   destinations:any;
   mapUrl:any;
   orderData:any;
+  action:any;
    // Initialize with an empty data source
   orders: any;
   products:any;
   
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private sanitizer: DomSanitizer){}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private domSanitizer: DomSanitizer){}
   
-  ngOnInit(): void {
+  async ngOnInit() {
     console.log(this.data)
     this.orderData = this.ensureArrays(this.data, ['products','payment'])
 
-    // console.log(this.orderData);
+    const origin = `${this.data.origin.latitude},${this.data.origin.longitude}`; // Replace with your origin coordinates
+    const destination = `${this.data.destination.latitude},${this.data.destination.longitude}`; // The destination coordinates
+
+    const mapurl = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyDdvqTHmz_HwPar6XeBj8AiMxwzmFdqC1w&origin=${origin}&destination=${destination}&mode=driving`;
+    this.mapUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(mapurl);
     
   }
+
+  onActionSelected(event:any){}
   
   ensureArrays(obj: any, keysToConvert: string[]): any {
     // Iterate over all keys in the object

@@ -1,19 +1,29 @@
 <div class="frame-body">
     <div class="delivery-map">
-        <!-- <iframe
+        <iframe
+        class="mat-elevation-z8"         
         width="100%"
         height="100%"
         frameborder="0"
-        style="border:0"
-        [src]="googleMapsUrl"
+        style="border:0; border-radius: 10px;"
+        [src]="mapUrl"
         allowfullscreen>
-        </iframe> -->
+        </iframe>
 
     </div>
     <div class="products">        
         <div class="product-listings">
-            <h1>Client Name: {{data.buyername}}</h1>
-            <hr>
+            <div class="buyerheader" style="display: flex; flex-direction: column; border: 1px solid rgb(15, 145, 206); padding: 10px; border-radius: 5px;">
+                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <span>CLIENT: </span>
+                    <span style="font-weight: 800; font-size: 20px; color: rgb(10, 238, 162);">{{data.buyername}}</span>
+                </div>
+                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <span>PHONE: </span>
+                    <span style="font-weight: 800; font-size: 20px; color: rgb(10, 238, 162);">({{data.buyer[0].zipcode}}){{data.buyer[0].phone | phone}}</span>
+                </div>
+            </div>
+
             <table>
                 <thead>
                     <th>#</th>
@@ -22,7 +32,8 @@
                     <th>Qtty</th>
                     <th>Price</th>
                     <th>Total</th>
-                    <th>Actions</th>
+                    <th>Action</th>
+                    <th></th>
                 </thead>
                 <tr *ngFor="let product of orderData.products; let i=index">
                     <td>{{i+1}}</td>
@@ -30,14 +41,23 @@
                     <td>{{product.productmodel}}</td>
                     <td>{{product.quantity}}</td>
                     <td>{{product.price}}</td>
-                    <td>{{product.totalCost}}</td>
-                    <td></td>
+                    <td>{{product.totalCost | currency: ' '}}</td>
+                    <td><mat-form-field appearance="outline">
+                        <mat-label>Select Action</mat-label>
+                        <mat-select [(value)]="action" (selectionChange)="onActionSelected($event)">
+                          <mat-option value="">Select Action</mat-option>
+                          <mat-option value="pack">Pack</mat-option>
+                          <mat-option value="confirm">Confirm</mat-option>
+                          <mat-option value="dispatch">Dispatch</mat-option>
+                          <mat-option value="delivered">Delivered</mat-option>
+
+                        </mat-select>
+                      </mat-form-field></td>
+                    <td>
+                        <button mat-mini-fab style="background-color: rgb(255, 4, 201); color: white; vertical-align: middle;"><mat-icon>check</mat-icon></button>
+                    </td>
                 </tr>
             </table>
-            
-            <hr>
-            <h1>DISPATCH DETAILS</h1>
-            <hr>
         </div>
     </div>
 </div>
