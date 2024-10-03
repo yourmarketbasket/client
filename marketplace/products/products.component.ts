@@ -38,13 +38,16 @@ export class ProductsComponent implements OnInit{
     productItemsPerPage:number = 20;
     filterAmountMinValue:number=0;
     filterAmountMaxValue:number=0;
+    allproductsloading!:boolean;
+    searchproductsloading!:boolean;
+
   
 
 
     @ViewChild(NzCarouselComponent, { static: false })
-  myCarousel!: NzCarouselComponent;
-  @ViewChild('searchResults') searchResults!: ElementRef;
-  @ViewChild('marketplace') marketplace!: ElementRef;
+    myCarousel!: NzCarouselComponent;
+    @ViewChild('searchResults') searchResults!: ElementRef;
+    @ViewChild('marketplace') marketplace!: ElementRef;
 
 
     goTo(index:number) {
@@ -86,6 +89,7 @@ export class ProductsComponent implements OnInit{
     
     // search products
     searchMarket(query:any, products:any){
+      this.searchproductsloading = true;
       if(query){
           const data = {
             query: query,
@@ -96,12 +100,14 @@ export class ProductsComponent implements OnInit{
             this.searchedProduct = [];
             this.numberOfResults = 0;
             if(res.data.length>0){
+              this.searchproductsloading = false;
               this.searchedProduct = res.data
               this.numberOfResults = res.data.length;
-              this.scrollToSearchResults(this.numberOfResults);
             }else{
               console.log("Error occured "+res.message)
             }
+            this.scrollToSearchResults(this.numberOfResults);
+
           })        
       }   
 
@@ -238,11 +244,14 @@ export class ProductsComponent implements OnInit{
     }
 
     fetchPaginatedProducts(){
+      this.allproductsloading = true;
       this.ms.getPaginatedProducts({page:this.page, limit:this.limit}).subscribe((res:any)=>{
         if(res.success){
           this.products = res.data;  
           this.totalPages =res.data.length;
         }
+      this.allproductsloading = false;
+
       })
     }
     getPageRange(): number[] {

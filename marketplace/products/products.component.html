@@ -99,14 +99,18 @@
             </mat-slider>             
               
         </div>
-        <div class="categoriessection">
+          
+        <div class="categoriessection" style="margin-bottom: 5px;">
             <mat-divider *ngIf="numberOfResults>0"></mat-divider>
-            <h3 style="font-weight: 600;" *ngIf="numberOfResults>0">Query Results</h3>            
+            <h3 style="font-weight: 600;" *ngIf="numberOfResults>0">Query Results</h3>    
+                 
             <div id="searchResults" #searchResults class="search-results" *ngIf="searchQuery">
                 <span *ngIf="numberOfResults>0" class="search-term">Your query <span style="color: green;">"{{searchQuery}}"</span> returned <span style="color:green">{{numberOfResults}}</span> results</span>
                 <span *ngIf="numberOfResults==0" class="search-term">No Products found for Search Phrase "{{searchQuery}}"</span>
-
-                <div class="allproductslisting">
+                <div class="allproductslisting" *ngIf="searchproductsloading" style="width: 100%; height: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <mat-spinner strokeWidth="1"></mat-spinner>
+                </div>
+                <div class="allproductslisting" *ngIf="!searchproductsloading">
                 <div (click)="viewProduct(product)" class="allproductlistingitem"  *ngFor="let product of searchedProduct.slice((currentPage-1)*productItemsPerPage, currentPage*productItemsPerPage)">
                     <small>{{product.brand.toUpperCase()}}</small>   
                     <img [src]="product.avatar[0]"  alt="">            
@@ -126,9 +130,11 @@
                 <button mat-stroked-button *ngFor="let page of getPageRange()" (click)="setPage(page)">{{page}}</button>
             </div>
             </div>  
-            <mat-divider></mat-divider>
-            <h3 style="font-weight: 600;">All Products({{products.length}})</h3>            
-            <div class="allproductslisting">
+            <h3 style="font-weight: 600;">All Products({{products.length}})</h3> 
+            <div *ngIf="allproductsloading" class="allproductslisting" style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <mat-spinner strokeWidth="1"></mat-spinner>
+            </div>           
+            <div *ngIf="!allproductsloading" class="allproductslisting">
                 <div (click)="viewProduct(product)" class="allproductlistingitem"  *ngFor="let product of products.slice((currentPage-1)*productItemsPerPage, currentPage*productItemsPerPage)">
                     <small>{{product.brand.toUpperCase()}}</small>   
                     <img [src]="product.avatar[0]"  alt="">            
