@@ -37,6 +37,8 @@ export class ProductComponent implements OnInit{
   userid!:any;
   disableAddToCartButton:boolean = false;
   addtocartfeedback!:any;
+  currency:any;
+  location:any;
 
   // methods
   ngOnInit() { 
@@ -56,7 +58,12 @@ export class ProductComponent implements OnInit{
          this.subcategory = this.product.subcategory;
          this.category = this.product.category;
          this.price = this.product.sp;
-         this.storeid = this.product.storeid
+         this.storeid = this.product.storeid;
+         this.location = this.product.storeLocation;
+         this.currency = this.product.storeCurrency;
+
+
+
       }
       this.getAvailableProductQuantity(localStorage.getItem('userId'),this.product._id)
 

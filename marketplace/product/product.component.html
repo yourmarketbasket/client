@@ -53,7 +53,7 @@
 
         </div>  
         <div class="price-diplay-div">
-            <h1>TOTAL: {{calculateDiscountedPrice(price, discount)}}/= KES</h1>
+            <h1>TOTAL: {{calculateDiscountedPrice(price, discount) | currency: currency?currency+".":""}}</h1>
             <small>{{addtocartfeedback}}</small>
         </div> 
         <div class="button-div">
