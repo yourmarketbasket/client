@@ -167,14 +167,13 @@ mat-icon{
 }
 .product-details{
     height: auto;
-    width: 100vw;
     overflow-y: auto;
-    padding-bottom: 20%;
+    /* padding-bottom: 20%; */
     justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: row;
-    padding-bottom: 10%;
+    padding-top: 50px;
     
 }
 .image-details{

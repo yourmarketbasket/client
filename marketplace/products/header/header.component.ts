@@ -207,6 +207,10 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  onSearchFieldFocus() {
+    this.router.navigate(['/market_place']);
+  }
+
   goToCart(){
     this.router.navigate(['/market_place/cart'])
   }

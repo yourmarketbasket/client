@@ -1,4 +1,4 @@
-import { Component,OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component,OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { truncateString } from 'src/app/services/computations';
 import { Router } from '@angular/router';
@@ -43,6 +43,9 @@ export class ProductsComponent implements OnInit{
 
     @ViewChild(NzCarouselComponent, { static: false })
   myCarousel!: NzCarouselComponent;
+  @ViewChild('searchResults') searchResults!: ElementRef;
+  @ViewChild('marketplace') marketplace!: ElementRef;
+
 
     goTo(index:number) {
       this.myCarousel.goTo(Number(index));
@@ -69,6 +72,18 @@ export class ProductsComponent implements OnInit{
       }
 
     }
+    scrollToSearchResults(results: any) {
+      if (results.length !== 0) {
+        // Scroll to the search results area
+        this.searchResults.nativeElement.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        if (this.marketplace) {
+          this.marketplace.nativeElement.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    }
+    
+    
     // search products
     searchMarket(query:any, products:any){
       if(query){
@@ -83,6 +98,7 @@ export class ProductsComponent implements OnInit{
             if(res.data.length>0){
               this.searchedProduct = res.data
               this.numberOfResults = res.data.length;
+              this.scrollToSearchResults(this.numberOfResults);
             }else{
               console.log("Error occured "+res.message)
             }

@@ -1,9 +1,4 @@
-<div class="marketplace">
-
-    <div class="search-results" *ngIf="searchQuery">
-        <span *ngIf="numberOfResults>0" class="search-term">Your search "{{searchQuery}}" returned {{numberOfResults}} results</span>
-        <span *ngIf="numberOfResults==0" class="search-term">No Products found for Search Phrase "{{searchQuery}}"</span>
-    </div>   
+<div class="marketplace" #marketplace id="marketplace">     
     <div class="carousel-div">
         <nz-carousel nzEnableSwipe="true" nzEffect="fade" nzAutoPlay="true" nzDotPosition="bottom" nzAutoPlaySpeed="2000">            
             <div nz-carousel-content *ngFor="let item of carouselProducts">
@@ -108,8 +103,34 @@
                 <button *ngIf="carouselData.categories.length>16" mat-stroked-button>...</button>                                                
             </div>
             <router-outlet></router-outlet>
+            <mat-divider *ngIf="numberOfResults>0"></mat-divider>
+            <h3 *ngIf="numberOfResults>0">Search Results</h3>            
+            <div id="searchResults" #searchResults class="search-results" *ngIf="searchQuery">
+                <span *ngIf="numberOfResults>0" class="search-term">Your search <span style="color: green;">"{{searchQuery}}"</span> returned <span style="color:green">{{numberOfResults}}</span> results</span>
+                <span *ngIf="numberOfResults==0" class="search-term">No Products found for Search Phrase "{{searchQuery}}"</span>
+
+                <div class="allproductslisting">
+                <div (click)="viewProduct(product)" class="allproductlistingitem"  *ngFor="let product of searchedProduct.slice((currentPage-1)*productItemsPerPage, currentPage*productItemsPerPage)">
+                    <small>{{product.brand.toUpperCase()}}</small>   
+                    <img [src]="product.avatar[0]"  alt="">            
+                    <small><strong>{{product.name.toUpperCase()}}</strong></small> 
+                    <small *ngIf="product.views[0]" style="color: rgb(174, 174, 174); font-size: 10;"><mat-icon style="vertical-align: middle; transform: scale(0.7);">visibility</mat-icon> {{convertNumberToShortScale(product.views[0].totalViews)}}({{product.views[0].users.length}})</small>
+                    <div style="display: flex; flex-direction: row; justify-content:center; flex:1 1 auto;">
+                        <small><s *ngIf="product.discount">Was {{convertNumberToShortScale(product.sp)}}</s></small>
+                        <small>Now KES.{{convertNumberToShortScale(product.sp, product.discount)}}</small>
+                    </div>
+                    <div *ngIf="product.discount" class="discountdot">
+                        <small>-{{product.discount}}%</small>
+                    </div>                   
+
+                </div>
+            </div>
+            <div class="allproductspagination">
+                <button mat-stroked-button *ngFor="let page of getPageRange()" (click)="setPage(page)">{{page}}</button>
+            </div>
+            </div>  
             <mat-divider></mat-divider>
-            <h3>All Products</h3>
+            <h3>All Products</h3>            
             <div class="allproductslisting">
                 <div (click)="viewProduct(product)" class="allproductlistingitem"  *ngFor="let product of products.slice((currentPage-1)*productItemsPerPage, currentPage*productItemsPerPage)">
                     <small>{{product.brand.toUpperCase()}}</small>   
