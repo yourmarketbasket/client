@@ -3,13 +3,14 @@
     height: 59px;
     border-radius: 3px;
     border: 1px solid white;
+    margin: 0.5px;
 }
-.thumbnails{
+
+.thumbnails {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 505px;
-    justify-content: center;
+    justify-content:space-evenly; /* Ensures the items are centered */
 }
 .price-diplay-div h1{
     color: rgb(15, 4, 119);
@@ -35,8 +36,8 @@
 .displayimage{
     position: relative;
     height: auto;
-    width: auto;
     margin: 1px;
+    padding: 2px;
 
 }
 .offer mat-icon{
@@ -181,6 +182,7 @@ mat-icon{
     flex-direction: column;
     background-color: white;
     height: fit-content;
+    width: 305px;
 }
 
 @media (max-width: 767px) {

@@ -28,7 +28,7 @@
                                 <strong>{{computeDiscountedSP(item.value[0].sp, item.value[0].discount) | currency: "KES "}}/-</strong>
                             </h2> 
                         </span> 
-                        <button mat-stroked-button color="primary">
+                        <button mat-stroked-button color="primary" (click)="viewProduct(item.value[0])">
                             <mat-icon>
                                 add_shopping_cart
                             </mat-icon>
@@ -75,38 +75,35 @@
     
      <div class="cateogories">
         <div class="categoriesmenu">
-            <div style="display: flex; flex-direction: column;">
-                <mat-checkbox *ngFor="let category of carouselData.categories.slice(0,10)">{{category}}</mat-checkbox>
-            </div>
+            <h3 style="font-weight: 600;">Filter by Brand or Category</h3>
+            <h4 style="font-weight: 600;">Categories</h4>
+            <mat-radio-group style="display: flex; flex-direction: column;" (change)="filterProducts($event.value)">
+                <mat-radio-button *ngFor="let category of carouselData.categories.slice(0, 10)" [value]="category">
+                  {{category}}
+                </mat-radio-button>
+            </mat-radio-group>
             <mat-divider></mat-divider>
-            <h4>Brands</h4>
-            <div style="display: flex; flex-direction: column;">
-                <mat-checkbox *ngFor="let brand of carouselData.brands.slice(0,10)">{{brand}}</mat-checkbox>
-            </div>
+            <h4 style="font-weight: 600;">Brands</h4>           
+              
+            <mat-radio-group style="display: flex; flex-direction: column;" (change)="filterProducts($event.value)">
+                <mat-radio-button *ngFor="let brand of carouselData.brands.slice(0, 10)" [value]="brand">
+                  {{brand}}
+                </mat-radio-button>
+            </mat-radio-group>              
             <mat-divider></mat-divider>
-            <h4>Filter by Price</h4>
+            <h4 style="font-weight: 600;">Filter by Price</h4>
             <small>{{filterAmountMinValue | currency: "KES "}} - {{filterAmountMaxValue | currency: "KES "}}</small>
-            <mat-slider min="0" max="1000000000" step="100" [displayWith]="formatLabel">
+            <mat-slider min="0" max="100000" step="100" [displayWith]="formatLabel">
                 <input [(ngModel)]="filterAmountMinValue" value="300" matSliderStartThumb>
                 <input value="400" [(ngModel)]="filterAmountMaxValue"  matSliderEndThumb>
-            </mat-slider>
-              
+            </mat-slider>             
               
         </div>
         <div class="categoriessection">
-            <h3>Categories</h3>
-            <div class="categorieslisting">
-                <div (click)="browseByCategory(category.category)" class="categorieslistingitem" *ngFor="let category of carouselData.categoriesListing.slice(0, 16)">
-                    <img src="{{category.avatar[0]}}" alt="">                
-                    <small style="text-align: center;">{{category.category}}</small>
-                </div>
-                <button *ngIf="carouselData.categories.length>16" mat-stroked-button>...</button>                                                
-            </div>
-            <router-outlet></router-outlet>
             <mat-divider *ngIf="numberOfResults>0"></mat-divider>
-            <h3 *ngIf="numberOfResults>0">Search Results</h3>            
+            <h3 style="font-weight: 600;" *ngIf="numberOfResults>0">Search Results</h3>            
             <div id="searchResults" #searchResults class="search-results" *ngIf="searchQuery">
-                <span *ngIf="numberOfResults>0" class="search-term">Your search <span style="color: green;">"{{searchQuery}}"</span> returned <span style="color:green">{{numberOfResults}}</span> results</span>
+                <span *ngIf="numberOfResults>0" class="search-term">Your query <span style="color: green;">"{{searchQuery}}"</span> returned <span style="color:green">{{numberOfResults}}</span> results</span>
                 <span *ngIf="numberOfResults==0" class="search-term">No Products found for Search Phrase "{{searchQuery}}"</span>
 
                 <div class="allproductslisting">
@@ -130,7 +127,7 @@
             </div>
             </div>  
             <mat-divider></mat-divider>
-            <h3>All Products</h3>            
+            <h3 style="font-weight: 600;">All Products</h3>            
             <div class="allproductslisting">
                 <div (click)="viewProduct(product)" class="allproductlistingitem"  *ngFor="let product of products.slice((currentPage-1)*productItemsPerPage, currentPage*productItemsPerPage)">
                     <small>{{product.brand.toUpperCase()}}</small>   

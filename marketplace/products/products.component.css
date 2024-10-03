@@ -140,9 +140,11 @@
 
 .categoriesmenu{
   display: flex;
+  border-right: 1px solid rgb(193, 193, 193);
+  margin: 10px;
   flex-direction: column;
   width: 15%;
-  justify-content: center;
+  justify-content: start;
   align-items: start;
 }
 span[nz-icon]{

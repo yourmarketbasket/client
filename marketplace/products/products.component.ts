@@ -108,6 +108,11 @@ export class ProductsComponent implements OnInit{
       
 
     }
+    // filter products
+    filterProducts(searchQuery:string){
+      this.ms.setSearchQuery(searchQuery);    
+  
+    }
     
    
     // view product
