@@ -127,7 +127,7 @@
             </div>
             </div>  
             <mat-divider></mat-divider>
-            <h3 style="font-weight: 600;">All Products</h3>            
+            <h3 style="font-weight: 600;">All Products({{products.length}})</h3>            
             <div class="allproductslisting">
                 <div (click)="viewProduct(product)" class="allproductlistingitem"  *ngFor="let product of products.slice((currentPage-1)*productItemsPerPage, currentPage*productItemsPerPage)">
                     <small>{{product.brand.toUpperCase()}}</small>   
