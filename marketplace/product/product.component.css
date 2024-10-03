@@ -10,7 +10,24 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content:space-evenly; /* Ensures the items are centered */
+    flex:50%;
+    justify-content:space-evenly;
+}
+.selected-thumbnail{
+    border:1px solid rgb(255, 0, 170);
+    padding: 2px;
+    border-radius: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+
+}
+
+.non-selected-thumbnail{
+    border:1px solid black;
+    padding: 2px;
+    border-radius: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 .price-diplay-div h1{
     color: rgb(15, 4, 119);
@@ -160,6 +177,13 @@ mat-icon{
     width: 40%;
     padding: 10px;       
     font-size: 90%;
+}
+.product-image{
+    border:1px solid black;
+    padding: 2px;
+    border-radius: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 .displayedimg{
     height: 300px;

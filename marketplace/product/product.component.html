@@ -8,7 +8,10 @@
             <img class="displayedimg" [src]="displayimg" alt="">
         </div>
         <div class="thumbnails">
-            <div class="product-image" *ngFor="let image of avatar">
+            <div [ngClass]="{
+                'selected-thumbnail': image === displayimg,
+                'non-selected-thumbnail': image !== displayimg
+            }" *ngFor="let image of avatar">
                 <img (click)="setDisplayImage(image)" class="image-thumbnail" [src]="image" alt="">        
             </div>
         </div>
