@@ -101,7 +101,7 @@
         </div>
         <div class="categoriessection">
             <mat-divider *ngIf="numberOfResults>0"></mat-divider>
-            <h3 style="font-weight: 600;" *ngIf="numberOfResults>0">Search Results</h3>            
+            <h3 style="font-weight: 600;" *ngIf="numberOfResults>0">Query Results</h3>            
             <div id="searchResults" #searchResults class="search-results" *ngIf="searchQuery">
                 <span *ngIf="numberOfResults>0" class="search-term">Your query <span style="color: green;">"{{searchQuery}}"</span> returned <span style="color:green">{{numberOfResults}}</span> results</span>
                 <span *ngIf="numberOfResults==0" class="search-term">No Products found for Search Phrase "{{searchQuery}}"</span>
