@@ -1,161 +1,357 @@
-<div class="marketplace" #marketplace id="marketplace">     
-    <div class="carousel-div">
-        <nz-carousel nzEnableSwipe="true" nzEffect="fade" nzAutoPlay="true" nzDotPosition="bottom" nzAutoPlaySpeed="2000">            
-            <div nz-carousel-content *ngFor="let item of carouselProducts">
-                <div class="carousel-row">
-                    <div class="containersandimage">
-                        <div class="floating-container">
-                            <div class="sheet"></div>
-                            <div class="sheet"></div>    
-                        </div>
-                        <img src="{{item.value[0].avatar[0]}}" alt="">
+<div class="marketplace" #marketplace id="marketplace">
+  <div class="carousel-div">
+    <nz-carousel
+      nzEnableSwipe="true"
+      nzEffect="fade"
+      nzAutoPlay="true"
+      nzDotPosition="bottom"
+      nzAutoPlaySpeed="2000"
+    >
+      <div nz-carousel-content *ngFor="let item of carouselProducts">
+        <div class="carousel-row">
+          <div class="containersandimage">
+            <div class="floating-container">
+              <div class="sheet"></div>
+              <div class="sheet"></div>
+            </div>
+            <img src="{{ item.value[0].avatar[0] }}" alt="" />
+          </div>
 
-                    </div>                  
-                     
-                    <div class="details">
-                        <h1 style="font-family: 'bauhaus 93';color: rgb(27, 8, 102)"><b>{{item.value[0].name}}</b></h1>
-                        <p>Brand: {{item.key}}</p>
-                        <span *ngIf="item.value[0].discount">
-                            Was 
-                            <h3 style="color: rgb(27, 8, 102)">
-                                <s>{{item.value[0].sp | currency: "KES "}}/-</s>
-                            </h3> 
-                        </span> 
+          <div class="details">
+            <h1 style="font-family: 'bauhaus 93'; color: rgb(27, 8, 102)">
+              <b>{{ item.value[0].name }}</b>
+            </h1>
+            <p>Brand: {{ item.key }}</p>
+            <span *ngIf="item.value[0].discount">
+              Was
+              <h3 style="color: rgb(27, 8, 102)">
+                <s>{{ item.value[0].sp | currency : "KES " }}/-</s>
+              </h3>
+            </span>
 
-                        <span>
-                            Now starting at 
-                            <h2 style="color: rgb(27, 8, 102)">
-                                <strong>{{computeDiscountedSP(item.value[0].sp, item.value[0].discount) | currency: "KES "}}/-</strong>
-                            </h2> 
-                        </span> 
-                        <button mat-stroked-button color="primary" (click)="viewProduct(item.value[0])">
-                            <mat-icon>
-                                add_shopping_cart
-                            </mat-icon>
-                            VIEW
-                        </button>
-                    </div>      
-                    
-                    <div class="stats">   
-                        <h1><span nz-icon nzType="credit-card" nzTheme="outline"></span> Shop with Convinience</h1>                     
-                        <p>Pay with M-PESA, VISA</p>
-                        <p>MasterCard, American Express</p>
-                        <p> and Airtel Money</p>
-                        <div class="iconrow" style="display: flex; justify-content: center; align-items: center;">
-                            <img style="width: 100px;" src="https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mc_dla_symbol_92.png" alt="">
-                            <img style="width: 100px;" src="https://www.logo.wine/a/logo/Visa_Inc./Visa_Inc.-Logo.wine.svg" alt="">
-                            <img style="width: 100px;" src="https://www.safaricom.co.ke/images/Lipanampesa.png" alt="">
-                            <img style="width: 100px;" src="https://www.logo.wine/a/logo/American_Express/American_Express-Logo.wine.svg" alt="">
-                            <img style="width: 100px;" src="https://www.logo.wine/a/logo/Bharti_Airtel/Bharti_Airtel-Logo.wine.svg" alt="">
-                        </div>
-                        
+            <span>
+              Now starting at
+              <h2 style="color: rgb(27, 8, 102)">
+                <strong
+                  >{{
+                    computeDiscountedSP(
+                      item.value[0].sp,
+                      item.value[0].discount
+                    ) | currency : "KES "
+                  }}/-</strong
+                >
+              </h2>
+            </span>
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="viewProduct(item.value[0])"
+            >
+              <mat-icon> add_shopping_cart </mat-icon>
+              VIEW
+            </button>
+          </div>
 
-
-                    </div>
-
-                </div>
-                <div class="carousel-controls">
-                    <span (click)="previous()" nz-icon nzType="arrow-left" nzTheme="outline"></span>
-                    <span (click)="next()" nz-icon nzType="arrow-right" nzTheme="outline"></span>    
-                </div>
-                <!-- <h3>{{ item }}</h3> -->
-            </div>            
-        </nz-carousel>        
-
-    </div>   
-    <mat-divider style="margin-top: 2%; margin-bottom: 1%;"></mat-divider>
-     <!--display  -->
-     <div class="features" style="display: flex; justify-content: space-around;">
-        <p><span nz-icon nzType="appstore" nzTheme="outline"></span>  Trusted by More than {{carouselData.brands.length}} Brands</p>
-        <p><span nz-icon nzType="line-chart" nzTheme="outline"></span>  Offering More than {{carouselData.categories.length}} categories</p>
-        <p><span nz-icon nzType="check-circle" nzTheme="outline"></span>  And more than {{carouselData.subcategories.length}} subcategories</p>
-        <p><span nz-icon nzType="home" nzTheme="outline"></span>  Get your shopping delivered to your location</p>
-     </div>
-     <mat-divider></mat-divider>
-    
-     <div class="cateogories">
-        <div class="categoriesmenu">
-            <h3 style="font-weight: 600;">Filter by Brand or Category</h3>
-            <h4 style="font-weight: 600;">Categories</h4>
-            <mat-radio-group style="display: flex; flex-direction: column;" (change)="filterProducts($event.value)">
-                <mat-radio-button *ngFor="let category of carouselData.categories.slice(0, 10)" [value]="category">
-                  {{category}}
-                </mat-radio-button>
-            </mat-radio-group>
-            <mat-divider></mat-divider>
-            <h4 style="font-weight: 600;">Brands</h4>           
-              
-            <mat-radio-group style="display: flex; flex-direction: column;" (change)="filterProducts($event.value)">
-                <mat-radio-button *ngFor="let brand of carouselData.brands.slice(0, 10)" [value]="brand">
-                  {{brand}}
-                </mat-radio-button>
-            </mat-radio-group>              
-            <mat-divider></mat-divider>
-            <h4 style="font-weight: 600;">Filter by Price</h4>
-            <small>{{filterAmountMinValue | currency: "KES "}} - {{filterAmountMaxValue | currency: "KES "}}</small>
-            <mat-slider min="0" max="100000" step="100" [displayWith]="formatLabel">
-                <input [(ngModel)]="filterAmountMinValue" value="300" matSliderStartThumb>
-                <input value="400" [(ngModel)]="filterAmountMaxValue"  matSliderEndThumb>
-            </mat-slider>             
-              
+          <div class="stats">
+            <h1>
+              <span nz-icon nzType="credit-card" nzTheme="outline"></span> Shop
+              with Convinience
+            </h1>
+            <p>Pay with M-PESA, VISA</p>
+            <p>MasterCard, American Express</p>
+            <p>and Airtel Money</p>
+            <div
+              class="iconrow"
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <img
+                style="width: 100px"
+                src="https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mc_dla_symbol_92.png"
+                alt=""
+              />
+              <img
+                style="width: 100px"
+                src="https://www.logo.wine/a/logo/Visa_Inc./Visa_Inc.-Logo.wine.svg"
+                alt=""
+              />
+              <img
+                style="width: 100px"
+                src="https://www.safaricom.co.ke/images/Lipanampesa.png"
+                alt=""
+              />
+              <img
+                style="width: 100px"
+                src="https://www.logo.wine/a/logo/American_Express/American_Express-Logo.wine.svg"
+                alt=""
+              />
+              <img
+                style="width: 100px"
+                src="https://www.logo.wine/a/logo/Bharti_Airtel/Bharti_Airtel-Logo.wine.svg"
+                alt=""
+              />
+            </div>
+          </div>
         </div>
-          
-        <div class="categoriessection" style="margin-bottom: 5px;">
-            <mat-divider *ngIf="numberOfResults>0"></mat-divider>
-            <h3 style="font-weight: 600;" *ngIf="numberOfResults>0">Query Results</h3>    
-                 
-            <div id="searchResults" #searchResults class="search-results" *ngIf="searchQuery">
-                <span *ngIf="numberOfResults>0" class="search-term">Your query <span style="color: green;">"{{searchQuery}}"</span> returned <span style="color:green">{{numberOfResults}}</span> results</span>
-                <span *ngIf="numberOfResults==0" class="search-term">No Products found for Search Phrase "{{searchQuery}}"</span>
-                <div class="allproductslisting" *ngIf="searchproductsloading" style="width: 100%; height: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <mat-spinner strokeWidth="1"></mat-spinner>
-                </div>
-                <div class="allproductslisting" *ngIf="!searchproductsloading">
-                <div (click)="viewProduct(product)" class="allproductlistingitem"  *ngFor="let product of searchedProduct.slice((currentPage-1)*productItemsPerPage, currentPage*productItemsPerPage)">
-                    <small>{{product.brand.toUpperCase()}}</small>   
-                    <img [src]="product.avatar[0]"  alt="">            
-                    <small><strong>{{product.name.toUpperCase()}}</strong></small> 
-                    <small *ngIf="product.views[0]" style="color: rgb(174, 174, 174); font-size: 10;"><mat-icon style="vertical-align: middle; transform: scale(0.7);">visibility</mat-icon> {{convertNumberToShortScale(product.views[0].totalViews)}}({{product.views[0].users.length}})</small>
-                    <div style="display: flex; flex-direction: row; justify-content:center; flex:1 1 auto;">
-                        <small><s *ngIf="product.discount">Was {{convertNumberToShortScale(product.sp)}}</s></small>
-                        <small>Now KES.{{convertNumberToShortScale(product.sp, product.discount)}}</small>
-                    </div>
-                    <div *ngIf="product.discount" class="discountdot">
-                        <small>-{{product.discount}}%</small>
-                    </div>                   
-
-                </div>
-            </div>
-            <div class="allproductspagination">
-                <button mat-stroked-button *ngFor="let page of getPageRange()" (click)="setPage(page)">{{page}}</button>
-            </div>
-            </div>  
-            <h3 style="font-weight: 600;">All Products({{products.length}})</h3> 
-            <div *ngIf="allproductsloading" class="allproductslisting" style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <mat-spinner strokeWidth="1"></mat-spinner>
-            </div>           
-            <div *ngIf="!allproductsloading" class="allproductslisting">
-                <div (click)="viewProduct(product)" class="allproductlistingitem"  *ngFor="let product of products.slice((currentPage-1)*productItemsPerPage, currentPage*productItemsPerPage)">
-                    <small>{{product.brand.toUpperCase()}}</small>   
-                    <img [src]="product.avatar[0]"  alt="">            
-                    <small><strong>{{product.name.toUpperCase()}}</strong></small> 
-                    <small *ngIf="product.views[0]" style="color: rgb(174, 174, 174); font-size: 10;"><mat-icon style="vertical-align: middle; transform: scale(0.7);">visibility</mat-icon> {{convertNumberToShortScale(product.views[0].totalViews)}}({{product.views[0].users.length}})</small>
-                    <div style="display: flex; flex-direction: row; justify-content:center; flex:1 1 auto;">
-                        <small><s *ngIf="product.discount">Was {{convertNumberToShortScale(product.sp)}}</s></small>
-                        <small>Now KES.{{convertNumberToShortScale(product.sp, product.discount)}}</small>
-                    </div>
-                    <div *ngIf="product.discount" class="discountdot">
-                        <small>-{{product.discount}}%</small>
-                    </div>                   
-
-                </div>
-            </div>
-            <div class="allproductspagination">
-                <button mat-stroked-button *ngFor="let page of getPageRange()" (click)="setPage(page)">{{page}}</button>
-            </div>
-
+        <div class="carousel-controls">
+          <span
+            (click)="previous()"
+            nz-icon
+            nzType="arrow-left"
+            nzTheme="outline"
+          ></span>
+          <span
+            (click)="next()"
+            nz-icon
+            nzType="arrow-right"
+            nzTheme="outline"
+          ></span>
         </div>
-     </div>
+        <!-- <h3>{{ item }}</h3> -->
+      </div>
+    </nz-carousel>
+  </div>
+  <mat-divider style="margin-top: 2%; margin-bottom: 1%"></mat-divider>
+  <!--display  -->
+  <div class="features" style="display: flex; justify-content: space-around">
+    <p>
+      <span nz-icon nzType="appstore" nzTheme="outline"></span> Trusted by More
+      than {{ carouselData.brands.length }} Brands
+    </p>
+    <p>
+      <span nz-icon nzType="line-chart" nzTheme="outline"></span> Offering More
+      than {{ carouselData.categories.length }} categories
+    </p>
+    <p>
+      <span nz-icon nzType="check-circle" nzTheme="outline"></span> And more
+      than {{ carouselData.subcategories.length }} subcategories
+    </p>
+    <p>
+      <span nz-icon nzType="home" nzTheme="outline"></span> Get your shopping
+      delivered to your location
+    </p>
+  </div>
+  <mat-divider></mat-divider>
 
-    
+  <div class="cateogories">
+    <div class="categoriesmenu">
+      <h3 style="font-weight: 600">Filter by Brand or Category</h3>
+      <h4 style="font-weight: 600">Categories</h4>
+      <mat-radio-group
+        style="display: flex; flex-direction: column"
+        (change)="filterProducts($event.value)"
+      >
+        <mat-radio-button
+          *ngFor="let category of carouselData.categories.slice(0, 10)"
+          [value]="category"
+        >
+          {{ category }}
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-divider></mat-divider>
+      <h4 style="font-weight: 600">Brands</h4>
+
+      <mat-radio-group
+        style="display: flex; flex-direction: column"
+        (change)="filterProducts($event.value)"
+      >
+        <mat-radio-button
+          *ngFor="let brand of carouselData.brands.slice(0, 10)"
+          [value]="brand"
+        >
+          {{ brand }}
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-divider></mat-divider>
+      <h4 style="font-weight: 600">Filter by Price</h4>
+      <small
+        >{{ filterAmountMinValue | currency : "KES " }} -
+        {{ filterAmountMaxValue | currency : "KES " }}</small
+      >
+      <mat-slider min="0" max="100000" step="100" [displayWith]="formatLabel">
+        <input
+          [(ngModel)]="filterAmountMinValue"
+          value="300"
+          matSliderStartThumb
+        />
+        <input
+          value="400"
+          [(ngModel)]="filterAmountMaxValue"
+          matSliderEndThumb
+        />
+      </mat-slider>
+    </div>
+
+    <div class="categoriessection" style="margin-bottom: 5px">
+      <mat-divider *ngIf="numberOfResults > 0"></mat-divider>
+      <h3 style="font-weight: 600" *ngIf="numberOfResults > 0">
+        Query Results
+      </h3>
+
+      <div
+        id="searchResults"
+        #searchResults
+        class="search-results"
+        *ngIf="searchQuery"
+      >
+        <span *ngIf="numberOfResults > 0" class="search-term"
+          >Your query
+          <span style="color: green">"{{ searchQuery }}"</span> returned
+          <span style="color: green">{{ numberOfResults }}</span> results</span
+        >
+        <span *ngIf="numberOfResults == 0" class="search-term"
+          >No Products found for Search Phrase "{{ searchQuery }}"</span
+        >
+        <div
+          class="allproductslisting"
+          *ngIf="searchproductsloading"
+          style="
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <mat-spinner strokeWidth="1"></mat-spinner>
+        </div>
+        <div class="allproductslisting" *ngIf="!searchproductsloading">
+          <div
+            (click)="viewProduct(product)"
+            class="allproductlistingitem"
+            *ngFor="
+              let product of searchedProduct.slice(
+                (currentPage - 1) * productItemsPerPage,
+                currentPage * productItemsPerPage
+              )
+            "
+          >
+            <small>{{ product.brand.toUpperCase() }}</small>
+            <img [src]="product.avatar[0]" alt="" />
+            <small
+              ><strong>{{ product.name.toUpperCase() }}</strong></small
+            >
+            <small
+              *ngIf="product.views[0]"
+              style="color: rgb(174, 174, 174); font-size: 10"
+              ><mat-icon style="vertical-align: middle; transform: scale(0.7)"
+                >visibility</mat-icon
+              >
+              {{ convertNumberToShortScale(product.views[0].totalViews) }}({{
+                product.views[0].users.length
+              }})</small
+            >
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                flex: 1 1 auto;
+              "
+            >
+              <small
+                ><s *ngIf="product.discount"
+                  >Was {{ convertNumberToShortScale(product.sp) }}</s
+                ></small
+              >
+              <small
+                >Now KES.{{
+                  convertNumberToShortScale(product.sp, product.discount)
+                }}</small
+              >
+            </div>
+            <div *ngIf="product.discount" class="discountdot">
+              <small>-{{ product.discount }}%</small>
+            </div>
+          </div>
+        </div>
+        <div class="allproductspagination">
+          <button
+            mat-stroked-button
+            *ngFor="let page of getPageRange()"
+            (click)="setPage(page)"
+          >
+            {{ page }}
+          </button>
+        </div>
+      </div>
+      <h3 style="font-weight: 600">All Products({{ products.length }})</h3>
+      <div
+        *ngIf="allproductsloading"
+        class="allproductslisting"
+        style="
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <mat-spinner strokeWidth="1"></mat-spinner>
+      </div>
+      <div *ngIf="!allproductsloading" class="allproductslisting">
+        <div
+          (click)="viewProduct(product)"
+          class="allproductlistingitem"
+          *ngFor="
+            let product of products.slice(
+              (currentPage - 1) * productItemsPerPage,
+              currentPage * productItemsPerPage
+            )
+          "
+        >
+          <small>{{ product.brand.toUpperCase() }}</small>
+          <img [src]="product.avatar[0]" alt="" />
+          <small
+            ><strong>{{ product.name.toUpperCase() }}</strong></small
+          >
+          <small
+            *ngIf="product.views[0]"
+            style="color: rgb(174, 174, 174); font-size: 10"
+            ><mat-icon style="vertical-align: middle; transform: scale(0.7)"
+              >visibility</mat-icon
+            >
+            {{ convertNumberToShortScale(product.views[0].totalViews) }}({{
+              product.views[0].users.length
+            }})</small
+          >
+          <div
+            style="
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              flex: 1 1 auto;
+            "
+          >
+            <small
+              ><s *ngIf="product.discount"
+                >Was {{ convertNumberToShortScale(product.sp) }}</s
+              ></small
+            >
+            <small
+              >Now KES.{{
+                convertNumberToShortScale(product.sp, product.discount)
+              }}</small
+            >
+          </div>
+          <div *ngIf="product.discount" class="discountdot">
+            <small>-{{ product.discount }}%</small>
+          </div>
+        </div>
+      </div>
+      <div class="allproductspagination">
+        <button
+          mat-stroked-button
+          *ngFor="let page of getPageRange()"
+          (click)="setPage(page)"
+        >
+          {{ page }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

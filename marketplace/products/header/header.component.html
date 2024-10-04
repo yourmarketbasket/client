@@ -1,52 +1,100 @@
-<div class="toprow" >
-    <div class="phonenemail">        
-        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
-            <span><mat-icon style="vertical-align: middle;">phone</mat-icon> (+254)701650736</span>
-            <div class="vertical-line">
-        </div>
-        
-        <span><mat-icon style="vertical-align: middle;">email</mat-icon> support&#64;nisoko.com</span>
-        </div>
-        
-        <span>
-            <mat-icon style="vertical-align: middle;">person_outline</mat-icon>
-            <a mat-button routerLink="/register">Register</a> or 
-            <a mat-button routerLink="/login">Sign in</a>
-          </span>
-          
+<div class="toprow">
+  <div class="phonenemail">
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <span
+        ><mat-icon style="vertical-align: middle">phone</mat-icon>
+        (+254)701650736</span
+      >
+      <div class="vertical-line"></div>
+
+      <span
+        ><mat-icon style="vertical-align: middle">email</mat-icon>
+        support&#64;nisoko.com</span
+      >
     </div>
 
+    <span>
+      <mat-icon style="vertical-align: middle">person_outline</mat-icon>
+      <a mat-button routerLink="/register">Register</a> or
+      <a mat-button routerLink="/login">Sign in</a>
+    </span>
+  </div>
 </div>
 <div class="header">
-    <div class="searchArea">
-        <span class="title">nisoko<span style="color: rgb(7, 212, 113);">.</span> </span>
-    
-       
-        <form class="searchfield" (ngSubmit)="searchProduct(searchInput.value)">
-            <input #searchInput (focus)="onSearchFieldFocus()" type="text" placeholder="Search...">
-            <button class="search-button"><mat-icon>search</mat-icon></button>
-        </form>
-    
-     
-        <div *ngIf="isLoggedIn" class="actionsArea">
-            <button mat-icon-button (mouseenter)="toggleIconAnimationExitToApp()" (mouseleave)="toggleIconAnimationExitToApp()" (click)="logoutUser()" mat-icon-button>
-                <mat-icon [@iconAnimationExitToApp]="iconStateExitToApp">exit_to_app</mat-icon>                
-            </button>
-            <button mat-icon-button (mouseenter)="toggleIconAnimationNotificationsNone()" (mouseleave)="toggleIconAnimationNotificationsNone()" mat-icon-button>
-                <mat-icon [@iconAnimationNotificationsNone]="iconStateNotificationsNone" matBadgeColor="accent" matBadgeSize="small" [matBadge]="notifications" matBadgePosition="below after">notifications_none</mat-icon>
-            </button>
-            <button mat-icon-button (mouseenter)="toggleIconAnimationShoppingCart()" (mouseleave)="toggleIconAnimationShoppingCart()" (click)="goToCart()" mat-icon-button>
-                <mat-icon [@iconAnimationShoppingCart]="iconStateShoppingCart" matBadgeColor="accent" matBadgeSize="small" [matBadge]="numOfItemsInCart" matBadgePosition="below after">shopping_cart</mat-icon>
-            </button>
+  <div class="searchArea">
+    <span class="title"
+      >nisoko<span style="color: rgb(7, 212, 113)">.</span>
+    </span>
 
-            <div (click)="gotoDashboard()" class="avatar" (mouseenter)="toggleAvatarAnimation()" (mouseleave)="toggleAvatarAnimation()">
-                <img class="" [src]="userPic" alt="" [@avatarAnimation]="avatarState">
-                
-              </div>
-              
+    <form class="searchfield" (ngSubmit)="searchProduct(searchInput.value)">
+      <input
+        #searchInput
+        (focus)="onSearchFieldFocus()"
+        type="text"
+        placeholder="Search..."
+      />
+      <button class="search-button"><mat-icon>search</mat-icon></button>
+    </form>
 
-        </div>
+    <div *ngIf="isLoggedIn" class="actionsArea">
+      <button
+        mat-icon-button
+        (mouseenter)="toggleIconAnimationExitToApp()"
+        (mouseleave)="toggleIconAnimationExitToApp()"
+        (click)="logoutUser()"
+        mat-icon-button
+      >
+        <mat-icon [@iconAnimationExitToApp]="iconStateExitToApp"
+          >exit_to_app</mat-icon
+        >
+      </button>
+      <button
+        mat-icon-button
+        (mouseenter)="toggleIconAnimationNotificationsNone()"
+        (mouseleave)="toggleIconAnimationNotificationsNone()"
+        mat-icon-button
+      >
+        <mat-icon
+          [@iconAnimationNotificationsNone]="iconStateNotificationsNone"
+          matBadgeColor="accent"
+          matBadgeSize="small"
+          [matBadge]="notifications"
+          matBadgePosition="below after"
+          >notifications_none</mat-icon
+        >
+      </button>
+      <button
+        mat-icon-button
+        (mouseenter)="toggleIconAnimationShoppingCart()"
+        (mouseleave)="toggleIconAnimationShoppingCart()"
+        (click)="goToCart()"
+        mat-icon-button
+      >
+        <mat-icon
+          [@iconAnimationShoppingCart]="iconStateShoppingCart"
+          matBadgeColor="accent"
+          matBadgeSize="small"
+          [matBadge]="numOfItemsInCart"
+          matBadgePosition="below after"
+          >shopping_cart</mat-icon
+        >
+      </button>
+
+      <div
+        (click)="gotoDashboard()"
+        class="avatar"
+        (mouseenter)="toggleAvatarAnimation()"
+        (mouseleave)="toggleAvatarAnimation()"
+      >
+        <img class="" [src]="userPic" alt="" [@avatarAnimation]="avatarState" />
+      </div>
     </div>
-
+  </div>
 </div>
-
