@@ -105,11 +105,19 @@ export class ProductsComponent implements OnInit{
               this.numberOfResults = res.data.length;
             }else{
               console.log("Error occured "+res.message)
+              this.searchproductsloading = false;
+
             }
+            
             this.scrollToSearchResults(this.numberOfResults);
+            this.searchproductsloading = false;
 
           })        
-      }   
+      }else{
+        this.searchproductsloading = false;
+
+      } 
+
 
       
 

@@ -202,7 +202,7 @@
           <span style="color: green">"{{ searchQuery }}"</span> returned
           <span style="color: green">{{ numberOfResults }}</span> results</span
         >
-        <span *ngIf="numberOfResults == 0" class="search-term"
+        <span *ngIf="numberOfResults == 0" class="search-term" style="color:rgb(235, 85, 110)"
           >No Products found for Search Phrase "{{ searchQuery }}"</span
         >
         <div
@@ -217,7 +217,7 @@
             align-items: center;
           "
         >
-          <mat-spinner strokeWidth="1"></mat-spinner>
+          <mat-spinner *ngIf="searchproductsloading && numberOfResults !==0" strokeWidth="1"></mat-spinner>
         </div>
         <div class="allproductslisting" *ngIf="!searchproductsloading">
           <div
@@ -269,7 +269,7 @@
             </div>
           </div>
         </div>
-        <div class="allproductspagination">
+        <div class="allproductspagination" *ngIf="numberOfResults !==0">
           <button
             mat-stroked-button
             *ngFor="let page of getPageRange()"
