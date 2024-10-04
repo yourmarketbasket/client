@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CurrencyPipe } from '@angular/common'; 
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {MatRadioModule} from '@angular/material/radio';
@@ -231,6 +232,7 @@ registerLocaleData(en);
       useValue: { displayDefaultIndicatorType: false },   
        
     },
+    CurrencyPipe,
     DatePipe,
     SocketService,
     {

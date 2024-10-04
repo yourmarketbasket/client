@@ -332,8 +332,9 @@
                 >Was {{ convertNumberToShortScale(product.sp) }}</s
               ></small
             >
+            
             <small
-              >Now KES.{{
+              >Now {{product.storeCurrency ? product.storeCurrency+".": "KES."}} {{
                 convertNumberToShortScale(product.sp, product.discount)
               }}</small
             >
