@@ -19,6 +19,7 @@
         *ngFor="let image of avatar"
       >
         <img
+            (mouseover)="setDisplayImage(image)"
           (click)="setDisplayImage(image)"
           class="image-thumbnail"
           [src]="image"
