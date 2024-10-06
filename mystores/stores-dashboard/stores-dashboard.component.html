@@ -4,18 +4,16 @@
     </mat-icon>
 </button>
 <div class="storesdashboard">
-    
-      
-    
     <div class="storeview">
-
-        <mat-tab-group>
+        <mat-tab-group animationDuration="0ms" (selectedTabChange)="setActiveStoreID($event)">
             <mat-tab *ngFor="let store of stores">
                 <ng-template mat-tab-label>
-                  <!-- <mat-icon>thumb_up</mat-icon> -->
+                    <span nz-icon nzType="shop" nzTheme="outline"></span>
                   {{store.storename}}
                 </ng-template>
-                {{store.storename+" content"}}
+                <div class="storeContent">
+                    {{store._id}}
+                </div>
               </mat-tab>
         </mat-tab-group>
 

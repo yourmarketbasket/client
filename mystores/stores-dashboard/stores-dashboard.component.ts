@@ -21,6 +21,7 @@ export class StoresDashboardComponent implements OnInit{
   storeid!:any;
   cepgp!:any;
   storeProfitability:any={};
+  activeStoreID:any;
 
   constructor(private ms:MasterServiceService,private router: Router, private activateRoute: ActivatedRoute, private authService: AuthService, private socketService: SocketService, private componentFactoryResolver: ComponentFactoryResolver) { 
     this.stores = [];
@@ -54,7 +55,10 @@ export class StoresDashboardComponent implements OnInit{
     // display the profitability
     this.getProfitability();
   }
+  setActiveStoreID(event:any){
+    console.log(this.stores[event.index]._id)
 
+  }
   // manage store
   async manageStore(id:any){
     const data = {userid: this.userId, storeId: id};
