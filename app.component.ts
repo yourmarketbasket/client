@@ -24,18 +24,30 @@ export class AppComponent implements OnInit{
     this.sideBarOpen = !this.sideBarOpen;
   }
 
-  constructor(private cartSyncService: CartSyncService, private cdr: ChangeDetectorRef, private http: HttpClient, private dialog: MatDialog, private onlineStatusService: OnlineStatusService, private authService: AuthService) {
+  constructor(
+    private cartSyncService: CartSyncService,
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient,
+    private dialog: MatDialog,
+    private onlineStatusService: OnlineStatusService,
+    private authService: AuthService
+  ) {
     this.isOnline = this.onlineStatusService.isOnline;
-    onlineStatusService.statusChanged.subscribe((isOnline: boolean) => {
+    
+    this.onlineStatusService.statusChanged.subscribe((isOnline: boolean) => {
       this.isOnline = isOnline;
-      if(!this.isOnline){
-        this.openNoInternetDialog()
-        // this.dialog.open(NointernetComponent);
-      }else{
+      console.log('Status changed, isOnline:', this.isOnline); // Add this log
+  
+      if (!this.isOnline) {
+        console.log('Opening no internet dialog'); // Add this log
+        this.openNoInternetDialog();
+      } else {
+        console.log('Closing no internet dialog'); // Add this log
         this.closeNoInternetDialog();
       }
     });
   }
+  
   checkIfLoggedIn(){
     if(this.authService.loggedIn()){
       this.isLoggedin = true;
