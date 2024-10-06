@@ -27,7 +27,7 @@ button[mat-fab]{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 2%;
     width: 95%;
     border-radius: 10px;
