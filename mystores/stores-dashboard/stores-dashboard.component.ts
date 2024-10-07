@@ -56,8 +56,7 @@ export class StoresDashboardComponent implements OnInit{
     this.getProfitability();
   }
   setActiveStoreID(event:any){
-    console.log(this.stores[event.index]._id)
-
+    this.activeStoreID = this.stores[event.index]._id;
   }
   // manage store
   async manageStore(id:any){
