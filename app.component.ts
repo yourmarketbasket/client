@@ -60,6 +60,8 @@ export class AppComponent implements OnInit{
       this.isLoggedin = true;
       this.cdr.detectChanges();
     }
+
+    this.authService.checkSession();
   
   }
   // open dialog

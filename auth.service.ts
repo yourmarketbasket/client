@@ -66,6 +66,8 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('userId')
     localStorage.removeItem("selectedStore");
+    localStorage.removeItem("timeStamp");
+
     this.router.navigate(['/login']);
   }
   get isLoggedIn() {
@@ -73,6 +75,23 @@ export class AuthService {
   }
   set isLoggedIn(value: boolean) {
     this.isLoggedIn = value;
+  }
+
+  checkSession() {
+    const intervalId = setInterval(() => {
+      const loginTimeStr = localStorage.getItem('timeStamp');
+
+      if (loginTimeStr) {
+        const loginTime = new Date(loginTimeStr); // Retrieve loginTime from localStorage
+        const currentTime = new Date();
+        const timeElapsed = (currentTime.getTime() - loginTime.getTime()) / 1000; // Time in seconds
+
+        if (timeElapsed > 43200) { // 60 seconds = 1 minute
+          this.logout();
+          clearInterval(intervalId); // Stop checking after user is logged out
+        } 
+      }
+    }, 1800000); // Check every 5 seconds (adjust as needed)
   }
 
   loggedIn(){
