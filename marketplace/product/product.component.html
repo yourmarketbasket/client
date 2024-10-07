@@ -99,7 +99,7 @@
       >
         <mat-icon>add_shopping_cart</mat-icon> ADD TO CART
       </button>
-      <button (click)="viewCart()" color="accent" mat-raised-button>
+      <button *ngIf="quantity" (click)="viewCart()" color="accent" mat-raised-button>
         VIEW CART
       </button>
     </div>

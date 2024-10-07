@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
+  sessionOut:any;
+
   // isLoggedIn = false;
   baseurl = 'http://localhost:3000';
   loginUser(user: any) {
@@ -88,8 +90,8 @@ export class AuthService {
 
         if (timeElapsed > 43200) { // 60 seconds = 1 minute
           this.logout();
-          clearInterval(intervalId); // Stop checking after user is logged out
-        } 
+          clearInterval(intervalId); 
+        }
       }
     }, 1800000); // Check every 5 seconds (adjust as needed)
   }

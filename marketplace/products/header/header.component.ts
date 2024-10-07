@@ -182,13 +182,13 @@ export class HeaderComponent implements OnInit {
   async getNumOfCartItems(){
     const data = {userid:localStorage.getItem('userId')};
 
-    await this.ms.getNumOfItemsIncart(data.userid).subscribe((res:any)=>{
+    data.userid!=null ? await this.ms.getNumOfItemsIncart(data.userid).subscribe((res:any)=>{
       if(res.success){
         this.numOfItemsInCart =  res.count         
       }else{
         this.numOfItemsInCart =  ""
       }
-    })
+    }): null;
   }
   gotoDashboard(){
     this.router.navigate(['/dashboard'])
