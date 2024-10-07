@@ -6,13 +6,53 @@
 <div class="storesdashboard">
     <div class="storeview">
         <mat-tab-group animationDuration="0ms" (selectedTabChange)="setActiveStoreID($event)">
-            <mat-tab *ngFor="let store of stores">
+            <mat-tab *ngFor="let store of stores; let i=index">
                 <ng-template mat-tab-label>
                     <span nz-icon nzType="shop" nzTheme="outline"></span>
                   {{store.storename}}
                 </ng-template>
                 <div class="storeContent">
-                    {{store._id}}
+                    <div class="storemanagementmajorrow">
+                        <div class="imageandmap" style="display: flex; flex-direction: column;">
+                            <div class="aboutstore" style="display: flex; flex-direction: column;">
+                                <div class="store-image-view" style="width: 21vw; height: auto; padding: 5px;" >
+                                    <img style="width: 20vw; height: auto; border-radius: 5px;" [src]="store.avatar" alt="">
+                                </div>
+                                <div class="store-details" style="display: flex; flex-direction: column; padding-left: 5px;">
+                                    <span style="color: rgb(233, 55, 203); font-weight: 600; font-size: 30px; margin: 10px;">{{store.storename}}</span>
+                                    <span style="display: flex; flex-direction: row; vertical-align: middle;margin: 5px;">
+                                        <span style="background-color: rgb(142, 235, 235); border-radius: 5px; color:white; padding: 2px; "><small>Description: </small></span>
+                                        <small>{{store.description}}</small>
+                                    </span>
+                                    <span style="display: flex; flex-direction: row; vertical-align: middle;margin: 5px;">
+                                        <span style="background-color: rgb(6, 107, 240); border-radius: 5px; color:white; padding: 2px; "><small>Currency: </small></span>
+                                        <small>{{store.currency}}</small>
+                                    </span>
+    
+                                </div>
+                            </div>
+    
+                            <div class="storelocation">
+                                <iframe
+                                    class="mat-elevation-z8" 
+                                    style="border: 0px; border-radius: 5px;" 
+                                    height="300px"
+                                    width="100%"
+                                    *ngIf="mapurl && location"
+                                    [src]="mapurl"
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                        </div>
+                        <div class="products">products</div>
+                        <div class="orders">orders</div>
+                        <div class="products">products</div>
+                        <div class="charts">charts</div>
+
+
+                    </div>
                 </div>
               </mat-tab>
         </mat-tab-group>

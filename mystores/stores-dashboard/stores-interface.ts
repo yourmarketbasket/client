@@ -9,6 +9,7 @@ export interface Store {
     avatar: string;
     password: string;
     userId: string;
+    currency:string;
     __v: number;
     createdAt: string;
     

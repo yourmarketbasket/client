@@ -6,7 +6,12 @@
     align-items: center;
     width: auto;
 }
-
+.storemanagementmajorrow{
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
 .storesdashboardoutlet{
     display: flex;
     flex-wrap: wrap;
@@ -14,6 +19,19 @@
     justify-content: center;
     height: auto;
     width: auto;
+}
+.aboutstore{
+    width: auto;
+}
+.aboutstore,.storelocation, .products, .orders, .products, .charts{
+    margin: 10px;
+    background-color: white;
+    flex:1;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    box-shadow: 0 3px 11px #e8eafc;
+    transition: box-shadow 280ms cubic-bezier(0.4,0,0.2,1);
+    padding: 10px;
 }
 .storeContent{
     height: 100vh;
@@ -33,7 +51,6 @@ button[mat-fab]{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: center;
     margin-top: 2%;
     width: 95%;
     border-radius: 10px;

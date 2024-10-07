@@ -7,11 +7,14 @@ import { ActivatedRoute } from '@angular/router';
 import { ManageStoresComponent } from '../manage-stores/manage-stores.component';
 import { MasterServiceService } from 'src/app/services/master-service.service';
 import { computePercentageOfExpectedGrossProfit } from 'src/app/services/computations';
+import { DomSanitizer } from '@angular/platform-browser';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-stores-dashboard',
   templateUrl: './stores-dashboard.component.html',
-  styleUrls: ['./stores-dashboard.component.css']
+  styleUrls: ['./stores-dashboard.component.css'],
 })
 export class StoresDashboardComponent implements OnInit{
   @ViewChild('componentoutlet', { read: ViewContainerRef }) componentOutlet!: ViewContainerRef;
@@ -22,8 +25,12 @@ export class StoresDashboardComponent implements OnInit{
   cepgp!:any;
   storeProfitability:any={};
   activeStoreID:any;
+  storename:any;
+  location:any;
+  mapurl:any;
+  title= "Stores Dashboard";
 
-  constructor(private ms:MasterServiceService,private router: Router, private activateRoute: ActivatedRoute, private authService: AuthService, private socketService: SocketService, private componentFactoryResolver: ComponentFactoryResolver) { 
+  constructor(private ms:MasterServiceService,private router: Router, private activateRoute: ActivatedRoute, private authService: AuthService, private socketService: SocketService, private componentFactoryResolver: ComponentFactoryResolver, private domSanitizer:DomSanitizer,) { 
     this.stores = [];
   }
 
@@ -57,6 +64,14 @@ export class StoresDashboardComponent implements OnInit{
   }
   setActiveStoreID(event:any){
     this.activeStoreID = this.stores[event.index]._id;
+    this.storename = this.stores[event.index].storename;
+
+    this.location = this.stores[event.index].location;
+
+    window.document.title = this.title;
+      const mapurl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDdvqTHmz_HwPar6XeBj8AiMxwzmFdqC1w&q=(${this.location.latitude},${this.location.longitude})&center=${this.location.latitude},${this.location.longitude}&zoom=18&maptype=roadmap`;
+      this.mapurl = this.domSanitizer.bypassSecurityTrustResourceUrl(mapurl);
+    
   }
   // manage store
   async manageStore(id:any){
