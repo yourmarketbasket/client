@@ -1,4 +1,4 @@
-<button routerLink="/dashboard/createstore" mat-fab matTooltip="Add new store">
+<button (click)="addProductToStore(activeStoreID)" mat-fab matTooltip="Add Products to Store">
     <mat-icon>
         add_circle_outline
     </mat-icon>
@@ -30,8 +30,7 @@
                                     </span>
     
                                 </div>
-                            </div>
-    
+                            </div>    
                             <div class="storelocation">
                                 <iframe
                                     class="mat-elevation-z8" 
@@ -46,7 +45,17 @@
                                 </iframe>
                             </div>
                         </div>
-                        <div class="products">products</div>
+                        <div class="productscolumn" style="display: flex; flex-direction: column;">
+                            <div class="products">
+                                <div class="no_products" *ngIf="!products">
+                                    <mat-icon color="accent" style="vertical-align: middle;">warning</mat-icon>
+                                    NO PRODUCTS TO SHOW
+                                </div>
+                            </div>
+                            <div class="productsextra">
+                                more info
+                            </div>
+                        </div>
                         <div class="orders">orders</div>
                         <div class="products">products</div>
                         <div class="charts">charts</div>

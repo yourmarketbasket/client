@@ -23,7 +23,11 @@
 .aboutstore{
     width: auto;
 }
-.aboutstore,.storelocation, .products, .orders, .products, .charts{
+.products{
+    height: auto;
+    width: auto;
+}
+.aboutstore,.storelocation, .products, .orders, .products, .charts, .productsextra{
     margin: 10px;
     background-color: white;
     flex:1;
