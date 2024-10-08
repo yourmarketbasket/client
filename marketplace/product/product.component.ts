@@ -65,7 +65,7 @@ export class ProductComponent implements OnInit{
 
 
       }
-      this.getAvailableProductQuantity(localStorage.getItem('userId'),this.product._id)
+      localStorage.getItem('userId') ? this.getAvailableProductQuantity(localStorage.getItem('userId'),this.product._id): null;
 
     });
     
@@ -75,8 +75,8 @@ export class ProductComponent implements OnInit{
       uid: localStorage.getItem('userId'),
       pid: this.product._id
     }
-    this.ms.addProductView(data).subscribe((res:any)=>{
-    });
+    localStorage.getItem('userId') ? this.ms.addProductView(data).subscribe((res:any)=>{
+    }): null;
     // fetch the product data
     
 

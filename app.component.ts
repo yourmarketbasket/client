@@ -36,13 +36,13 @@ export class AppComponent implements OnInit{
     
     this.onlineStatusService.statusChanged.subscribe((isOnline: boolean) => {
       this.isOnline = isOnline;
-      console.log('Status changed, isOnline:', this.isOnline); // Add this log
+      // console.log('Status changed, isOnline:', this.isOnline); 
   
       if (!this.isOnline) {
-        console.log('Opening no internet dialog'); // Add this log
+        // console.log('Opening no internet dialog'); 
         this.openNoInternetDialog();
       } else {
-        console.log('Closing no internet dialog'); // Add this log
+        // console.log('Closing no internet dialog'); 
         this.closeNoInternetDialog();
       }
     });
