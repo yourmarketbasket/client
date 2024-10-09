@@ -25,11 +25,11 @@ export class MasterServiceService {
   categoryProductsData = new Subject<any[]>();
   categoryProducts$: Observable<any[]> = this.categoryProductsData.asObservable();
 
-  private getToken(){
+  private  getToken(){
     return localStorage.getItem('token')
   }
 
-  private getAuthHeaders() {
+  private  getAuthHeaders() {
       const token = this.getToken();
       if (token) {
           return {
@@ -39,6 +39,16 @@ export class MasterServiceService {
           };
       }
       return {};
+  }
+
+  async generateAccessToken() {
+    const data = {
+      userId: localStorage.getItem('userId'),
+      token: localStorage.getItem('token')
+    };
+  
+    const result: any = await this.http.post(`${this.baseurl}/api/auth/accessToken`, data).toPromise();
+    return result.accessToken;
   }
 
 
@@ -53,7 +63,7 @@ export class MasterServiceService {
   
 
   // getLazyLoadedProducts
-  getLazyLoadedProducts(data:any){
+  async getLazyLoadedProducts(data:any){
     return this.http.post(`${this.baseurl}/getlazyLoadedProducts`, data, this.getAuthHeaders());
   }
  
@@ -154,8 +164,8 @@ export class MasterServiceService {
   }
   confirmTransactionStatus(trackingid:any){
     return this.http.get(`${this.baseurl}/api/payments/pesapalTransactionStatus/${trackingid}`, this.getAuthHeaders());
-
   }
+  
   fetchProductDetails(productid:any){
     return this.http.get(`${this.baseurl}/api/products/productDetails/${productid}`, this.getAuthHeaders());
   }
