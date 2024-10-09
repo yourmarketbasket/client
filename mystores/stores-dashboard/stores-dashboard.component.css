@@ -23,9 +23,17 @@
 .aboutstore{
     width: auto;
 }
+.mat-header-cell, .mat-cell {
+    padding: 4px 8px; /* Reduces padding to 4px top/bottom and 8px left/right */
+}
+.mat-header-cell, .mat-cell {
+    font-size: 12px; /* Set a smaller font size for better responsiveness */
+}
+  
 .products{
     height: auto;
-    width: auto;
+    width: 71vw;
+    /* overflow-x: auto */
 }
 .aboutstore,.storelocation, .products, .orders, .products, .charts, .productsextra{
     margin: 10px;

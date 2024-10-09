@@ -47,7 +47,7 @@ export class StoresDashboardComponent implements OnInit{
   products:any;
   showEditProduct!:boolean;
   title= "Stores Dashboard";
-  displayedProductColumns: string[] = ['select','name', 'brand', 'model', 'category', 'subcategory', 'bp', 'sp', 'quantity', 'approved', 'verified', 'createdAt', 'Actions'];
+  displayedStoreProductsColumns: string[] = ['select','name', 'brand', 'model', 'category', 'subcategory', 'bp', 'sp', 'quantity', 'approved', 'Actions'];
 
   constructor(private ms:MasterServiceService,private router: Router, private activateRoute: ActivatedRoute, private authService: AuthService, private socketService: SocketService, private componentFactoryResolver: ComponentFactoryResolver, private domSanitizer:DomSanitizer,private dialog: MatDialog, private skb:MatSnackBar) { 
     this.stores = [];
@@ -166,8 +166,7 @@ export class StoresDashboardComponent implements OnInit{
   }
 
   dataRepopulate(storeid:any){
-    this.ms.getPrdoucts(this.storeid).subscribe((data:any)=>{
-      console.log(data);
+    this.ms.getPrdoucts(storeid).subscribe((data:any)=>{
       this.products = data.data;
       this.dataSource = new MatTableDataSource(this.products);
       this.dataSource.paginator = this.paginator;

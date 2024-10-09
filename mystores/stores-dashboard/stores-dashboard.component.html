@@ -1,74 +1,312 @@
-<button (click)="addProductToStore(activeStoreID)" mat-fab matTooltip="Add Products to Store">
-    <mat-icon>
-        add_circle_outline
-    </mat-icon>
+<button
+  (click)="addProductToStore(activeStoreID)"
+  mat-fab
+  matTooltip="Add Products to Store"
+>
+  <mat-icon> add_circle_outline </mat-icon>
 </button>
 <div class="storesdashboard">
-    <div class="storeview">
-        <mat-tab-group animationDuration="0ms" (selectedTabChange)="setActiveStoreID($event)">
-            <mat-tab *ngFor="let store of stores; let i=index">
-                <ng-template mat-tab-label>
-                    <span nz-icon nzType="shop" nzTheme="outline"></span>
-                  {{store.storename}}
-                </ng-template>
-                <div class="storeContent">
-                    <div class="storemanagementmajorrow">
-                        <div class="imageandmap" style="display: flex; flex-direction: column;">
-                            <div class="aboutstore" style="display: flex; flex-direction: column;">
-                                <div class="store-image-view" style="width: 21vw; height: auto; padding: 5px;" >
-                                    <img style="width: 20vw; height: auto; border-radius: 5px;" [src]="store.avatar" alt="">
-                                </div>
-                                <div class="store-details" style="display: flex; flex-direction: column; padding-left: 5px;">
-                                    <span style="color: rgb(233, 55, 203); font-weight: 600; font-size: 30px; margin: 10px;">{{store.storename}}</span>
-                                    <span style="display: flex; flex-direction: row; vertical-align: middle;margin: 5px;">
-                                        <span style="background-color: rgb(142, 235, 235); border-radius: 5px; color:white; padding: 2px; "><small>Description: </small></span>
-                                        <small>{{store.description}}</small>
-                                    </span>
-                                    <span style="display: flex; flex-direction: row; vertical-align: middle;margin: 5px;">
-                                        <span style="background-color: rgb(6, 107, 240); border-radius: 5px; color:white; padding: 2px; "><small>Currency: </small></span>
-                                        <small>{{store.currency}}</small>
-                                    </span>
-    
-                                </div>
-                            </div>    
-                            <div class="storelocation">
-                                <iframe
-                                    class="mat-elevation-z8" 
-                                    style="border: 0px; border-radius: 5px;" 
-                                    height="300px"
-                                    width="100%"
-                                    *ngIf="mapurl && location"
-                                    [src]="mapurl"
-                                    allowfullscreen=""
-                                    loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade">
-                                </iframe>
-                            </div>
-                        </div>
-                        <div class="productscolumn" style="display: flex; flex-direction: column;">
-                            <div class="products">
-                                <div class="no_products" *ngIf="!products">
-                                    <mat-icon color="accent" style="vertical-align: middle;">warning</mat-icon>
-                                    NO PRODUCTS TO SHOW
-                                </div>
-                            </div>
-                            <div class="productsextra">
-                                more info
-                            </div>
-                        </div>
-                        <div class="orders">orders</div>
-                        <div class="products">products</div>
-                        <div class="charts">charts</div>
-
-
-                    </div>
+  <div class="storeview">
+    <mat-tab-group
+      animationDuration="0ms"
+      (selectedTabChange)="setActiveStoreID($event)"
+    >
+      <mat-tab *ngFor="let store of stores; let i = index">
+        <ng-template mat-tab-label>
+          <span nz-icon nzType="shop" nzTheme="outline"></span>
+          {{ store.storename }}
+        </ng-template>
+        <div class="storeContent">
+          <div class="storemanagementmajorrow">
+            <div
+              class="imageandmap"
+              style="display: flex; flex-direction: column"
+            >
+              <div
+                class="aboutstore"
+                style="display: flex; flex-direction: column"
+              >
+                <div
+                  class="store-image-view"
+                  style="width: 21vw; height: auto; padding: 5px"
+                >
+                  <img
+                    style="width: 20vw; height: auto; border-radius: 5px"
+                    [src]="store.avatar"
+                    alt=""
+                  />
                 </div>
-              </mat-tab>
-        </mat-tab-group>
+                <div
+                  class="store-details"
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    padding-left: 5px;
+                  "
+                >
+                  <span
+                    style="
+                      color: rgb(233, 55, 203);
+                      font-weight: 600;
+                      font-size: 30px;
+                      margin: 10px;
+                    "
+                    >{{ store.storename }}</span
+                  >
+                  <span
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      vertical-align: middle;
+                      margin: 5px;
+                    "
+                  >
+                    <span
+                      style="
+                        background-color: rgb(142, 235, 235);
+                        border-radius: 5px;
+                        color: white;
+                        padding: 2px;
+                      "
+                      ><small>Description: </small></span
+                    >
+                    <small>{{ store.description }}</small>
+                  </span>
+                  <span
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      vertical-align: middle;
+                      margin: 5px;
+                    "
+                  >
+                    <span
+                      style="
+                        background-color: rgb(6, 107, 240);
+                        border-radius: 5px;
+                        color: white;
+                        padding: 2px;
+                      "
+                      ><small>Currency: </small></span
+                    >
+                    <small>{{ store.currency }}</small>
+                  </span>
+                </div>
+              </div>
+              <div class="storelocation">
+                <iframe
+                  class="mat-elevation-z8"
+                  style="border: 0px; border-radius: 5px"
+                  height="300px"
+                  width="100%"
+                  *ngIf="mapurl && location"
+                  [src]="mapurl"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                >
+                </iframe>
+              </div>
+            </div>
+            <div
+              class="productscolumn"
+              style="display: flex; flex-direction: column"
+            >
+              <div class="products" *ngIf="products">
+                <div class="no_products" *ngIf="!products">
+                  <mat-icon color="accent" style="vertical-align: middle"
+                    >warning</mat-icon
+                  >
+                  NO PRODUCTS TO SHOW
+                </div>
+                <div
+                  class="storeproductslisting"
+                  *ngIf="products"
+                >
+                  <h1>Store Product(s)</h1>
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <button mat-icon-button matSuffix>
+                      <mat-icon>search</mat-icon>
+                    </button>
+                    <mat-label>Search Product</mat-label>
+                    <input
+                      matInput
+                      (keyup)="applyFilter($event)"
+                      placeholder="Type the name, brand, or any verifier"
+                      #input
+                    />
+                  </mat-form-field>
+                  <hr />
+                  <table mat-table [dataSource]="dataSource" matSort>
+                    <!-- Checkbox Column -->
+                    <ng-container matColumnDef="select">
+                      <th mat-header-cell *matHeaderCellDef>
+                        <mat-checkbox
+                          color="primary"
+                          (change)="$event ? toggleAllRows() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="
+                            selection.hasValue() && !isAllSelected()
+                          "
+                          [aria-label]="checkboxLabel()"
+                        >
+                        </mat-checkbox>
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        <mat-checkbox
+                          color="primary"
+                          (click)="$event.stopPropagation()"
+                          (change)="$event ? selection.toggle(product) : null"
+                          [checked]="selection.isSelected(product)"
+                          [aria-label]="checkboxLabel(product)"
+                        >
+                        </mat-checkbox>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Name
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        {{ product.name }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="brand">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Brand
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        {{ product.brand }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="category">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        category
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        {{ product.category }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="subcategory">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Subcategory
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        {{ product.subcategory }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="model">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Model
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        {{ product.model }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="bp">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        BP
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        {{ product.bp }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="sp">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        SP
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        {{ product.sp }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="quantity">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        QTTY
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        {{ product.quantity }}
+                      </td>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="approved">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Approved
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        <mat-icon
+                          style="color: rgb(6, 49, 236)"
+                          *ngIf="product.approved"
+                          >check_circle</mat-icon
+                        >
+                        <mat-icon color="accent" *ngIf="!product.approved"
+                          >cancel</mat-icon
+                        >
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Actions">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Actions
+                      </th>
+                      <td mat-cell *matCellDef="let product">
+                        <button
+                          (click)="editProduct(product._id)"
+                          mat-icon-button
+                          color="primary"
+                        >
+                          <mat-icon>edit</mat-icon>
+                        </button>
+                        <button
+                          (click)="
+                            deleteProduct(
+                              product._id,
+                              product.name,
+                              product.model
+                            )
+                          "
+                          mat-icon-button
+                          color="accent"
+                        >
+                          <mat-icon>delete_forever</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+                    <!-- rows -->
+                    <tr
+                      mat-header-row
+                      *matHeaderRowDef="displayedStoreProductsColumns"
+                    ></tr>
+                    <tr
+                      mat-row
+                      *matRowDef="
+                        let product;
+                        columns: displayedStoreProductsColumns
+                      "
+                    ></tr>
 
-        
-        <!-- create a loop of the stores. the cards will only contain the storename -->
-        <!-- <mat-card (click)="manageStore(store._id)"  *ngFor="let store of stores" class="mat-elevation-z8 storecard">            
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                      <td class="mat-cell" colspan="4">
+                        No data matching the search phrase: "{{ input.value }}"
+                      </td>
+                    </tr>
+                  </table>
+                  <mat-paginator
+                    [pageSizeOptions]="[5, 10, 15, 25, 30]"
+                  ></mat-paginator>
+                </div>
+              </div>
+              <div class="productsextra">more info</div>
+            </div>
+            <div class="orders">orders</div>
+            <div class="products">products</div>
+            <div class="charts">charts</div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <!-- create a loop of the stores. the cards will only contain the storename -->
+    <!-- <mat-card (click)="manageStore(store._id)"  *ngFor="let store of stores" class="mat-elevation-z8 storecard">            
                 {{store.storename}}
             <button mat-button class="storemanagebutton">
                 <mat-icon>
@@ -76,9 +314,8 @@
                 </mat-icon>
             </button>
         </mat-card> -->
-
-    </div>
-    <div class="storesdashboardoutlet" #componentoutlet>
-        <router-outlet></router-outlet>
-    </div>    
+  </div>
+  <div class="storesdashboardoutlet" #componentoutlet>
+    <router-outlet></router-outlet>
+  </div>
 </div>
