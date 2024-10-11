@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -11,6 +11,22 @@ export class AuthService {
 
   // isLoggedIn = false;
   baseurl = 'http://localhost:3000';
+
+  private  getToken(){
+    return localStorage.getItem('token')
+  }
+
+  private  getAuthHeaders() {
+      const token = this.getToken();
+      if (token) {
+          return {
+              headers: new HttpHeaders({
+                  'Authorization': `Bearer ${token}`
+              })
+          };
+      }
+      return {};
+  }
   loginUser(user: any) {
     return this.http.post(`${this.baseurl}/api/users/login`, user);
   }
@@ -61,7 +77,7 @@ export class AuthService {
     return this.http.post(`${this.baseurl}/api/users/changeUserAvatar`, data);
   }
   reviewListedItemAction(data:any){     
-      return this.http.post(`${this.baseurl}/api/products/reviewlisteditem`, data);
+      return this.http.post(`${this.baseurl}/api/products/reviewlisteditem`, data, this.getAuthHeaders());
     
   }
   logout() {

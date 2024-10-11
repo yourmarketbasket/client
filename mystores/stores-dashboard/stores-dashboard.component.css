@@ -29,10 +29,22 @@
 .mat-header-cell, .mat-cell {
     font-size: 12px; /* Set a smaller font size for better responsiveness */
 }
-  
+
+table, td, th{
+    padding: 0;
+    border: 1px solid rgb(175, 175, 175);   
+    height: max-content;
+    width: max-content; 
+    border-radius: 5px;
+}
+
+.storeproductslisting{
+    width: max-content;
+    height: max-content;
+}
 .products{
     height: auto;
-    width: 71vw;
+    width: auto;
     /* overflow-x: auto */
 }
 .aboutstore,.storelocation, .products, .orders, .products, .charts, .productsextra{
