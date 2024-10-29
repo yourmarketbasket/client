@@ -10,7 +10,7 @@ export class AuthService {
   sessionOut:any;
 
   // isLoggedIn = false;
-  baseurl = 'http://localhost:3000';
+  baseurl = 'https://marketapi.fly.dev';
 
   private  getToken(){
     return localStorage.getItem('token')

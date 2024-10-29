@@ -11,7 +11,7 @@ export class SocketService {
   private emittedEvents: Set<string> = new Set<string>();
 
   constructor() {
-    this.socket = io('http://localhost:3000'); // Update the URL to match your server
+    this.socket = io('wss://marketapi.fly.dev'); // Update the URL to match your server
 
     // Register all events
     this.socket.onAny((eventName: string, data: any) => {

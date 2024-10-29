@@ -7,8 +7,8 @@ import io from 'socket.io-client';
   providedIn: 'root'
 })
 export class MasterServiceService {
-  baseurl = "http://localhost:3000";
-  socket = io('ws://localhost:3000');
+  baseurl = "https://marketapi.fly.dev";
+  socket = io('wss://marketapi.fly.dev');
 
   // provider logic
   productData!:any;

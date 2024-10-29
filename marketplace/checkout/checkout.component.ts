@@ -175,6 +175,7 @@ ngAfterViewInit() {
     return new Promise(async (resolve, reject) => {
       try {
          this.logisticsResponse = await this.ms.getStoreLocations(this.userId).toPromise();
+         console.log(this.logisticsResponse)
   
         if (this.logisticsResponse.success && (this.buyerLocation || this.savedBuyerAddress)) {
           const origins = this.logisticsResponse.origins.map((e: any) => new google.maps.LatLng(e.latitude, e.longitude));
@@ -188,7 +189,9 @@ ngAfterViewInit() {
               travelMode: google.maps.TravelMode.DRIVING,
             },
             (response: any, status: any) => {
+              // console.log(response)
               if (status === google.maps.DistanceMatrixStatus.OK) {
+                console.log(response)
                 if(response.rows[0].elements[0].status!='ZERO_RESULTS'){
                   resolve({ details: response, status: status, error:false });
                 }else{
