@@ -1,4 +1,9 @@
-
+.verificationpanel{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .editinfofab{
     position: fixed;
     background-color: #0d033a;
