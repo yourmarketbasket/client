@@ -20,7 +20,7 @@ export class AddToCartComponent {
   maxValueValidator(max: any) {
     return (control:any) => {
       const value = control.value;
-      if (value > max) {
+      if (value > max || value<0) {
         return { maxValueExceeded: true };
       }
       return null; // No error if the value is within the limit

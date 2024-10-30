@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit{
           if(regresponse.success === true){
             this.feedback = `${regresponse.message}`
             console.log(regresponse.data)         
-            this.router.navigate(['/confirmation'], {state: {data:regresponse.data}} );
+            this.router.navigate(['/login'], {state: {data:regresponse.data}} );
           }else{
             this.feedback = "";
             this.feedbackerror = `${regresponse.message}`

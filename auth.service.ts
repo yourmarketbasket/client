@@ -33,6 +33,9 @@ export class AuthService {
   registerUser(user: any) {
     return this.http.post(`${this.baseurl}/api/users/register`, user);
   }
+  checkIfUserVerified(data: any) {
+    return this.http.post(`${this.baseurl}/api/users/checkIfUserVerified`, data);
+  }
   getPrdoucts(storeId: any) {
     return this.http.get(`${this.baseurl}/getProducts/${storeId}`);
   }
