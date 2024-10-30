@@ -1,10 +1,15 @@
 <!-- edit info fab -->
-<button mat-fab  class="editinfofab" (click)="editUserInfo()"><mat-icon>edit</mat-icon></button>
-<div class="welcomediv">
+<button *ngIf="verified" mat-fab  class="editinfofab" (click)="editUserInfo()"><mat-icon>edit</mat-icon></button>
+<div class="welcomediv"*ngIf="verified">
     <small *ngIf="name" class="welcome"> Hi {{name}}, Welcome to your profile</small>
 
 </div>
 <!-- the profile owner detalls header -->
+<div class="verificationpanel">
+  <h1 *ngIf="name" class="welcome"> Hi {{name}}, Welcome to your profile</h1>
+  <h3>Unfortunately your profile is not yet Verified. To Proceed, verify your mobile number.</h3>
+
+</div>
 <div class="profile" *ngIf="verified">    
     <div class="profileinfoandmap" style="display: flex; flex-direction: column; width: 40%; flex:40%; margin: 10px;">
         <div class="profileinfomanagement">

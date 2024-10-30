@@ -181,7 +181,7 @@ export class ProfileComponent implements OnInit {
       const mapurl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyDdvqTHmz_HwPar6XeBj8AiMxwzmFdqC1w&q=(${this.location.latitude},${this.location.longitude})&center=${this.location.latitude},${this.location.longitude}&zoom=18&maptype=roadmap`;
       this.mapurl = this.domSanitizer.bypassSecurityTrustResourceUrl(mapurl);
 
-      console.log(this.verified);
+      // console.log(this.verified);
 
     }
 
