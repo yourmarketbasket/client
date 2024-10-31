@@ -38,7 +38,7 @@
                 <mat-form-field appearance="outline">
                   <mat-label>First Name</mat-label>
                   <input matInput placeholder="e.g John" formControlName="firstName">
-                </mat-form-field>
+                </mat-form-field>                
                   <mat-form-field appearance="outline">
                     <mat-label>Last Name</mat-label>
                     <input matInput placeholder="e.g Alex" formControlName="lastName">
@@ -65,9 +65,10 @@
                             <mat-option value="non-binary">Non-binary</mat-option>
                           </mat-select>
                         </mat-form-field>
+                        
                       <mat-form-field appearance="outline">
                           <mat-label>Date of birth</mat-label>
-                          <input matInput [matDatepicker]="picker" formControlName="dob">
+                          <input matInput [matDatepicker]="picker" formControlName="dob" readonly>
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>

@@ -5,10 +5,13 @@
 
 </div>
 <!-- the profile owner detalls header -->
-<div class="verificationpanel">
-  <h1 *ngIf="name" class="welcome"> Hi {{name}}, Welcome to your profile</h1>
-  <h3>Unfortunately your profile is not yet Verified. To Proceed, verify your mobile number.</h3>
-
+ <div *ngIf="!name" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; width: 100vw;">
+  <mat-spinner strokeWidth="1"></mat-spinner>
+ </div>
+<div *ngIf="!verified && name" class="verificationpanel">
+  <h3  class="welcome"> Hi {{name}}, Welcome to your profile</h3>
+  <h5 *ngIf="name">Unfortunately your profile is not yet Verified. To proceed, please verify your mobile number.</h5>
+  <button (click)="openVerificationDialog()" mat-button mat-stroked-button>verify</button>
 </div>
 <div class="profile" *ngIf="verified">    
     <div class="profileinfoandmap" style="display: flex; flex-direction: column; width: 40%; flex:40%; margin: 10px;">

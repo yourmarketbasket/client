@@ -24,6 +24,7 @@ import {map} from 'rxjs/operators';
 })
 export class RegisterComponent implements OnInit{
   @ViewChild('stepper') stepper!: MatStepper;
+  honeypotvalue:any;
   feedbackerror = "";
   isChecked = false;
   isMediumScreen = false;
@@ -51,6 +52,7 @@ export class RegisterComponent implements OnInit{
       this.userInfo['zipcode'] = `+${this.mobileInfo.value.countryCode}`;
       this.userInfo['phone'] = this.mobileInfo.value.mobileNumber;
       this.userInfo['fname'] = this.namesInfo.value.firstName;
+      this.userInfo['hiddenfield'] = this.namesInfo.value.hiddenfield;
       this.userInfo['lname'] = this.namesInfo.value.lastName;
       this.userInfo['gender'] = this.otherInfo.value.gender;
       this.userInfo['dob'] = this.formatDate(this.otherInfo.value.dob);
@@ -115,6 +117,8 @@ onResize(event: Event) {
   namesInfo = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
+    hiddenfield: new FormControl(''),
+
   });
  otherInfo = new FormGroup({  
   gender: new FormControl('', [Validators.required]),
@@ -133,7 +137,7 @@ onResize(event: Event) {
   countryCodes = countries;
   selectedCode = new FormControl();
 
-  isLinear = false;
+  isLinear = true;
   hidePassword = true;
   hideConfirmPassword = true;
 
@@ -144,13 +148,14 @@ onResize(event: Event) {
     }
   
 
-  mobileNumberValidator(control: AbstractControl): {[key: string]: boolean} | null {
-    const regex = /^[+]?[0-9]{10}$/;
-    if (control.value && !regex.test(control.value)) {
-      return { 'invalidMobileNumber': true };
-    }
-    return null;
+    mobileNumberValidator(control: AbstractControl): { [key: string]: boolean } | null {
+      const regex = /^[0-9]{10}$/; // Adjusted regex to exclude the country code
+      if (control.value && !regex.test(control.value)) {
+          return { 'invalidMobileNumber': true };
+      }
+      return null;
   }
+  
    
     
   

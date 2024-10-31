@@ -1,0 +1,16 @@
+<div style="max-width: 300px; margin: auto; padding: 10px;">
+    <!-- OTP Input Field -->
+     <small *ngIf="error">{{error}}</small>
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Enter OTP Here</mat-label>
+        <input matInput placeholder="xxxxxx" maxlength="6" [(ngModel)]="otpvalue" />
+    </mat-form-field>
+    
+    <!-- Buttons for Resend OTP and Submit -->
+    <div style="display: flex; justify-content: space-around; margin-top: 16px;">
+        <button style="margin-right: 5px;" mat-stroked-button color="primary" (click)="resendOtp()">Resend OTP</button>
+        <button mat-raised-button color="accent" (click)="verifyOTP()">Submit</button>
+    </div>
+</div>
+           
+    

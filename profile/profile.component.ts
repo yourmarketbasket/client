@@ -12,6 +12,7 @@ import { SocketService } from '../services/socket.service';
 import { MasterServiceService } from '../services/master-service.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import { VerifyComponent } from '../verify/verify.component';
 
 export interface OrdersData {
   items: string;
@@ -214,6 +215,27 @@ export class ProfileComponent implements OnInit {
    getAdjustedIndex(index: number): number {
       return index + (this.paginator.pageIndex * this.paginator.pageSize) + 1;
     }
+
+    openVerificationDialog(){
+      const data ={
+        zipcode: this.zipcode,
+        phone: this.phone,
+        signature:"3wZsyyh51s9"
+      }
+
+      this.authService.sendTwilioOTP({mobilenumber: data.zipcode+data.phone.slice(1), signature: data.signature}).subscribe((res:any)=>{
+        if(res.success){
+          this.dialog.open(VerifyComponent, {
+            data: data, 
+          })
+          
+        }
+      })
+
+      
+    }
+
+    
    
 
 

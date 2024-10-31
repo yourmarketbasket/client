@@ -57,6 +57,16 @@ export class AuthService {
   sendOTP(data: any) {
     return this.http.post(`${this.baseurl}/sendOTP`, data);
   }
+
+  sendTwilioOTP(data: any) {
+    return this.http.post(`${this.baseurl}/api/users/sendTwilioOTP`, data);
+  }
+  verifyTwilioOTP(data: any) {
+    return this.http.post(`${this.baseurl}/api/users/verifyTwilioOTP`, data);
+  }
+  markUserAsVerified(data: any) {
+    return this.http.post(`${this.baseurl}/api/users/markUserAsVerified`, data);
+  }
   sendResetPasswordOTP(data: any) {
     return this.http.post(`${this.baseurl}/api/users/sendResetPasswordOTP`, data);
   }
@@ -77,7 +87,7 @@ export class AuthService {
   }
   // changeUserAvatar
   changeUserAvatar(data: any) {
-    return this.http.post(`${this.baseurl}/api/users/changeUserAvatar`, data);
+    return this.http.post(`${this.baseurl}/api/users/changeUserAvatar`, data,  this.getAuthHeaders());
   }
   reviewListedItemAction(data:any){     
       return this.http.post(`${this.baseurl}/api/products/reviewlisteditem`, data, this.getAuthHeaders());
