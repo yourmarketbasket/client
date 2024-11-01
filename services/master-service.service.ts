@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 @Injectable({
   providedIn: 'root'
 })
 export class MasterServiceService {
   baseurl = "https://marketapi.fly.dev";
-  socket = io('wss://marketapi.fly.dev');
+  // socket = io('wss://marketapi.fly.dev');
 
   // provider logic
   productData!:any;
