@@ -76,15 +76,14 @@ export class ProductsComponent implements OnInit{
 
     }
     scrollToSearchResults(results: any) {
-      if (results.length !== 0) {
+      if (results.length !== 0 && this.searchResults?.nativeElement) {
         // Scroll to the search results area
         this.searchResults.nativeElement.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        if (this.marketplace) {
-          this.marketplace.nativeElement.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+      } else if (this.marketplace?.nativeElement) {
+        this.marketplace.nativeElement.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
+    
     
     
     // search products

@@ -104,7 +104,7 @@
   perspective: 100px; /* Adjust the perspective */
 }
 .containersandimage{
-  width: 30%;
+  width: 20%;
   height: 100%;
 }
 
@@ -275,4 +275,167 @@ span[nz-icon]{
   position: relative;
   top: -80px;
   left: -60px;
+}
+/* For small screens (phones, <600px) */
+@media (max-width: 600px) {
+  .details {
+    width: 80%;
+    margin: 5%;
+    height: auto; /* Set height to auto for smaller screens */
+  }
+
+  .carousel-row, .categories, .carousel-div, .categoriesmenu, .containersandimage {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+
+  .carousel-image {
+    width: 30%; /* Set smaller size for small screens */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 auto; /* Center the image */
+  }
+
+  .allproductslisting {
+    flex-direction: column;
+  }
+
+  .allproductlistingitem {
+    max-width: 100%;
+  }
+
+  .allproductslisting img {
+    width: 100%; /* Make image take full width of the item */
+    height: auto;
+  }
+
+  .categorieslistingitem {
+    max-width: 100%;
+  }
+
+  .carousel-div, .categories, .brands, .subcategories, .features, .categoriesmenu {
+    display: none; /* Hide elements on small screens */
+  }
+}
+
+/* For medium screens (tablets, 600px-900px) */
+@media (min-width: 600px) and (max-width: 900px) {
+  .details {
+    margin-left: 2% !important; /* Set left margin for non-mobile devices */
+    width: 15%; /* Set width for non-mobile devices */
+    height: 65%; /* Set height for non-mobile devices */
+  }
+
+  .carousel-row {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%; /* Ensure carousel takes full width */
+  }
+
+  .carousel-image {
+    width: 20% !important; /* Apply 20% width for carousel images */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 auto; /* Center the image */
+  }
+
+  .carousel-row img, .containersandimage img, .allproductslisting img {
+    width: 80%;
+    height: auto;
+  }
+
+  .categorieslistingitem {
+    max-width: 100px;
+  }
+
+  .categoriesmenu {
+    width: 25%;
+  }
+}
+
+/* For large screens (desktops, 900px-1200px) */
+@media (min-width: 900px) and (max-width: 1200px) {
+  .details {
+    margin-left: 2% !important; /* Maintain left margin */
+    width: 15%; /* Maintain width */
+    height: 65%; /* Maintain height */
+  }
+
+  .carousel-row {
+    flex-direction: row; /* Keep items in a row */
+    justify-content: space-around; /* Space carousel items evenly */
+  }
+
+  .carousel-image {
+    width: 20% !important; /* Apply 20% width for carousel images */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 auto; /* Center the image */
+  }
+
+  .allproductlistingitem {
+    max-width: 180px;
+  }
+
+  .categorieslistingitem {
+    max-width: 130px;
+  }
+
+  .categoriesmenu {
+    width: 20%;
+  }
+}
+
+/* For extra-large screens (1200px+) */
+@media (min-width: 1200px) {
+  .details {
+    margin-left: 2% !important; /* Maintain left margin */
+    width: 15%; /* Maintain width */
+    height: 65%; /* Maintain height */
+  }
+
+  .carousel-image {
+    width: 20% !important; /* Apply 20% width for carousel images */
+    height: auto; /* Maintain aspect ratio */
+    margin: 0 auto; /* Center the image */
+  }
+
+  .carousel-row img, .containersandimage img {
+    width: 28%;
+  }
+
+  .categorieslistingitem {
+    max-width: 150px;
+  }
+
+  .carousel-row {
+    justify-content: space-between; /* Ensure even spacing */
+  }
+}
+
+/* Additional styling for all products listing on small screens */
+@media (max-width: 600px) {
+  .allproductslisting {
+    display: flex;
+    flex-direction: row; /* Align items in a row */
+    flex-wrap: wrap; /* Allow items to wrap onto the next line */
+    justify-content: space-between; /* Distribute items to avoid extra space */
+  }
+
+  .allproductlistingitem {
+    flex: 0 0 49%; /* Set each item to take roughly half of the container width */
+    max-width: 49%; /* Ensure items don’t exceed 49% of container width */
+    margin: 0.5%; /* Add a small margin for spacing */
+    box-sizing: border-box; /* Include padding/border in width */
+  }
+
+  .allproductslisting img {
+    width: 100%; /* Make image take full width of the item */
+    height: auto;
+  }
+
+  .categoriessection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

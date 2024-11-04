@@ -138,3 +138,86 @@ mat-icon{
     100% { transform: scale(0); }
   }
   
+  /* General Mobile Styling */
+@media (max-width: 768px) {
+    .products-header {
+        flex-direction: column;
+        padding: 2%;
+    }
+    
+    .title {
+        font-size: 36px; /* Adjust font size for smaller screens */
+        text-align: center;
+    }
+    
+    .searchfield {
+        width: 100%; /* Full width for mobile */
+        height: 35px;
+    }
+    
+    .search-button {
+        width: 15%; /* Increase width of the button on smaller screens */
+    }
+    
+    .actionsArea {
+        width: 20%; /* Expand area for actions on smaller screens */
+        justify-content: space-evenly;
+    }
+    
+    .searchArea {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .phonenemail {
+        width: 100%;
+        flex-direction: column;
+        font-size: 10px; /* Smaller font size */
+        align-items: center;
+        text-align: center;
+    }
+    
+    .avatar {
+        height: 40px;
+        width: 40px;
+    }
+
+    .toprow {
+        flex-direction: column;
+    }
+}
+
+/* Smaller Mobile Styling */
+@media (max-width: 480px) {
+    .title {
+        font-size: 28px; /* Further reduce font size */
+    }
+    
+    .searchfield {
+        height: 30px;
+    }
+    
+    .search-button {
+        width: 20%; /* Increase width for easier tapping */
+    }
+
+    .avatar {
+        height: 35px;
+        width: 35px;
+    }
+    
+    .circle-container .circle {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .phonenemail {
+        font-size: 9px; /* Smaller font size */
+    }
+
+    .vertical-line {
+        height: 50%;
+        margin: 2px;
+    }
+}
